@@ -23,7 +23,7 @@ const app = express();
 const users = require('./routes/users');
 //const games = require('./routes/games');
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 
 //Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
