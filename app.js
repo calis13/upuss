@@ -26,7 +26,7 @@ const users = require('./routes/users');
 const port = process.env.PORT || 8080;
 
 //Set static folder
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 //Middleware
 app.use(cors());

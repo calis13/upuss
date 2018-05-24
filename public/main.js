@@ -176,7 +176,7 @@ var AppModule = /** @class */ (function () {
                         tokenGetter: function () {
                             return localStorage.getItem('id_token');
                         },
-                        whitelistedDomains: ['http://localhost:5000']
+                        whitelistedDomains: ['/']
                     }
                 })
             ],
@@ -335,7 +335,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  THIS WILL BE FOR OUR VOTING PAGE BASED ON SUGGESTED TASKS\n</p>\n"
+module.exports = "<p>\r\n  THIS WILL BE FOR OUR VOTING PAGE BASED ON SUGGESTED TASKS\r\n</p>\r\n"
 
 /***/ }),
 
@@ -398,7 +398,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"jumbotron text-center\">\n    <h1 class=\"display-3\">\n      <p class=\"lead\">Some form of sporty picture thing goes here</p>\n      <a href=\"https://www.uwa.edu.au\" class=\"btn btn-dark btn-lg\">UWA LOGO MAYBE?</a>\n    </h1>\n  </div>"
+module.exports = "<div class=\"jumbotron text-center\">\r\n    <h1 class=\"display-3\">\r\n      <p class=\"lead\">Some form of sporty picture thing goes here</p>\r\n      <a href=\"https://www.uwa.edu.au\" class=\"btn btn-dark btn-lg\">UWA LOGO MAYBE?</a>\r\n    </h1>\r\n  </div>"
 
 /***/ }),
 
@@ -461,7 +461,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"page-header\">Login</h2>\n<form (submit)=\"onLoginSubmit()\">\n  <div class=\"form-group\">\n    <label>Username</label>\n    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"username\" name=\"username\">\n  </div>\n\n  <div class=\"form-group\">\n      <label>Password</label>\n      <input type=\"password\" class=\"form-control\" [(ngModel)]=\"password\" name=\"password\">\n    </div>\n    <input type=\"submit\" class=\"btn btn-primary\" value=\"Login\">\n</form>"
+module.exports = "<h2 class=\"page-header\">Login</h2>\r\n<form (submit)=\"onLoginSubmit()\">\r\n  <div class=\"form-group\">\r\n    <label>Username</label>\r\n    <input type=\"text\" class=\"form-control\" [(ngModel)]=\"username\" name=\"username\">\r\n  </div>\r\n\r\n  <div class=\"form-group\">\r\n      <label>Password</label>\r\n      <input type=\"password\" class=\"form-control\" [(ngModel)]=\"password\" name=\"password\">\r\n    </div>\r\n    <input type=\"submit\" class=\"btn btn-primary\" value=\"Login\">\r\n</form>"
 
 /***/ }),
 
@@ -556,7 +556,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-sm navbar-dark bg-primary mb-3\">\n  <div class=\"container\">\n    <a class=\"navbar-brand\" [routerLink]=\"['/']\">UWA Pickup Sports Society</a>\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\"\n      aria-label=\"Toggle navigation\">\n      <span class=\"navbar-toggler-icon\"></span>\n    </button>\n\n    <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\n\n      <ul class=\"navbar-nav\">\n        <li [routerLinkActive]=\"['active']\" class=\"nav-item\" [routerLinkActiveOptions]=\"{exact:true}\">\n          <a class=\"nav-link\" [routerLink]=\"['/']\">Home</a>\n        </li>\n        <li [routerLinkActive]=\"['active']\" class=\"nav-item\" [routerLinkActiveOptions]=\"{exact:true}\">\n          <a class=\"nav-link\" [routerLink]=\"['/about']\">About</a>\n        </li>\n      </ul>\n\n      <ul class=\"navbar-nav ml-auto\">\n\n        <li *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" class=\"nav-item\" [routerLinkActiveOptions]=\"{exact:true}\">\n          <a [routerLink]=\"['/login']\" class=\"nav-link\">Login</a>\n        </li>\n\n\n        <li *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" class=\"nav-item dropdown\" [routerLinkActiveOptions]=\"{exact:true}\">\n          <a href=\"#\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" id=\"navbarDropdownMenuLink\">User name goes here</a>\n          <div class=\"dropdown-menu\">\n            <a [routerLink]=\"['/profile']\" class=\"dropdown-item\">Edit Profile</a>\n            <a [routerLink]=\"['/dashboard']\" class=\"dropdown-item\">Dashboard</a>\n            <a [routerLink]=\"['/fundraising']\" class=\"dropdown-item\">Fundraising</a>\n          </div>\n        </li>\n        <li *ngIf=\"authService.loggedIn()\" class=\"nav-item\">\n          <a (click)=\"onLogoutClick()\" href=\"#\" class=\"nav-link\">Logout</a>\n        </li>\n\n        <li *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" class=\"nav-item\" [routerLinkActiveOptions]=\"{exact:true}\">\n          <a [routerLink]=\"['/register']\" class=\"nav-link\">Register</a>\n        </li>\n      </ul>\n    </div>\n  </div>\n</nav>"
+module.exports = "<nav class=\"navbar navbar-expand-sm navbar-dark bg-primary mb-3\">\r\n  <div class=\"container\">\r\n    <a class=\"navbar-brand\" [routerLink]=\"['/']\">UWA Pickup Sports Society</a>\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\"\r\n      aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\r\n\r\n      <ul class=\"navbar-nav\">\r\n        <li [routerLinkActive]=\"['active']\" class=\"nav-item\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['/']\">Home</a>\r\n        </li>\r\n        <li [routerLinkActive]=\"['active']\" class=\"nav-item\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['/about']\">About</a>\r\n        </li>\r\n      </ul>\r\n\r\n      <ul class=\"navbar-nav ml-auto\">\r\n\r\n        <li *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" class=\"nav-item\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n          <a [routerLink]=\"['/login']\" class=\"nav-link\">Login</a>\r\n        </li>\r\n\r\n\r\n        <li *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" class=\"nav-item dropdown\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n          <a href=\"#\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" id=\"navbarDropdownMenuLink\">User name goes here</a>\r\n          <div class=\"dropdown-menu\">\r\n            <a [routerLink]=\"['/profile']\" class=\"dropdown-item\">Edit Profile</a>\r\n            <a [routerLink]=\"['/dashboard']\" class=\"dropdown-item\">Dashboard</a>\r\n            <a [routerLink]=\"['/fundraising']\" class=\"dropdown-item\">Fundraising</a>\r\n          </div>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn()\" class=\"nav-item\">\r\n          <a (click)=\"onLogoutClick()\" href=\"#\" class=\"nav-link\">Logout</a>\r\n        </li>\r\n\r\n        <li *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" class=\"nav-item\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n          <a [routerLink]=\"['/register']\" class=\"nav-link\">Register</a>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </div>\r\n</nav>"
 
 /***/ }),
 
@@ -640,7 +640,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h3>404 Page Not Found</h3>\n<p>Sorry, there is nothing to see here...</p>\n"
+module.exports = "<h3>404 Page Not Found</h3>\r\n<p>Sorry, there is nothing to see here...</p>\r\n"
 
 /***/ }),
 
@@ -703,7 +703,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"user\">\n  <h2 class=\"page-header\">{{user.name}}</h2>\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\">Username: {{user.username}}</li>\n    <li class=\"list-group-item\">Email: {{user.email}}</li>\n  </ul>\n</div>"
+module.exports = "<div *ngIf=\"user\">\r\n  <h2 class=\"page-header\">{{user.name}}</h2>\r\n  <ul class=\"list-group\">\r\n    <li class=\"list-group-item\">Username: {{user.username}}</li>\r\n    <li class=\"list-group-item\">Email: {{user.email}}</li>\r\n  </ul>\r\n</div>"
 
 /***/ }),
 
@@ -780,7 +780,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"page-header mb-5 mt-5\">Register</h2>\n<form (submit)=\"onRegisterSubmit()\">\n  <div class=\"form-group\">\n    <label>Name</label>\n    <input type=\"text\" [(ngModel)]=\"name\" name=\"name\" class=\"form-control\">\n  </div>\n  <div class=\"form-group\">\n    <label>Username</label>\n    <input type=\"text\" [(ngModel)]=\"username\" name=\"username\" class=\"form-control\">\n  </div>\n  <div class=\"form-group\">\n    <label>Email</label>\n    <input type=\"email\" [(ngModel)]=\"email\" name=\"email\" class=\"form-control\">\n  </div>\n  <div class=\"form-group\">\n    <label>Password</label>\n    <input type=\"password\" [(ngModel)]=\"password\" name=\"password\" class=\"form-control\">\n  </div>\n  <div class=\"form-group\">\n    <label>Confirm Password</label>\n    <input type=\"password\" [(ngModel)]=\"password2\" name=\"password2\" class=\"form-control\">\n  </div>\n\n  <input type=\"submit\" class=\"btn btn-block btn-success mt-3\" value=\"Submit\">\n  <input type=\"reset\" class=\"btn btn-block btn-danger mt-3\" value=\"Reset\">\n\n</form>"
+module.exports = "<h2 class=\"page-header mb-5 mt-5\">Register</h2>\r\n<form (submit)=\"onRegisterSubmit()\">\r\n  <div class=\"form-group\">\r\n    <label>Name</label>\r\n    <input type=\"text\" [(ngModel)]=\"name\" name=\"name\" class=\"form-control\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label>Username</label>\r\n    <input type=\"text\" [(ngModel)]=\"username\" name=\"username\" class=\"form-control\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label>Email</label>\r\n    <input type=\"email\" [(ngModel)]=\"email\" name=\"email\" class=\"form-control\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label>Password</label>\r\n    <input type=\"password\" [(ngModel)]=\"password\" name=\"password\" class=\"form-control\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label>Confirm Password</label>\r\n    <input type=\"password\" [(ngModel)]=\"password2\" name=\"password2\" class=\"form-control\">\r\n  </div>\r\n\r\n  <input type=\"submit\" class=\"btn btn-block btn-success mt-3\" value=\"Submit\">\r\n  <input type=\"reset\" class=\"btn btn-block btn-danger mt-3\" value=\"Reset\">\r\n\r\n</form>"
 
 /***/ }),
 

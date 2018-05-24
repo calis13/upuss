@@ -56,7 +56,7 @@ const routes: Routes = [
         tokenGetter: () => {
           return localStorage.getItem('id_token');
         },
-        whitelistedDomains: ['http://localhost:5000']
+        whitelistedDomains: ['/']
       }
     })
   ],
