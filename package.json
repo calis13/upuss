@@ -4,11 +4,12 @@
   "description": "CITS3403 Project Part 2",
   "main": "app.js",
   "engines": {
-    "node": "8.11.1"
+    "node": "8.11.1",
+    "npm": "5.6.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node app"
   },
   "author": "David Weight and Angus Wylie",
   "license": "ISC",
