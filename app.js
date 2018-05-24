@@ -43,10 +43,6 @@ app.use('/users', users);
 //Index Route
 app.get('/', function (req, res) {
   res.send('Invalid Endpoint');
-  //const title = 'Welcome';
-  //res.render('index', {
-  //  title: title
-  //});
 });
 
 //Start Server
