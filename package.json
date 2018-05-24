@@ -1,0 +1,23 @@
+{
+  "name": "cits3403",
+  "version": "1.0.0",
+  "description": "CITS3403 Project Part 2",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "author": "David Weight and Angus Wylie",
+  "license": "ISC",
+  "dependencies": {
+    "@angular/cli": "^6.0.3",
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "cors": "*",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-jwt": "^4.0.0"
+  }
+}
