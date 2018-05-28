@@ -7,8 +7,13 @@ import { Router } from '@angular/router';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
+
 export class ProfileComponent implements OnInit {
+
   user: Object;
+  universities = ['UWA', 'Curtin', 'Notre Dame', 'Edith Cowan', 'Other', 'None'];
+  sports = ['Basketball', 'Baseball', 'Softball', 'Cricket', 'Football', 'Soccer'];
+
 
   constructor(
     private authService: AuthService,

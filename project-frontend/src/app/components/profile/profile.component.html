@@ -1,7 +1,56 @@
-<div *ngIf="user">
-  <h2 class="page-header">{{user.name}}</h2>
-  <ul class="list-group">
-    <li class="list-group-item">Username: {{user.username}}</li>
-    <li class="list-group-item">Email: {{user.email}}</li>
-  </ul>
+<h2 class="mb-3">Edit Profile</h2>
+<div *ngIf="user" class="card card-body mb-3">
+  <form>
+    <div class="form-group">
+      <label>First Name</label>
+      <input type="text" class="form-control" [(ngModel)]="user.firstName" name="firstName">
+    </div>
+
+    <div class="form-group">
+      <label>Last Name</label>
+      <input type="text" class="form-control" [(ngModel)]="user.lastName" name="firstName">
+    </div>
+
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" class="form-control" [(ngModel)]="user.username" name="username">
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="text" class="form-control" [(ngModel)]="user.email" name="email">
+    </div>
+
+    <div class="form-group">
+      <label class="mr-3 mt-3">University:</label>
+      <select [(ngModel)]="user.university" name="university" id="university">
+        <option *ngFor="let uni of universities" [value]="uni">{{uni}}</option>
+      </select>
+    </div>
+
+    <div class="form-group" *ngFor="let sport of sports">
+      <label class="checkbox-inline">{{sport}}
+        <input type="checkbox" [(ngModel)]="user.interest" [id]="sport" name="sports">
+      </label>
+    </div>
+
+    <div class="form-group">
+      <input type="checkbox" id="basketball" [(ngModel)]="user.interest" name="interest" value="basketball">
+      <label class="ml-2 mr-3">Basketball</label>
+      <input type="checkbox" id="baseball" [(ngModel)]="user.interest" name="interest" value="baseball">
+      <label class="ml-2 mr-3">Baseball</label>
+      <input type="checkbox" id="softball" [(ngModel)]="user.interest" name="interest" value="softball">
+      <label class="ml-2 mr-3">Softball</label>
+      <input type="checkbox" id="cricket" [(ngModel)]="user.interest" name="interest" value="cricket">
+      <label class="ml-2 mr-3">Cricket</label>
+      <input type="checkbox" id="football" [(ngModel)]="user.interest" name="interest" value="football">
+      <label class="ml-2 mr-3">Football</label>
+      <input type="checkbox" id="soccer" [(ngModel)]="user.interest" name="interest" value="soccer">
+      <label class="ml-2 mr-3">Soccer</label>
+    </div>
+    <input type="hidden" [(ngModel)]="user.id" name="id">
+    <button (click)="updateProfile()" class="btn btn-success btn-block">Update Profile</button>
+  </form>
+
+  {{user.interest}}
 </div>

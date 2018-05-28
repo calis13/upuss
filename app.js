@@ -23,7 +23,7 @@ const app = express();
 const users = require('./routes/users');
 //const games = require('./routes/games');
 
-const port = process.env.PORT || 8080;
+const port = 3000;
 
 //Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -38,7 +38,6 @@ require('./config/passport')(passport);
 
 //Use routes
 app.use('/users', users);
-//app.use('/games', ideas);
 
 //Index Route
 app.get('/', function (req, res) {

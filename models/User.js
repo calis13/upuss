@@ -7,7 +7,11 @@ const Schema = mongoose.Schema;
 
 //Create User Schema
 const UserSchema = new Schema({
-  name: {
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
     type: String,
     required: true
   },
@@ -26,10 +30,19 @@ const UserSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
+  university: {
+    type: String
+  },
+  interests: [
+    { sport: basketball, selected:false},
+    { sport: baseball, selected:false},
+    { sport: softball, selected:false},
+    { sport: cricket, selected:false},
+    { sport: football, selected:false},
+    { sport: soccer, selected:false}
+  ]
 });
-
-//mongoose.model('users', UserSchema);
 
 const User = module.exports = mongoose.model('User', UserSchema);
 
@@ -58,4 +71,4 @@ module.exports.comparePassword = function (enteredPassword, hash, callback) {
     if (err) throw err;
     callback(null, isMatch);
   });
-};
+}

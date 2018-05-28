@@ -10,6 +10,7 @@ import { timeout } from 'rxjs/operators';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  user: Object;
 
   constructor(
     private authService: AuthService,
@@ -18,6 +19,15 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.authService.getProfile().subscribe(navbar => {
+      this.user = navbar.user;
+    },
+      err => {
+        console.log(err);
+        return false;
+      });
+
   }
 
   onLogoutClick(){

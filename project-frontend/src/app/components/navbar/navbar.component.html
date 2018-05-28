@@ -25,7 +25,7 @@
 
 
         <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" class="nav-item dropdown" [routerLinkActiveOptions]="{exact:true}">
-          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink">User name goes here</a>
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink">{{authService.getCurrentUserName()}}</a>
           <div class="dropdown-menu">
             <a [routerLink]="['/profile']" class="dropdown-item">Edit Profile</a>
             <a [routerLink]="['/dashboard']" class="dropdown-item">Dashboard</a>
