@@ -9,8 +9,8 @@
     <li class="list-group">Date Registered: {{user?.date | date:'dd-MM-yyyy HH:mm:ss'}}</li>
     <li *ngIf="user?.age" class="list-group">Age: {{user?.age}}</li>
     <li *ngIf="user?.university" class="list-group">University: {{user?.university}}</li>
-    <li *ngIf="!user?.interests" class="list-group">Interests: Please enter interests by editing profile</li>
-    <li *ngIf="user?.interests" class="list-group">Interests: {{user?.interests.length}}</li>
+    <li class="list-group">Interests:</li>
+    <li class="list-group">{{getInterests(user.interests)}}</li>
   </ul>
   <button *ngIf="!isEdit" (click)="editProfile()" class="btn btn-dark btn-block">Edit Profile</button>
 </div>
@@ -40,14 +40,32 @@
       </select>
     </div>
 
-    <label class="checkbox-inline">Basketball
-        <input type="checkbox" [(ngModel)]="user.interest.basketball" [id]="sport" name="sports">
-      </label>
-      <label class="checkbox-inline">Baseball
-          <input type="checkbox" [(ngModel)]="user.interest.baseball" [id]="sport" name="sports" ng-true-value="'Baseball'">
-        </label>
+
+    <label class="checkbox-inline">
+      <input class="mr-2" type="checkbox" [(ngModel)]="user.interests.basketball" name="basketball" [checked]="user.interests.basketball"> Basketball
+    </label>
+    <label class="checkbox-inline ml-3">
+      <input class="mr-2" type="checkbox" [(ngModel)]="user.interests.baseball" name="baseball"> Baseball
+    </label>
+    <label class="checkbox-inline ml-3">
+      <input class="mr-2" type="checkbox" [(ngModel)]="user.interests.cricket" name="cricket"> Cricket
+    </label>
+    <label class="checkbox-inline ml-3">
+      <input class="mr-2" type="checkbox" [(ngModel)]="user.interests.softball" name="softball"> Softball
+    </label>
+    <label class="checkbox-inline ml-3">
+      <input class="mr-2" type="checkbox" [(ngModel)]="user.interests.netball" name="netball"> Netball
+    </label>
+    <label class="checkbox-inline ml-3">
+      <input class="mr-2" type="checkbox" [(ngModel)]="user.interests.soccer" name="soccer"> Soccer
+    </label>
+    <label class="checkbox-inline ml-3">
+      <input type="checkbox" [(ngModel)]="user.interests.afl" name="afl"> AFL
+    </label>
+
 
     <input type="hidden" [(ngModel)]="user.id" name="id">
     <button type="submit" class="btn btn-success btn-block">Save Profile</button>
+
   </form>
 </div>

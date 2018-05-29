@@ -41,7 +41,12 @@ const UserSchema = new Schema({
   },
   interests: {
     'basketball': { type: Boolean, default: false },
-    'baseball': { type: Boolean, default: false }
+    'baseball': { type: Boolean, default: false },
+    'cricket': { type: Boolean, default: false },
+    'softball': { type: Boolean, default: false },
+    'netball': { type: Boolean, default: false },
+    'soccer': { type: Boolean, default: false },
+    'AFL': { type: Boolean, default: false }
   }
 });
 
