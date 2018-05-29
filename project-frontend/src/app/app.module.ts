@@ -20,6 +20,7 @@ import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
+import { FooterComponent } from './footer/footer.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -43,7 +44,8 @@ const routes: Routes = [
     ProfileComponent,
     NotFoundComponent,
     AboutComponent,
-    FundraisingComponent
+    FundraisingComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
