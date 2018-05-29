@@ -10,7 +10,8 @@ const config = require('../config/database');
 router.post('/register', function (req, res, next) {
 
   let newUser = new User({
-    name: req.body.name,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     email: req.body.email,
     username: req.body.username,
     password: req.body.password

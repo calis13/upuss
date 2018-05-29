@@ -31,17 +31,17 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  university: {
-    type: String
-  },
-  interests: [
-    { sport: basketball, selected:false},
-    { sport: baseball, selected:false},
-    { sport: softball, selected:false},
-    { sport: cricket, selected:false},
-    { sport: football, selected:false},
-    { sport: soccer, selected:false}
-  ]
+  // university: {
+  //   type: String
+  // },
+  // interests: [
+  //   { sport: basketball, selected:false},
+  //   { sport: baseball, selected:false},
+  //   { sport: softball, selected:false},
+  //   { sport: cricket, selected:false},
+  //   { sport: football, selected:false},
+  //   { sport: soccer, selected:false}
+  // ]
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);
@@ -52,6 +52,11 @@ module.exports.getUserById = function (id, callback) {
 
 module.exports.getUserByUsername = function (username, callback) {
   const query = { username: username }
+  User.findOne(query, callback);
+}
+
+module.exports.getUserByEmail = function (email, callback) {
+  const query = { email: email }
   User.findOne(query, callback);
 }
 

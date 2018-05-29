@@ -9,7 +9,7 @@ export class ValidateService {
 
   //Ensure all required user fields are present
   validateRegister(user) {
-    if (user.name == undefined || user.username == undefined || user.email == undefined || user.password == undefined) {
+    if (user.firstName == undefined || user.lastName == undefined || user.username == undefined || user.email == undefined || user.password == undefined) {
       return false;
     }
     else {
@@ -33,6 +33,16 @@ export class ValidateService {
     }
   }
 
-  //INSERT PASSWORD COMPLEXITY HERE
+  passwordComplex(email) {
+    const complex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+    return complex.test((email));
+  }
 
+  // emailInDatabase(email){
+  //   return false;
+  // }
+
+  // usernameInDatabase(email){
+  //   return true;
+  // }
 }

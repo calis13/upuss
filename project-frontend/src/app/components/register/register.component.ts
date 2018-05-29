@@ -11,13 +11,12 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  name: String;
+  firstName: String;
+  lastName: String;
   username: String;
   email: String;
   password: String;
   password2: String;
-
-
 
   constructor(
     private validateService: ValidateService,
@@ -31,7 +30,8 @@ export class RegisterComponent implements OnInit {
 
   onRegisterSubmit() {
     const user = {
-      name: this.name,
+      firstName: this.firstName,
+      lastName: this.lastName,
       username: this.username,
       email: this.email,
       password: this.password,
@@ -56,7 +56,11 @@ export class RegisterComponent implements OnInit {
       return false;
     }
 
-    //ADD COMPLEX PASSWORD VALIDATOR HERE
+    //Ensure password complexity
+    if (!this.validateService.passwordComplex(user.password)) {
+      this.flashMessage.show('Password must consist of at least 8 characters including an upper and lowercase letter and a number', { cssClass: 'align-top alert alert-danger', timeout: 5000 });
+      return false;
+    }
 
     //Register User
     this.authService.registerUser(user).subscribe(data => {

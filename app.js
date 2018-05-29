@@ -21,7 +21,6 @@ const app = express();
 
 //Load routes
 const users = require('./routes/users');
-//const games = require('./routes/games');
 
 const port = 3000;
 
