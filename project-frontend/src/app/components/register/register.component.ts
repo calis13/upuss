@@ -62,14 +62,6 @@ export class RegisterComponent implements OnInit {
       return false;
     }
 
-    // //Check DB for Username or Email
-    // this.authService.checkUser(user).subscribe(data => {
-    //   if (!data.success) {
-    //     this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-success', timeout: 3000 });
-    //     return false;
-    //   }
-    // });
-
     //Register User
     this.authService.registerUser(user).subscribe(data => {
       if (data.success) {

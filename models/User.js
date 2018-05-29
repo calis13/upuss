@@ -31,17 +31,18 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  // university: {
-  //   type: String
-  // },
-  // interests: [
-  //   { sport: basketball, selected:false},
-  //   { sport: baseball, selected:false},
-  //   { sport: softball, selected:false},
-  //   { sport: cricket, selected:false},
-  //   { sport: football, selected:false},
-  //   { sport: soccer, selected:false}
-  // ]
+  age: {
+    type: Number,
+    default: null
+  },
+  university: {
+    type: String,
+    default: ''
+  },
+  interests: {
+    'basketball': { type: Boolean, default: false },
+    'baseball': { type: Boolean, default: false }
+  }
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);
@@ -66,7 +67,7 @@ module.exports.addUser = function (newUser, callback) {
     bcrypt.hash(newUser.password, salt, function (err, hash) {
       if (err) throw err;
       newUser.password = hash;
-      newUser.save(callback)
+      newUser.save(callback);
     });
   });
 }

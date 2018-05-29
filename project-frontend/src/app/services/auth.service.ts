@@ -15,17 +15,17 @@ export class AuthService {
     private jwtHelperService: JwtHelperService
   ) { }
 
-  // checkUser(user) {
-  //   let headers = new Headers();
-  //   headers.append('Content-Type', 'application/json');
-  //   return this.http.post('http://localhost:3000/users/check', user, { headers: headers })
-  //     .pipe(map(res => res.json()));
-  // }
-
   registerUser(user) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post('http://localhost:3000/users/register', user, { headers: headers })
+      .pipe(map(res => res.json()));
+  }
+
+  updateUser(user) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put('http://localhost:3000/users/update', user, { headers: headers })
       .pipe(map(res => res.json()));
   }
 
