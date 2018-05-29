@@ -62,6 +62,14 @@ export class RegisterComponent implements OnInit {
       return false;
     }
 
+    // //Check DB for Username or Email
+    // this.authService.checkUser(user).subscribe(data => {
+    //   if (!data.success) {
+    //     this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-success', timeout: 3000 });
+    //     return false;
+    //   }
+    // });
+
     //Register User
     this.authService.registerUser(user).subscribe(data => {
       if (data.success) {
@@ -69,7 +77,7 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/login']);
       }
       else {
-        this.flashMessage.show('Registration failed', { cssClass: 'align-top alert alert-danger', timeout: 3000 });
+        this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-danger', timeout: 3000 });
         this.router.navigate(['/register']);
       }
     });

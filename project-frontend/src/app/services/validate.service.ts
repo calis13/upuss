@@ -32,7 +32,7 @@ export class ValidateService {
       return true;
     }
   }
-
+  
   passwordComplex(email) {
     const complex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
     return complex.test((email));
