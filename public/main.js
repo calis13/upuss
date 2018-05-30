@@ -620,7 +620,7 @@ var DashboardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".container {\r\n  width: 60%;\r\n  margin: auto;\r\n  text-align: center;\r\n}\r\n\r\n.form-group{\r\n  width:100%;\r\n}\r\n\r\nul {\r\n  margin-top: 50px;\r\n    list-style: none;\r\n    padding-left: 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    \r\n}\r\n\r\nli {\r\npadding: 20px;\r\nborder-style: ridge;\r\nmargin-right: 20px;\r\n}\r\n\r\nh4 {\r\n  font-size: 20px;\r\n  opacity: 0.9;\r\n  margin-bottom: 8px;\r\n  font-weight: bold;\r\n  height: 50px;\r\n}\r\n\r\np {\r\n  font-size: 14px;\r\n  opacity: 0.6;\r\n  font-weight: lighter;\r\n  margin: 4px 0;\r\n  height: 60%;\r\n}\r\n\r\nbutton{\r\n  margin-bottom: 100px;\r\n}\r\n\r\n.chart-box{\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n}\r\n    \r\n  "
+module.exports = ".container {\r\n  width: 60%;\r\n  margin: auto;\r\n  text-align: center;\r\n}\r\n\r\n.form-group{\r\n  width:100%;\r\n}\r\n\r\nul {\r\n  margin-top: 50px;\r\n    list-style: none;\r\n    padding-left: 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    \r\n}\r\n\r\nli {\r\npadding: 20px;\r\nborder-style: ridge;\r\nmargin-right: 20px;\r\n}\r\n\r\nh4 {\r\n  font-size: 20px;\r\n  opacity: 0.9;\r\n  margin-bottom: 8px;\r\n  font-weight: bold;\r\n  height: 50px;\r\n}\r\n\r\np {\r\n  font-size: 14px;\r\n  opacity: 0.6;\r\n  font-weight: lighter;\r\n  margin: 4px 0;\r\n  height: 60%;\r\n}\r\n\r\nli button{\r\n  margin-bottom: 100px;\r\n}\r\n\r\n.chart-box{\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n}\r\n\r\n.user{\r\n  margin-bottom: 150px;\r\n  margin-top: 50px;\r\n}\r\n\r\n.ideas{\r\n  margin-bottom: 150px;\r\n}\r\n  "
 
 /***/ }),
 
@@ -631,7 +631,7 @@ module.exports = ".container {\r\n  width: 60%;\r\n  margin: auto;\r\n  text-ali
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"user && !user.isAdmin\" class=\"container\">\r\n  <h2>Vote for your favourite idea</h2>\r\n  <ul>\r\n    <li *ngFor=\"let idea of ideaData\">\r\n      <h4>{{idea.name}}</h4>\r\n      <p>{{idea.description}}</p>\r\n      <button *ngIf=\"!voted\" type=\"button\" class=\"btn btn-dark btn-lg\" (click)=\"castVote(idea.shortName)\" [ngClass]=\"getVoteClasses(idea.shortName)\">Vote!</button>\r\n    </li>\r\n  </ul>\r\n  <div class=\"chart-box\" *ngIf=\"voted\">\r\n    <h2>How others voted</h2>\r\n    <canvas baseChart [data]=\"chartData\" [labels]=\"chartLabels\" [chartType]=\"chartType\">\r\n    </canvas>\r\n  </div>\r\n</div>\r\n\r\n<div *ngIf=\"user && user.isAdmin\" class=\"jumbotron\">\r\n    <h2 class=\"page-header mb-5 text-center\">Add Fundraising Idea to Vote</h2>\r\n    <form (submit)=\"onVotingIdeaSubmit()\">\r\n      <div class=\"form-group mb-3 text-left\">\r\n        <label>Name of Fundraising Idea</label>\r\n        <input type=\"text\" [(ngModel)]=\"voteIdeaName\" name=\"voteIdeaName\" class=\"form-control\">\r\n      </div>\r\n      <div class=\"form-group mb-3 text-left\">\r\n        <label>Short Name for Voting</label>\r\n        <input type=\"text\" [(ngModel)]=\"voteIdeaShortName\" name=\"voteIdeaShortName\" class=\"form-control\">\r\n      </div>\r\n      <div class=\"form-group mb-5 text-left\">\r\n        <label>Short Description</label>\r\n        <input type=\"text\" [(ngModel)]=\"voteIdeaDescription\" name=\"voteIdeaDescription\" class=\"form-control\">\r\n      </div>\r\n    \r\n      <input type=\"submit\" class=\"btn btn-block btn-success mt-3\" value=\"Submit\">\r\n      <input type=\"reset\" class=\"btn btn-block btn-danger mt-3\" value=\"Reset\">\r\n    \r\n    </form>\r\n</div>"
+module.exports = "<!-- User voting section -->\r\n<div *ngIf=\"user && !user.isAdmin\" class=\"container\">\r\n  <h2>Vote for your favourite idea</h2>\r\n  <ul>\r\n    <li *ngFor=\"let idea of ideaData\">\r\n      <h4>{{idea.name}}</h4>\r\n      <p *ngIf=\"!voted\">{{idea.description}}</p>\r\n      <button *ngIf=\"!voted\" type=\"button\" class=\"btn btn-dark btn-lg\" (click)=\"castVote(idea.shortName)\">Vote!</button>\r\n    </li>\r\n  </ul>\r\n  <div class=\"chart-box mb-5 mt-5\" *ngIf=\"voted\">\r\n    <h2>How others voted</h2>\r\n    <canvas baseChart [data]=\"chartData\" [labels]=\"chartLabels\" [chartType]=\"chartType\">\r\n    </canvas>\r\n  </div>\r\n</div>\r\n\r\n<!-- User add fundraiser section -->\r\n<div *ngIf=\"user && !user.isAdmin\" class=\"jumbotron user\">\r\n  <h2 *ngIf=\"!submitted\" class=\"page-header mb-5 text-center\">Suggest a new Fundraising Idea</h2>\r\n  <h2 *ngIf=\"submitted\" class=\"page-header mb-5 text-center\">Thanks for your submission!</h2>\r\n  <form *ngIf=\"!submitted\" (submit)=\"onNewIdeaSubmit()\">\r\n    <div class=\"form-group mb-3 text-left\">\r\n      <label>Name of Fundraising Idea</label>\r\n      <input type=\"text\" [(ngModel)]=\"newIdeaName\" name=\"newIdeaName\" class=\"form-control\">\r\n    </div>\r\n    <div class=\"form-group mb-5 text-left\">\r\n      <label>Short Description</label>\r\n      <input type=\"text\" [(ngModel)]=\"newIdeaDescription\" name=\"newIdeaDescription\" class=\"form-control\">\r\n    </div>\r\n\r\n    <input type=\"submit\" class=\"btn btn-block btn-success mt-3\" value=\"Submit\">\r\n    <input type=\"reset\" class=\"btn btn-block btn-danger mt-3\" value=\"Reset\">\r\n\r\n  </form>\r\n</div>\r\n\r\n<!-- Admin create new vote section -->\r\n<div class=\"chart-box mb-5 mt-5 text-center\" *ngIf=\"user && user.isAdmin\">\r\n  <h2 class=\"mb-3\">Current Votes</h2>\r\n  <canvas baseChart [data]=\"chartData\" [labels]=\"chartLabels\" [chartType]=\"chartType\">\r\n  </canvas>\r\n</div>\r\n\r\n<div *ngIf=\"user && user.isAdmin\" class=\"jumbotron\">\r\n  <h2 class=\"page-header mb-5 text-center\">Add Fundraising Idea to Vote</h2>\r\n  <form (submit)=\"onVotingIdeaSubmit()\">\r\n    <div class=\"form-group mb-3 text-left\">\r\n      <label>Name of Fundraising Idea</label>\r\n      <input type=\"text\" [(ngModel)]=\"voteIdeaName\" name=\"voteIdeaName\" class=\"form-control\">\r\n    </div>\r\n    <div class=\"form-group mb-3 text-left\">\r\n      <label>Short Name for Voting</label>\r\n      <input type=\"text\" [(ngModel)]=\"voteIdeaShortName\" name=\"voteIdeaShortName\" class=\"form-control\">\r\n    </div>\r\n    <div class=\"form-group mb-5 text-left\">\r\n      <label>Short Description</label>\r\n      <input type=\"text\" [(ngModel)]=\"voteIdeaDescription\" name=\"voteIdeaDescription\" class=\"form-control\">\r\n    </div>\r\n\r\n    <input type=\"submit\" class=\"btn btn-block btn-success mt-3\" value=\"Submit\">\r\n    <input type=\"reset\" class=\"btn btn-block btn-danger mt-3\" value=\"Reset\">\r\n\r\n  </form>\r\n</div>\r\n\r\n<!-- Admin view current idea section -->\r\n<div class=\"ideas\" *ngIf=\"user && user.isAdmin\">\r\n  <div class=\"card mb-2\" *ngFor=\"let idea of allIdeas\">\r\n    <div class=\"card-body\">\r\n      <h3>{{idea.name}}</h3>\r\n      <p>{{idea.description}}</p>\r\n      <hr>\r\n      <button (click)=\"removeIdea(idea)\" class=\"btn btn-danger mr-2\">\r\n        <i class=\"fa fa-remove\"></i>\r\n      </button>\r\n      <button (click)=\"editIdea(idea)\" class=\"btn btn-success\">\r\n        <i class=\"fa fa-pencil\"></i>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -683,32 +683,34 @@ var FundraisingComponent = /** @class */ (function () {
         this.event = 'vote';
         this.vote = '';
         this.voted = false;
+        this.submitted = false;
         this.arr = Object;
         this.chartType = 'pie';
     }
+    //User votes for an idea, goes to voteIdeas route
     FundraisingComponent.prototype.castVote = function (name) {
         var _this = this;
         this.http
-            .post("/vote", { name: name })
+            .post("voteIdeas/vote", { name: name })
             .subscribe(function (res) {
             _this.vote = res.name;
             _this.voted = true;
         });
     };
-    FundraisingComponent.prototype.getVoteClasses = function (name) {
-        return {
-            elect: this.voted && this.vote === name,
-            lost: this.voted && this.vote !== name,
-        };
-    };
     FundraisingComponent.prototype.ngOnInit = function () {
         var _this = this;
+        //Get proposed ideas to show admin
+        this.votingService.getAllIdeas().subscribe(function (allIdeas) {
+            _this.allIdeas = allIdeas;
+        });
+        //Gets ideas to populate voting options
         this.votingService.getIdeas().subscribe(function (currentIdeas) {
             _this.ideaData = currentIdeas;
         }, function (err) {
             console.log(err);
             return false;
         });
+        //Splits current votes into values and keys for graphing
         this.votingService.getVotes().subscribe(function (currentVotes) {
             _this.arr = currentVotes;
             _this.voteCount = {};
@@ -725,25 +727,14 @@ var FundraisingComponent = /** @class */ (function () {
             console.log(err);
             return false;
         });
-        // this.votingService.getShortNames().subscribe(currentShortNames => {
-        //   this.chartLabels = currentShortNames;
-        //   for (var i = 0; i < this.chartData.length; i++) {
-        //     var temp = this.chartLabels[i];
-        //     console.log({[this.chartLabels[i]]:this.chartData[i]});
-        //     this.voteCount.temp = this.chartData[i]; 
-        //   }
-        //   console.log(this.voteCount);
-        // },
-        //   err => {
-        //     console.log(err);
-        //     return false;
-        //   });
+        //Gets profile for isAdmin options
         this.authService.getProfile().subscribe(function (currentUser) {
             _this.user = currentUser.user;
         }, function (err) {
             console.log(err);
             return false;
         });
+        //pusher for graph updating
         var channel = this.pusher.init();
         channel.bind('vote', function (name) {
             _this.voteCount[name] += 1;
@@ -751,6 +742,27 @@ var FundraisingComponent = /** @class */ (function () {
             _this.chartData = Object.values(_this.voteCount);
         });
     };
+    FundraisingComponent.prototype.removeIdea = function (idea) {
+        var _this = this;
+        // maybe replace this with a better warning if I get time
+        if (confirm('Are you sure?')) {
+            this.votingService.removeIdea(idea).subscribe(function (data) {
+                if (data.success) {
+                    //Get proposed ideas to show admin
+                    _this.votingService.getAllIdeas().subscribe(function (allIdeas) {
+                        _this.allIdeas = allIdeas;
+                    });
+                    _this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-success', timeout: 3000 });
+                    _this.router.navigate(['/fundraising']);
+                }
+                else {
+                    _this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-danger', timeout: 3000 });
+                    _this.router.navigate(['/fundraising']);
+                }
+            });
+        }
+    };
+    //Admin Register Voting Ideas
     FundraisingComponent.prototype.onVotingIdeaSubmit = function () {
         var _this = this;
         var voteIdea = {
@@ -763,7 +775,7 @@ var FundraisingComponent = /** @class */ (function () {
             this.flashMessage.show('Please fill in all fields', { cssClass: 'align-bottom alert alert-danger', timeout: 3000 });
             return false;
         }
-        //Register FR Idea
+        //Routes through voting.service to back end
         this.votingService.registerVoteIdea(voteIdea).subscribe(function (data) {
             if (data.success) {
                 _this.flashMessage.show('New Fundraising Idea Added', { cssClass: 'align-top alert alert-success', timeout: 3000 });
@@ -771,6 +783,33 @@ var FundraisingComponent = /** @class */ (function () {
                 _this.voteIdeaName = '';
                 _this.voteIdeaShortName = '';
                 _this.voteIdeaDescription = '';
+            }
+            else {
+                _this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-danger', timeout: 3000 });
+                _this.router.navigate(['/fundraising']);
+            }
+        });
+    };
+    //User Register NEW Idea
+    FundraisingComponent.prototype.onNewIdeaSubmit = function () {
+        var _this = this;
+        var newIdea = {
+            newIdeaName: this.newIdeaName,
+            newIdeaDescription: this.newIdeaDescription,
+        };
+        //Required Fields
+        if (!this.validateService.validateNewIdea(newIdea)) {
+            this.flashMessage.show('Please fill in all fields', { cssClass: 'align-bottom alert alert-danger', timeout: 3000 });
+            return false;
+        }
+        //Routes through voting.service to back end
+        this.votingService.registerNewIdea(newIdea).subscribe(function (data) {
+            if (data.success) {
+                _this.flashMessage.show('Thanks for your submission!', { cssClass: 'align-top alert alert-success', timeout: 3000 });
+                _this.submitted = true;
+                _this.router.navigate(['/fundraising']);
+                _this.newIdeaName = '';
+                _this.newIdeaDescription = '';
             }
             else {
                 _this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-danger', timeout: 3000 });
@@ -920,6 +959,7 @@ var LoginComponent = /** @class */ (function () {
     }
     LoginComponent.prototype.ngOnInit = function () {
     };
+    //Submit button sends user info to backend for authentication and token
     LoginComponent.prototype.onLoginSubmit = function () {
         var _this = this;
         var user = {
@@ -975,7 +1015,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-expand-sm navbar-dark bg-primary mb-3\">\r\n  <div class=\"container\">\r\n    <a class=\"navbar-brand\" [routerLink]=\"['/']\">UWA Pickup Sports Society</a>\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\"\r\n      aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\r\n\r\n      <ul class=\"navbar-nav\">\r\n        <li [routerLinkActive]=\"['active']\" class=\"nav-item\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['/']\">Home</a>\r\n        </li>\r\n        <li [routerLinkActive]=\"['active']\" class=\"nav-item\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['/about']\">About</a>\r\n        </li>\r\n      </ul>\r\n\r\n      <ul class=\"navbar-nav ml-auto\">\r\n\r\n        <li *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" class=\"nav-item\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n          <a [routerLink]=\"['/login']\" class=\"nav-link\">Login</a>\r\n        </li>\r\n\r\n\r\n        <li *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" class=\"nav-item dropdown\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n          <a href=\"#\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" id=\"navbarDropdownMenuLink\">{{authService.getCurrentUserName()}}</a>\r\n          <div class=\"dropdown-menu\">\r\n            <a [routerLink]=\"['/profile']\" class=\"dropdown-item\">Edit Profile</a>\r\n            <a [routerLink]=\"['/dashboard']\" class=\"dropdown-item\">Dashboard</a>\r\n            <a [routerLink]=\"['/fundraising']\" class=\"dropdown-item\">Fundraising</a>\r\n          </div>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn()\" class=\"nav-item\">\r\n          <a (click)=\"onLogoutClick()\" href=\"#\" class=\"nav-link\">Logout</a>\r\n        </li>\r\n\r\n        <li *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" class=\"nav-item\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n          <a [routerLink]=\"['/register']\" class=\"nav-link\">Register</a>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </div>\r\n</nav>"
+module.exports = "<nav class=\"navbar navbar-expand-sm navbar-dark bg-primary mb-3\">\r\n\r\n  <!-- Always visible -->\r\n  <div class=\"container\">\r\n    <a class=\"navbar-brand\" [routerLink]=\"['/']\">UWA Pickup Sports Society</a>\r\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\"\r\n      aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n\r\n    <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\r\n\r\n      <ul class=\"navbar-nav\">\r\n        <li [routerLinkActive]=\"['active']\" class=\"nav-item\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['/']\">Home</a>\r\n        </li>\r\n        <li [routerLinkActive]=\"['active']\" class=\"nav-item\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n          <a class=\"nav-link\" [routerLink]=\"['/about']\">About</a>\r\n        </li>\r\n      </ul>\r\n\r\n      <ul class=\"navbar-nav ml-auto\">\r\n\r\n        <!-- visible only when not logged in -->\r\n        <li *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" class=\"nav-item\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n          <a [routerLink]=\"['/login']\" class=\"nav-link\">Login</a>\r\n        </li>\r\n        <li *ngIf=\"!authService.loggedIn()\" [routerLinkActive]=\"['active']\" class=\"nav-item\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n          <a [routerLink]=\"['/register']\" class=\"nav-link\">Register</a>\r\n        </li>\r\n\r\n        <!-- visible only when logged in -->\r\n        <li *ngIf=\"authService.loggedIn()\" [routerLinkActive]=\"['active']\" class=\"nav-item dropdown\" [routerLinkActiveOptions]=\"{exact:true}\">\r\n          <a href=\"#\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" id=\"navbarDropdownMenuLink\">{{authService.getCurrentUserName()}}</a>\r\n          <div class=\"dropdown-menu\">\r\n            <a [routerLink]=\"['/profile']\" class=\"dropdown-item\">Edit Profile</a>\r\n            <a [routerLink]=\"['/dashboard']\" class=\"dropdown-item\">Dashboard</a>\r\n            <a [routerLink]=\"['/fundraising']\" class=\"dropdown-item\">Fundraising</a>\r\n          </div>\r\n        </li>\r\n        <li *ngIf=\"authService.loggedIn()\" class=\"nav-item\">\r\n          <a (click)=\"onLogoutClick()\" href=\"#\" class=\"nav-link\">Logout</a>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </div>\r\n</nav>"
 
 /***/ }),
 
@@ -1066,7 +1106,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h3>404 Page Not Found</h3>\r\n<p>Sorry, there is nothing to see here...</p>\r\n"
+module.exports = "<!-- Page that shows if incorrect page loaded -->\r\n<h3>404 Page Not Found</h3>\r\n<p>Sorry, there is nothing to see here...</p>\r\n"
 
 /***/ }),
 
@@ -1129,7 +1169,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"mb-3\">Edit Profile</h2>\r\n\r\n<div *ngIf=\"!isEdit && user\" class=\"card card-body mb-3\">\r\n  <ul class=\"list-group mb-3\">\r\n    <h3>{{user?.username}}</h3>\r\n    <li class=\"list-group\">First Name: {{user?.firstName}}</li>\r\n    <li class=\"list-group\">Last Name: {{user?.lastName}}</li>\r\n    <li class=\"list-group\">Email: {{user?.email}}</li>\r\n    <li class=\"list-group\">Date Registered: {{user?.date | date:'dd-MM-yyyy HH:mm:ss'}}</li>\r\n    <li *ngIf=\"user?.age\" class=\"list-group\">Age: {{user?.age}}</li>\r\n    <li *ngIf=\"user?.university\" class=\"list-group\">University: {{user?.university}}</li>\r\n    <li class=\"list-group\">Interests:</li>\r\n    <li class=\"list-group\">{{getInterests(user.interests)}}</li>\r\n  </ul>\r\n  <button *ngIf=\"!isEdit\" (click)=\"editProfile()\" class=\"btn btn-dark btn-block\">Edit Profile</button>\r\n</div>\r\n\r\n<div *ngIf=\"isEdit\" class=\"card card-body mb-3\">\r\n  <h3>{{user?.username}}</h3>\r\n  <form (submit)=\"updateProfile()\">\r\n    <div class=\"form-group\">\r\n      <label>First Name</label>\r\n      <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.firstName\" name=\"firstName\">\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Last Name</label>\r\n      <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.lastName\" name=\"lastName\">\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Email</label>\r\n      <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.email\" name=\"email\">\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label class=\"mr-3 mt-3\">University:</label>\r\n      <select [(ngModel)]=\"user.university\" name=\"university\" id=\"university\">\r\n        <option *ngFor=\"let uni of universities\" [value]=\"uni\">{{uni}}</option>\r\n      </select>\r\n    </div>\r\n\r\n\r\n    <label class=\"checkbox-inline\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.basketball\" name=\"basketball\" [checked]=\"user.interests.basketball\"> Basketball\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.baseball\" name=\"baseball\"> Baseball\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.cricket\" name=\"cricket\"> Cricket\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.softball\" name=\"softball\"> Softball\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.netball\" name=\"netball\"> Netball\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.soccer\" name=\"soccer\"> Soccer\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input type=\"checkbox\" [(ngModel)]=\"user.interests.afl\" name=\"afl\"> AFL\r\n    </label>\r\n\r\n\r\n    <input type=\"hidden\" [(ngModel)]=\"user.id\" name=\"id\">\r\n    <button type=\"submit\" class=\"btn btn-success btn-block\">Save Profile</button>\r\n\r\n  </form>\r\n</div>"
+module.exports = "<h2 class=\"mb-3\">Edit Profile</h2>\r\n\r\n<!-- Displays current users details -->\r\n<div *ngIf=\"!isEdit && user\" class=\"card card-body mb-3\">\r\n  <ul class=\"list-group mb-3\">\r\n    <h3>{{user?.username}}</h3>\r\n    <li class=\"list-group\">First Name: {{user?.firstName}}</li>\r\n    <li class=\"list-group\">Last Name: {{user?.lastName}}</li>\r\n    <li class=\"list-group\">Email: {{user?.email}}</li>\r\n    <li class=\"list-group\">Date Registered: {{user?.date | date:'dd-MM-yyyy HH:mm:ss'}}</li>\r\n    <li *ngIf=\"user?.age\" class=\"list-group\">Age: {{user?.age}}</li>\r\n    <li *ngIf=\"user?.university\" class=\"list-group\">University: {{user?.university}}</li>\r\n    <li class=\"list-group\">Interests:</li>\r\n    <li class=\"list-group\">{{getInterests(user.interests)}}</li>\r\n  </ul>\r\n  <button *ngIf=\"!isEdit\" (click)=\"editProfile()\" class=\"btn btn-dark btn-block\">Edit Profile</button>\r\n</div>\r\n\r\n<!-- If Edit is clicked view becomes form for editing -->\r\n<div *ngIf=\"isEdit\" class=\"card card-body mb-3\">\r\n  <h3>{{user?.username}}</h3>\r\n  <form (submit)=\"updateProfile()\">\r\n    <div class=\"form-group\">\r\n      <label>First Name</label>\r\n      <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.firstName\" name=\"firstName\">\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Last Name</label>\r\n      <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.lastName\" name=\"lastName\">\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Email</label>\r\n      <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.email\" name=\"email\">\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label class=\"mr-3 mt-3\">University:</label>\r\n      <select [(ngModel)]=\"user.university\" name=\"university\" id=\"university\">\r\n        <option *ngFor=\"let uni of universities\" [value]=\"uni\">{{uni}}</option>\r\n      </select>\r\n    </div>\r\n\r\n    <label class=\"checkbox-inline\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.basketball\" name=\"basketball\" [checked]=\"user.interests.basketball\"> Basketball\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.baseball\" name=\"baseball\"> Baseball\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.cricket\" name=\"cricket\"> Cricket\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.softball\" name=\"softball\"> Softball\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.netball\" name=\"netball\"> Netball\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.soccer\" name=\"soccer\"> Soccer\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input type=\"checkbox\" [(ngModel)]=\"user.interests.afl\" name=\"afl\"> AFL\r\n    </label>\r\n\r\n    <input type=\"hidden\" [(ngModel)]=\"user.id\" name=\"id\">\r\n    <button type=\"submit\" class=\"btn btn-success btn-block\">Save Profile</button>\r\n\r\n  </form>\r\n</div>"
 
 /***/ }),
 
@@ -1166,7 +1206,8 @@ var ProfileComponent = /** @class */ (function () {
         this.authService = authService;
         this.flashMessage = flashMessage;
         this.router = router;
-        this.universities = ['UWA', 'Curtin', 'Notre Dame', 'Edith Cowan', 'Other', 'None'];
+        //Array populates profile university options
+        this.universities = ['UWA', 'Curtin', 'Murdoch', 'Notre Dame', 'Edith Cowan', 'Other', 'None'];
         this.isEdit = false;
     }
     ProfileComponent.prototype.ngOnInit = function () {
@@ -1178,6 +1219,7 @@ var ProfileComponent = /** @class */ (function () {
             return false;
         });
     };
+    //When edit profile is clicked
     ProfileComponent.prototype.editProfile = function () {
         var _this = this;
         this.authService.getProfile().subscribe(function (profile) {
@@ -1188,9 +1230,9 @@ var ProfileComponent = /** @class */ (function () {
         });
         this.isEdit = true;
     };
+    //Update User's database entry through the backend
     ProfileComponent.prototype.updateProfile = function () {
         var _this = this;
-        //Update User
         this.authService.updateUser(this.user).subscribe(function (data) {
             if (data.success) {
                 _this.flashMessage.show('Profile updated', { cssClass: 'align-top alert alert-success', timeout: 3000 });
@@ -1203,6 +1245,7 @@ var ProfileComponent = /** @class */ (function () {
         });
         this.isEdit = false;
     };
+    //Turns users interests array into a string for display
     ProfileComponent.prototype.getInterests = function (interests) {
         var ints = [];
         var keys = Object.keys(interests);
@@ -1252,7 +1295,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"page-header mb-5 mt-5\">Register</h2>\r\n<form (submit)=\"onRegisterSubmit()\">\r\n  <div class=\"form-group\">\r\n    <label>First Name</label>\r\n    <input type=\"text\" [(ngModel)]=\"firstName\" name=\"firstName\" class=\"form-control\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label>Last Name</label>\r\n    <input type=\"text\" [(ngModel)]=\"lastName\" name=\"lastName\" class=\"form-control\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label>Username</label>\r\n    <input type=\"text\" [(ngModel)]=\"username\" name=\"username\" class=\"form-control\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label>Email</label>\r\n    <input type=\"email\" [(ngModel)]=\"email\" name=\"email\" class=\"form-control\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label>Password</label>\r\n    <input type=\"password\" [(ngModel)]=\"password\" name=\"password\" class=\"form-control\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label>Confirm Password</label>\r\n    <input type=\"password\" [(ngModel)]=\"password2\" name=\"password2\" class=\"form-control\">\r\n  </div>\r\n\r\n  <input type=\"submit\" class=\"btn btn-block btn-success mt-3\" value=\"Submit\">\r\n  <input type=\"reset\" class=\"btn btn-block btn-danger mt-3\" value=\"Reset\">\r\n\r\n</form>"
+module.exports = "<!-- User Registration Form -->\r\n<h2 class=\"page-header mb-5 mt-5\">Register</h2>\r\n<form (submit)=\"onRegisterSubmit()\">\r\n  <div class=\"form-group\">\r\n    <label>First Name</label>\r\n    <input type=\"text\" [(ngModel)]=\"firstName\" name=\"firstName\" class=\"form-control\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label>Last Name</label>\r\n    <input type=\"text\" [(ngModel)]=\"lastName\" name=\"lastName\" class=\"form-control\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label>Username</label>\r\n    <input type=\"text\" [(ngModel)]=\"username\" name=\"username\" class=\"form-control\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label>Email</label>\r\n    <input type=\"email\" [(ngModel)]=\"email\" name=\"email\" class=\"form-control\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label>Password</label>\r\n    <input type=\"password\" [(ngModel)]=\"password\" name=\"password\" class=\"form-control\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    <label>Confirm Password</label>\r\n    <input type=\"password\" [(ngModel)]=\"password2\" name=\"password2\" class=\"form-control\">\r\n  </div>\r\n\r\n  <input type=\"submit\" class=\"btn btn-block btn-success mt-3\" value=\"Submit\">\r\n  <input type=\"reset\" class=\"btn btn-block btn-danger mt-3\" value=\"Reset\">\r\n\r\n</form>"
 
 /***/ }),
 
@@ -1403,10 +1446,12 @@ var FooterComponent = /** @class */ (function () {
     }
     FooterComponent.prototype.ngOnInit = function () {
         var _this = this;
+        //Ticking Clock
         var timeoutId = setInterval(function () {
             var time = new Date();
             _this.now = ('0' + time.getHours()).substr(-2) + ":" + ('0' + time.getMinutes()).substr(-2) + ":" + ('0' + time.getSeconds()).substr(-2);
         }, 1000);
+        //Modified date
         this.modified = new Date();
     };
     FooterComponent = __decorate([
@@ -1454,6 +1499,7 @@ var AuthGuard = /** @class */ (function () {
         this.authService = authService;
         this.router = router;
     }
+    //Divert user to login if not logged in and tries to access any pages
     AuthGuard.prototype.canActivate = function () {
         if (this.authService.loggedIn()) {
             return true;
@@ -1507,24 +1553,28 @@ var AuthService = /** @class */ (function () {
         this.http = http;
         this.jwtHelperService = jwtHelperService;
     }
+    //Connects to back end to add new user to db
     AuthService.prototype.registerUser = function (user) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
         return this.http.post('users/register', user, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
+    //connects to backend to alter existing user details
     AuthService.prototype.updateUser = function (user) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
         return this.http.put('users/update', user, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
+    //Checks username and password on login
     AuthService.prototype.authenticateUser = function (user) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
         return this.http.post('users/authenticate', user, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
+    //Retrieves profiler from backend
     AuthService.prototype.getProfile = function () {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         this.loadToken();
@@ -1533,6 +1583,7 @@ var AuthService = /** @class */ (function () {
         return this.http.get('users/profile', { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
+    //Gets username from local storage for display in navbar
     AuthService.prototype.getCurrentUserName = function () {
         if (localStorage.getItem('user')) {
             return JSON.parse(localStorage.getItem('user')).username;
@@ -1541,20 +1592,14 @@ var AuthService = /** @class */ (function () {
             return "";
         }
     };
-    AuthService.prototype.isAdmin = function () {
-        if (localStorage.getItem('user')) {
-            return JSON.parse(localStorage.getItem('user')).isAdmin;
-        }
-        else {
-            return "";
-        }
-    };
+    //Stores username and token (1 hour limit)
     AuthService.prototype.storeUserData = function (token, user) {
         localStorage.setItem('id_token', token);
         localStorage.setItem('user', JSON.stringify(user));
         this.authToken = token;
         this.user = user;
     };
+    //get token 
     AuthService.prototype.loadToken = function () {
         var token = localStorage.getItem('id_token');
         this.authToken = token;
@@ -1662,8 +1707,18 @@ var ValidateService = /** @class */ (function () {
             return true;
         }
     };
+    //Ensure all required user fields are present
     ValidateService.prototype.validateVoteIdea = function (voteIdea) {
         if (voteIdea.voteIdeaName == undefined || voteIdea.voteIdeaShortName == undefined || voteIdea.voteIdeaDescription == undefined) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
+    //Ensure all required user fields are present
+    ValidateService.prototype.validateNewIdea = function (newIdea) {
+        if (newIdea.newIdeaName == undefined || newIdea.newIdeaDescription == undefined) {
             return false;
         }
         else {
@@ -1684,6 +1739,7 @@ var ValidateService = /** @class */ (function () {
             return true;
         }
     };
+    //Ensure password is more than 8 characters, has a capital and a number
     ValidateService.prototype.passwordComplex = function (email) {
         var complex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
         return complex.test((email));
@@ -1730,6 +1786,20 @@ var VotingService = /** @class */ (function () {
     function VotingService(http) {
         this.http = http;
     }
+    //Remove Idea from user suggestions
+    VotingService.prototype.removeIdea = function (idea) {
+        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.put('newIdeas/remove', idea, { headers: headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
+    };
+    //Get ALL ideas for admin to view
+    VotingService.prototype.getAllIdeas = function () {
+        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.get('newIdeas/ideas', { headers: headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
+    };
     //Gets ideas from Voting database
     VotingService.prototype.getIdeas = function () {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
@@ -1751,11 +1821,18 @@ var VotingService = /** @class */ (function () {
         return this.http.get('voteIdeas/shortNames', { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
-    //Adds new entries to voting database
+    //Comm with back end and adds new entries to current voting database (ADMIN)
     VotingService.prototype.registerVoteIdea = function (voteIdea) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
         return this.http.post('voteIdeas/add', voteIdea, { headers: headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
+    };
+    //Comm with back end and adds new entries to voting future ideas database (USER)
+    VotingService.prototype.registerNewIdea = function (newIdea) {
+        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('newIdeas/add', newIdea, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     VotingService = __decorate([

@@ -29,7 +29,7 @@ const voteIdeas = require('./routes/voteIdeas');
 const port = process.env.PORT || 8080;
 
 //Set static folder
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, './public')));
 
 //Middleware
 app.use(cors());
@@ -57,8 +57,8 @@ app.use('/newIdeas', newIdeas);
 app.use('/voteIdeas', voteIdeas);
 
 //Index Route
-app.get('/', function (req, res) {
-  res.send('Invalid Endpoint');
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 //Start Server
