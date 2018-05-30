@@ -689,7 +689,7 @@ var FundraisingComponent = /** @class */ (function () {
     FundraisingComponent.prototype.castVote = function (name) {
         var _this = this;
         this.http
-            .post("http://localhost:8080/vote", { name: name })
+            .post("/vote", { name: name })
             .subscribe(function (res) {
             _this.vote = res.name;
             _this.voted = true;
@@ -1510,19 +1510,19 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.registerUser = function (user) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:8080/users/register', user, { headers: headers })
+        return this.http.post('users/register', user, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     AuthService.prototype.updateUser = function (user) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.put('http://localhost:8080/users/update', user, { headers: headers })
+        return this.http.put('users/update', user, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     AuthService.prototype.authenticateUser = function (user) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:8080/users/authenticate', user, { headers: headers })
+        return this.http.post('users/authenticate', user, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     AuthService.prototype.getProfile = function () {
@@ -1530,7 +1530,7 @@ var AuthService = /** @class */ (function () {
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
-        return this.http.get('http://localhost:8080/users/profile', { headers: headers })
+        return this.http.get('users/profile', { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     AuthService.prototype.getCurrentUserName = function () {
@@ -1734,28 +1734,28 @@ var VotingService = /** @class */ (function () {
     VotingService.prototype.getIdeas = function () {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get('http://localhost:8080/voteIdeas/ideas', { headers: headers })
+        return this.http.get('voteIdeas/ideas', { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     //Gets votes from Voting database
     VotingService.prototype.getVotes = function () {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get('http://localhost:8080/voteIdeas/votes', { headers: headers })
+        return this.http.get('voteIdeas/votes', { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     //Gets Short Names from Voting database
     VotingService.prototype.getShortNames = function () {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get('http://localhost:8080/voteIdeas/shortNames', { headers: headers })
+        return this.http.get('voteIdeas/shortNames', { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     //Adds new entries to voting database
     VotingService.prototype.registerVoteIdea = function (voteIdea) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:8080/voteIdeas/add', voteIdea, { headers: headers })
+        return this.http.post('voteIdeas/add', voteIdea, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     VotingService = __decorate([
