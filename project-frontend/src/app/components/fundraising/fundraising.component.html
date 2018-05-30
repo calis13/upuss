@@ -4,7 +4,7 @@
     <li *ngFor="let idea of ideaData">
       <h4>{{idea.name}}</h4>
       <p>{{idea.description}}</p>
-      <button type="button" class="btn btn-dark btn-lg" (click)="castVote(idea.name)" [ngClass]="getVoteClasses(idea.shortName)">Vote!</button>
+      <button *ngIf="!voted" type="button" class="btn btn-dark btn-lg" (click)="castVote(idea.shortName)" [ngClass]="getVoteClasses(idea.shortName)">Vote!</button>
     </li>
   </ul>
   <div class="chart-box" *ngIf="voted">

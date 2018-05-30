@@ -23,11 +23,11 @@ mongoose.connect(config.database) //creates database and connects
 const app = express();
 
 const pusher = new Pusher({
-  appId: '533866',
-  key: '76d42233dc960acca83f',
-  secret: '4de814bf7e88d544030d',
+  appId: '534219',
+  key: '901eb88fc540343e1602',
+  secret: '7911d6518af19e983749',
   cluster: 'ap1',
-  encrypted: false,
+  encrypted: true,
 });
 
 //Load routes
@@ -64,14 +64,14 @@ app.get('/', function (req, res) {
   res.send('Invalid Endpoint');
 });
 
-//vote route
+//Vote route
 app.post('/vote', (req, res) => {
   const { body } = req;
-  const { idea } = body;
-  pusher.trigger('vote-channel', 'vote', {
+  const idea  = body.name;
+  pusher.trigger('vote-channel', 'vote', 
     idea,
-  });
-  res.json({ idea });
+  );
+  res.json(idea);
 });
 
 //Start Server

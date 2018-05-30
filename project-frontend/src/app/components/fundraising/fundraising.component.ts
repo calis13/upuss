@@ -40,19 +40,19 @@ export class FundraisingComponent implements OnInit {
     },
   ];
   voteCount = {
-    raffle: 0,
-    football: 0,
-    cars: 0,
-    dogs: 0,
+    raffle: 1,
+    football: 1,
+    cars: 1,
+    dogs: 1,
   };
 
   chartLabels: string[] = Object.keys(this.voteCount);
   chartData: number[] = Object.values(this.voteCount);
-  chartType = 'doughnut';
+  chartType = 'pie';
 
   castVote(name) {
     this.http
-      .post(`vote`, { name })
+      .post(`http://localhost:8080/vote`, { name })
       .subscribe((res: any) => {
         this.vote = res.name;
         this.voted = true;
@@ -68,12 +68,12 @@ export class FundraisingComponent implements OnInit {
 
   ngOnInit() {
     const channel = this.pusher.init();
-    channel.bind('vote', ({ player }) => {
-      this.voteCount[player] += 1;
+    channel.bind('vote', (name) => {
+      this.voteCount[name] += 1;
+      // Update the chartData whenever there's a new vote
+      console.log(this.chartData);
+      this.chartData = Object.values(this.voteCount);
     });
-
-    // Update the chartData whenever there's a new vote
-    this.chartData = Object.values(this.voteCount);
   }
 
 }

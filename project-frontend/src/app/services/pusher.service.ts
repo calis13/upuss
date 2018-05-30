@@ -5,8 +5,8 @@ declare const Pusher: any;
 @Injectable()
 export class PusherService {
   constructor() {
-    var pusher = new Pusher('76d42233dc960acca83f', {
-      cluster: 'eu',
+    var pusher = new Pusher('901eb88fc540343e1602', {
+      cluster: 'ap1',
       encrypted: true,
     });
     this.channel = pusher.subscribe('vote-channel');
