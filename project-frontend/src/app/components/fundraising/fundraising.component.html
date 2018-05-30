@@ -1,3 +1,15 @@
-<p>
-  THIS WILL BE FOR OUR VOTING PAGE BASED ON SUGGESTED TASKS
-</p>
+<div>
+  <h2>Vote for your favourite idea</h2>
+  <ul>
+    <li *ngFor="let idea of ideaData">
+      <h4>{{idea.name}}</h4>
+      <p>{{idea.description}}</p>
+      <button type="button" class="btn btn-dark btn-lg" (click)="castVote(idea.name)" [ngClass]="getVoteClasses(idea.shortName)">Vote!</button>
+    </li>
+  </ul>
+  <div class="chart-box" *ngIf="voted">
+    <h2>How others voted</h2>
+    <canvas baseChart [data]="chartData" [labels]="chartLabels" [chartType]="chartType">
+    </canvas>
+  </div>
+</div>

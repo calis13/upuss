@@ -29,7 +29,12 @@
     "angular-flash-message": "^3.4.0",
     "angular2-flash-messages": "^2.0.5",
     "angular2-jwt": "^0.2.3",
+    "chart.js": "^2.7.2",
     "core-js": "^2.5.4",
+    "dotenv": "^5.0.1",
+    "ng2-charts": "^1.6.0",
+    "pusher": "^2.0.0",
+    "pusher-js": "^4.2.2",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },

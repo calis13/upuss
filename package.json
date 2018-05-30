@@ -17,11 +17,16 @@
     "@angular/cli": "^6.0.3",
     "bcryptjs": "*",
     "body-parser": "*",
+    "chart.js": "^2.7.2",
     "cors": "*",
+    "dotenv": "^5.0.1",
     "express": "*",
     "jsonwebtoken": "*",
     "mongoose": "*",
+    "ng2-charts": "^1.6.0",
     "passport": "*",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "pusher": "^2.0.0",
+    "pusher-js": "^4.2.2"
   }
 }
