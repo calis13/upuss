@@ -47,6 +47,10 @@ const UserSchema = new Schema({
     'netball': { type: Boolean, default: false },
     'soccer': { type: Boolean, default: false },
     'AFL': { type: Boolean, default: false }
+  },
+  isAdmin:{
+    type: Boolean,
+    default: false
   }
 });
 

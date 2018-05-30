@@ -11,6 +11,7 @@ import { timeout } from 'rxjs/operators';
 })
 export class NavbarComponent implements OnInit {
   user: Object;
+  loaded: boolean;
 
   constructor(
     private authService: AuthService,
@@ -20,8 +21,8 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
 
-    this.authService.getProfile().subscribe(navbar => {
-      this.user = navbar.user;
+    this.authService.getProfile().subscribe(current => {
+      this.user = current.user;
     },
       err => {
         console.log(err);

@@ -8,7 +8,7 @@ const config = require('../config/database');
 
 //User Register Route
 router.post('/register', function (req, res, next) {
-
+  
   let newUser = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,

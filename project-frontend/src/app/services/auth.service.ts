@@ -53,6 +53,15 @@ export class AuthService {
       return "";
     }
   }
+
+  isAdmin(){
+    if (localStorage.getItem('user')){
+      return JSON.parse(localStorage.getItem('user')).isAdmin;
+    }
+    else{
+      return "";
+    }
+  }
   
   storeUserData(token, user) {
     localStorage.setItem('id_token', token);

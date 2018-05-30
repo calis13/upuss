@@ -32,6 +32,8 @@ const pusher = new Pusher({
 
 //Load routes
 const users = require('./routes/users');
+const newIdeas = require('./routes/newIdeas');
+const voteIdeas = require('./routes/voteIdeas');
 
 const port = process.env.PORT || 8080;
 
@@ -56,8 +58,12 @@ app.use((req, res, next) => {
 
 require('./config/passport')(passport);
 
-//Use routes
+//Users routes
 app.use('/users', users);
+
+//Ideas routes
+app.use('/NewIdeas', newIdeas);
+app.use('/voteIdeas', voteIdeas);
 
 //Index Route
 app.get('/', function (req, res) {

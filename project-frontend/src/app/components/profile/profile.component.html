@@ -1,6 +1,6 @@
 <h2 class="mb-3">Edit Profile</h2>
 
-<div *ngIf="!isEdit" class="card card-body mb-3">
+<div *ngIf="!isEdit && user" class="card card-body mb-3">
   <ul class="list-group mb-3">
     <h3>{{user?.username}}</h3>
     <li class="list-group">First Name: {{user?.firstName}}</li>
