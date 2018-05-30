@@ -4,16 +4,23 @@ const router = express.Router();
 const VoteIdea = require('../models/VoteIdea');
 const config = require('../config/database');
 
-// //Ideas Route
-// router.get('/ideas', function (req, res, next) {
-//   console.log('ROUTE');
-//   res.json({ ideas: req.ideas });
-// });
-
-//Profile Route
+//Get Ideas Route
 router.get('/ideas', function (req, res) {
-  console.log('ROUTE');
-  res.json({ user: req.user });
+  VoteIdea.find().exec((err, ideas) => {
+    res.json(ideas);
+  });
+});
+
+//Get Votes Route
+router.get('/votes', function (req, res) {
+  VoteIdea.find().exec((err, ideas) => {
+    let votes = Object;
+
+    for (i = 0; i < ideas.length; i++) {
+      votes[i] = { [ideas[i].shortName]: ideas[i].votes };
+    }
+    res.json(Object.values(votes));
+  });
 });
 
 //New FR Idea Route

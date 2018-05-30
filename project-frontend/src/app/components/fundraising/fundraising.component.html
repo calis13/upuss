@@ -16,7 +16,7 @@
 
 <div *ngIf="user && user.isAdmin" class="jumbotron">
     <h2 class="page-header mb-5 text-center">Add Fundraising Idea to Vote</h2>
-    <form (submit)="onVotingSubmit()">
+    <form (submit)="onVotingIdeaSubmit()">
       <div class="form-group mb-3 text-left">
         <label>Name of Fundraising Idea</label>
         <input type="text" [(ngModel)]="voteIdeaName" name="voteIdeaName" class="form-control">

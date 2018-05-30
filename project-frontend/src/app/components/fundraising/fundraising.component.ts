@@ -30,14 +30,17 @@ export class FundraisingComponent implements OnInit {
   voted = false;
   ideaData: Object;
   voteCount: Object;
+  currentVotes: number[];
+  shortNames: String[];
+  arr = Object;
 
   voteIdea: Object;
   voteIdeaName: String;
   voteIdeaShortName: String;
   voteIdeaDescription: String;
 
-  chartLabels: ['football', 'soccer']; //string[] = Object.keys(this.voteCount);
-  chartData: number[] = [1,2]; //number[] = Object.values(this.voteCount);
+  chartData: number[];
+  chartLabels: string[];
   chartType = 'pie';
 
   castVote(name) {
@@ -57,22 +60,47 @@ export class FundraisingComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.votingService.getIdeas().subscribe(fundRaise => {
-    //   this.ideaData = fundRaise.ideaData;
-    //   //this.voteCount = fundRaise.voteCount;
-    // },
-    //   err => {
-    //     console.log(err);
-    //     return false;
-    //   });
 
     this.votingService.getIdeas().subscribe(currentIdeas => {
-      this.ideaData = currentIdeas.ideaData;
+      this.ideaData = currentIdeas;
     },
       err => {
         console.log(err);
         return false;
       });
+
+    this.votingService.getVotes().subscribe(currentVotes => {
+      this.arr = currentVotes;
+      this.voteCount = {};
+      for (var i = 0; i < this.arr.length; i++) {
+        for (var key in this.arr[i]) {
+          if (typeof this.arr[i][key] != 'function') {
+            this.voteCount[key] = this.arr[i][key];
+          }
+        }
+      }
+      this.chartLabels = Object.keys(this.voteCount);
+      this.chartData = Object.values(this.voteCount);
+
+    },
+      err => {
+        console.log(err);
+        return false;
+      });
+
+    // this.votingService.getShortNames().subscribe(currentShortNames => {
+    //   this.chartLabels = currentShortNames;
+    //   for (var i = 0; i < this.chartData.length; i++) {
+    //     var temp = this.chartLabels[i];
+    //     console.log({[this.chartLabels[i]]:this.chartData[i]});
+    //     this.voteCount.temp = this.chartData[i]; 
+    //   }
+    //   console.log(this.voteCount);
+    // },
+    //   err => {
+    //     console.log(err);
+    //     return false;
+    //   });
 
     this.authService.getProfile().subscribe(currentUser => {
       this.user = currentUser.user;
@@ -86,12 +114,11 @@ export class FundraisingComponent implements OnInit {
     channel.bind('vote', (name) => {
       this.voteCount[name] += 1;
       // Update the chartData whenever there's a new vote
-      console.log(this.chartData);
       this.chartData = Object.values(this.voteCount);
     });
   }
 
-  onVotingSubmit() {
+  onVotingIdeaSubmit() {
     const voteIdea = {
       voteIdeaName: this.voteIdeaName,
       voteIdeaShortName: this.voteIdeaShortName,

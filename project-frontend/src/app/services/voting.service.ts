@@ -13,10 +13,25 @@ export class VotingService {
 
   //Gets ideas from Voting database
   getIdeas() {
-    console.log('GET IDEAS')
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.get('http://localhost:8080/voteIdeas/ideas', { headers: headers })
+      .pipe(map(res => res.json()));
+  }
+
+  //Gets votes from Voting database
+  getVotes() {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get('http://localhost:8080/voteIdeas/votes', { headers: headers })
+      .pipe(map(res => res.json()));
+  }
+
+  //Gets Short Names from Voting database
+  getShortNames() {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get('http://localhost:8080/voteIdeas/shortNames', { headers: headers })
       .pipe(map(res => res.json()));
   }
 

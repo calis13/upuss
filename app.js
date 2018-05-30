@@ -62,7 +62,7 @@ require('./config/passport')(passport);
 app.use('/users', users);
 
 //Ideas routes
-app.use('/NewIdeas', newIdeas);
+app.use('/newIdeas', newIdeas);
 app.use('/voteIdeas', voteIdeas);
 
 //Index Route
