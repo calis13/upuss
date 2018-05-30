@@ -4,7 +4,6 @@ const cors = require('cors'); //Allows request to API from diff domain
 const bodyParser = require('body-parser'); //allows getting data from form
 const passport = require('passport'); //Authentication
 const mongoose = require('mongoose');
-const Pusher = require('pusher');
 
 dotEnv = require('dotenv').config();
 
@@ -21,14 +20,6 @@ mongoose.connect(config.database) //creates database and connects
   });
 
 const app = express();
-
-const pusher = new Pusher({
-  appId: '534219',
-  key: '901eb88fc540343e1602',
-  secret: '7911d6518af19e983749',
-  cluster: 'ap1',
-  encrypted: true,
-});
 
 //Load routes
 const users = require('./routes/users');
@@ -68,16 +59,6 @@ app.use('/voteIdeas', voteIdeas);
 //Index Route
 app.get('/', function (req, res) {
   res.send('Invalid Endpoint');
-});
-
-//Vote route
-app.post('/vote', (req, res) => {
-  const { body } = req;
-  const idea  = body.name;
-  pusher.trigger('vote-channel', 'vote', 
-    idea,
-  );
-  res.json(idea);
 });
 
 //Start Server

@@ -1,37 +1,82 @@
+<!-- User voting section -->
 <div *ngIf="user && !user.isAdmin" class="container">
   <h2>Vote for your favourite idea</h2>
   <ul>
     <li *ngFor="let idea of ideaData">
       <h4>{{idea.name}}</h4>
-      <p>{{idea.description}}</p>
-      <button *ngIf="!voted" type="button" class="btn btn-dark btn-lg" (click)="castVote(idea.shortName)" [ngClass]="getVoteClasses(idea.shortName)">Vote!</button>
+      <p *ngIf="!voted">{{idea.description}}</p>
+      <button *ngIf="!voted" type="button" class="btn btn-dark btn-lg" (click)="castVote(idea.shortName)">Vote!</button>
     </li>
   </ul>
-  <div class="chart-box" *ngIf="voted">
+  <div class="chart-box mb-5 mt-5" *ngIf="voted">
     <h2>How others voted</h2>
     <canvas baseChart [data]="chartData" [labels]="chartLabels" [chartType]="chartType">
     </canvas>
   </div>
 </div>
 
+<!-- User add fundraiser section -->
+<div *ngIf="user && !user.isAdmin" class="jumbotron user">
+  <h2 *ngIf="!submitted" class="page-header mb-5 text-center">Suggest a new Fundraising Idea</h2>
+  <h2 *ngIf="submitted" class="page-header mb-5 text-center">Thanks for your submission!</h2>
+  <form *ngIf="!submitted" (submit)="onNewIdeaSubmit()">
+    <div class="form-group mb-3 text-left">
+      <label>Name of Fundraising Idea</label>
+      <input type="text" [(ngModel)]="newIdeaName" name="newIdeaName" class="form-control">
+    </div>
+    <div class="form-group mb-5 text-left">
+      <label>Short Description</label>
+      <input type="text" [(ngModel)]="newIdeaDescription" name="newIdeaDescription" class="form-control">
+    </div>
+
+    <input type="submit" class="btn btn-block btn-success mt-3" value="Submit">
+    <input type="reset" class="btn btn-block btn-danger mt-3" value="Reset">
+
+  </form>
+</div>
+
+<!-- Admin create new vote section -->
+<div class="chart-box mb-5 mt-5 text-center" *ngIf="user && user.isAdmin">
+  <h2 class="mb-3">Current Votes</h2>
+  <canvas baseChart [data]="chartData" [labels]="chartLabels" [chartType]="chartType">
+  </canvas>
+</div>
+
 <div *ngIf="user && user.isAdmin" class="jumbotron">
-    <h2 class="page-header mb-5 text-center">Add Fundraising Idea to Vote</h2>
-    <form (submit)="onVotingIdeaSubmit()">
-      <div class="form-group mb-3 text-left">
-        <label>Name of Fundraising Idea</label>
-        <input type="text" [(ngModel)]="voteIdeaName" name="voteIdeaName" class="form-control">
-      </div>
-      <div class="form-group mb-3 text-left">
-        <label>Short Name for Voting</label>
-        <input type="text" [(ngModel)]="voteIdeaShortName" name="voteIdeaShortName" class="form-control">
-      </div>
-      <div class="form-group mb-5 text-left">
-        <label>Short Description</label>
-        <input type="text" [(ngModel)]="voteIdeaDescription" name="voteIdeaDescription" class="form-control">
-      </div>
-    
-      <input type="submit" class="btn btn-block btn-success mt-3" value="Submit">
-      <input type="reset" class="btn btn-block btn-danger mt-3" value="Reset">
-    
-    </form>
+  <h2 class="page-header mb-5 text-center">Add Fundraising Idea to Vote</h2>
+  <form (submit)="onVotingIdeaSubmit()">
+    <div class="form-group mb-3 text-left">
+      <label>Name of Fundraising Idea</label>
+      <input type="text" [(ngModel)]="voteIdeaName" name="voteIdeaName" class="form-control">
+    </div>
+    <div class="form-group mb-3 text-left">
+      <label>Short Name for Voting</label>
+      <input type="text" [(ngModel)]="voteIdeaShortName" name="voteIdeaShortName" class="form-control">
+    </div>
+    <div class="form-group mb-5 text-left">
+      <label>Short Description</label>
+      <input type="text" [(ngModel)]="voteIdeaDescription" name="voteIdeaDescription" class="form-control">
+    </div>
+
+    <input type="submit" class="btn btn-block btn-success mt-3" value="Submit">
+    <input type="reset" class="btn btn-block btn-danger mt-3" value="Reset">
+
+  </form>
+</div>
+
+<!-- Admin view current idea section -->
+<div class="ideas" *ngIf="user && user.isAdmin">
+  <div class="card mb-2" *ngFor="let idea of allIdeas">
+    <div class="card-body">
+      <h3>{{idea.name}}</h3>
+      <p>{{idea.description}}</p>
+      <hr>
+      <button (click)="removeIdea(idea)" class="btn btn-danger mr-2">
+        <i class="fa fa-remove"></i>
+      </button>
+      <button (click)="editIdea(idea)" class="btn btn-success">
+        <i class="fa fa-pencil"></i>
+      </button>
+    </div>
+  </div>
 </div>

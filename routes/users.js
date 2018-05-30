@@ -17,18 +17,21 @@ router.post('/register', function (req, res, next) {
     password: req.body.password
   });
 
+  //Is email in system?
   User.getUserByEmail(newUser.email, function (err, user) {
     if (err) throw err;
     if (user) {
       return res.json({ success: false, msg: 'Email already registered' });
     }
 
+    //Is username is system?
     User.getUserByUsername(newUser.username, function (err, user) {
       if (err) throw err;
       if (user) {
         return res.json({ success: false, msg: 'Username already taken' });
       }
 
+      //Add user if the above 2 conditions are false
       User.addUser(newUser, function (err, user) {
         if (err) {
           res.json({ success: false, msg: 'Failed to Register User' });
@@ -76,12 +79,14 @@ router.post('/authenticate', function (req, res, next) {
   const username = req.body.username;
   const password = req.body.password;
 
+  //Does user exist?
   User.getUserByUsername(username, function (err, user) {
     if (err) throw err;
     if (!user) {
       return res.json({ success: false, msg: 'User not found' });
     }
 
+    //Is password correct?
     User.comparePassword(password, user.password, function (err, isMatch) {
       if (err) throw err;
       if (isMatch) {

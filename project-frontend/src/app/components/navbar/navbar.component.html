@@ -1,4 +1,6 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-primary mb-3">
+
+  <!-- Always visible -->
   <div class="container">
     <a class="navbar-brand" [routerLink]="['/']">UWA Pickup Sports Society</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
@@ -19,11 +21,15 @@
 
       <ul class="navbar-nav ml-auto">
 
+        <!-- visible only when not logged in -->
         <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" class="nav-item" [routerLinkActiveOptions]="{exact:true}">
           <a [routerLink]="['/login']" class="nav-link">Login</a>
         </li>
+        <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" class="nav-item" [routerLinkActiveOptions]="{exact:true}">
+          <a [routerLink]="['/register']" class="nav-link">Register</a>
+        </li>
 
-
+        <!-- visible only when logged in -->
         <li *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" class="nav-item dropdown" [routerLinkActiveOptions]="{exact:true}">
           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink">{{authService.getCurrentUserName()}}</a>
           <div class="dropdown-menu">
@@ -34,10 +40,6 @@
         </li>
         <li *ngIf="authService.loggedIn()" class="nav-item">
           <a (click)="onLogoutClick()" href="#" class="nav-link">Logout</a>
-        </li>
-
-        <li *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" class="nav-item" [routerLinkActiveOptions]="{exact:true}">
-          <a [routerLink]="['/register']" class="nav-link">Register</a>
         </li>
       </ul>
     </div>

@@ -17,8 +17,19 @@ export class ValidateService {
     }
   }
 
+  //Ensure all required user fields are present
   validateVoteIdea(voteIdea) {
     if (voteIdea.voteIdeaName == undefined || voteIdea.voteIdeaShortName == undefined || voteIdea.voteIdeaDescription == undefined) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+
+  //Ensure all required user fields are present
+  validateNewIdea(newIdea) {
+    if (newIdea.newIdeaName == undefined || newIdea.newIdeaDescription == undefined) {
       return false;
     }
     else {
@@ -42,6 +53,7 @@ export class ValidateService {
     }
   }
   
+  //Ensure password is more than 8 characters, has a capital and a number
   passwordComplex(email) {
     const complex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
     return complex.test((email));

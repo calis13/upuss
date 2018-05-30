@@ -12,11 +12,13 @@ export class FooterComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    //Ticking Clock
     let timeoutId = setInterval(() =>{
       var time = new Date();
       this.now = ('0' + time.getHours()).substr(-2) + ":" + ('0' + time.getMinutes()).substr(-2) + ":" + ('0' + time.getSeconds()).substr(-2);
     }, 1000);
 
+    //Modified date
     this.modified = new Date();
 }
 

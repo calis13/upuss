@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  //Submit button sends user info to backend for authentication and token
   onLoginSubmit() {
     const user = {
       username: this.username,

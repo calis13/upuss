@@ -15,36 +15,41 @@ export class AuthService {
     private jwtHelperService: JwtHelperService
   ) { }
 
+  //Connects to back end to add new user to db
   registerUser(user) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('users/register', user, { headers: headers })
+    return this.http.post('http://localhost:8080/users/register', user, { headers: headers })
       .pipe(map(res => res.json()));
   }
 
+  //connects to backend to alter existing user details
   updateUser(user) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put('users/update', user, { headers: headers })
+    return this.http.put('http://localhost:8080/users/update', user, { headers: headers })
       .pipe(map(res => res.json()));
   }
 
+  //Checks username and password on login
   authenticateUser(user) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('users/authenticate', user, { headers: headers })
+    return this.http.post('http://localhost:8080/users/authenticate', user, { headers: headers })
       .pipe(map(res => res.json()));
   }
 
+  //Retrieves profiler from backend
   getProfile() {
     let headers = new Headers();
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    return this.http.get('users/profile', { headers: headers })
+    return this.http.get('http://localhost:8080/users/profile', { headers: headers })
       .pipe(map(res => res.json()));
   }
 
+  //Gets username from local storage for display in navbar
   getCurrentUserName(){
     if (localStorage.getItem('user')){
       return JSON.parse(localStorage.getItem('user')).username;
@@ -53,16 +58,8 @@ export class AuthService {
       return "";
     }
   }
-
-  isAdmin(){
-    if (localStorage.getItem('user')){
-      return JSON.parse(localStorage.getItem('user')).isAdmin;
-    }
-    else{
-      return "";
-    }
-  }
   
+  //Stores username and token (1 hour limit)
   storeUserData(token, user) {
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));
@@ -70,6 +67,7 @@ export class AuthService {
     this.user = user;
   }
 
+  //get token 
   loadToken() {
     const token = localStorage.getItem('id_token');
     this.authToken = token;

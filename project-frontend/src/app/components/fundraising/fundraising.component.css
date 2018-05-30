@@ -39,7 +39,7 @@ p {
   height: 60%;
 }
 
-button{
+li button{
   margin-bottom: 100px;
 }
 
@@ -49,4 +49,12 @@ button{
   justify-content: center;
 }
     
+.user{
+  margin-bottom: 150px;
+  margin-top: 50px;
+}
+
+.ideas{
+  margin-bottom: 150px;
+}
   

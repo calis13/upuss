@@ -4,6 +4,7 @@ const config = require('../config/database');
 
 const Schema = mongoose.Schema;
 
+//Schema for current voting options
 const VoteIdeaSchema = new Schema({
   name: {
     type: String,
@@ -23,13 +24,16 @@ const VoteIdeaSchema = new Schema({
   }
 });
 
+
 const VoteIdea = module.exports = mongoose.model('VoteIdea', VoteIdeaSchema);
 
+//Ensures no duplicate short names
 module.exports.getIdeaByShortName = function (shortName, callback) {
   const query = { shortName: shortName }
   VoteIdea.findOne(query, callback);
 }
 
+//Save new idea
 module.exports.addVoteIdea = function (newVoteIdea, callback) {
   newVoteIdea.save(callback);
 }

@@ -60,16 +60,19 @@ module.exports.getUserById = function (id, callback) {
   User.findById(id, callback);
 }
 
+//Prevents duplicates
 module.exports.getUserByUsername = function (username, callback) {
   const query = { username: username }
   User.findOne(query, callback);
 }
 
+//Prevents duplicates
 module.exports.getUserByEmail = function (email, callback) {
   const query = { email: email }
   User.findOne(query, callback);
 }
 
+//Adds new user
 module.exports.addUser = function (newUser, callback) {
   //encrypt password
   bcrypt.genSalt(10, function (err, salt) {
@@ -81,6 +84,7 @@ module.exports.addUser = function (newUser, callback) {
   });
 }
 
+//Ensures password is correct
 module.exports.comparePassword = function (enteredPassword, hash, callback) {
   bcrypt.compare(enteredPassword, hash, function (err, isMatch) {
     if (err) throw err;

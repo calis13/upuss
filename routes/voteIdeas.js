@@ -1,8 +1,43 @@
 const express = require('express');
 const router = express.Router();
+const Pusher = require('pusher');
+dotEnv = require('dotenv').config();
 
 const VoteIdea = require('../models/VoteIdea');
 const config = require('../config/database');
+
+const pusher = new Pusher({
+  appId: '534219',
+  key: '901eb88fc540343e1602',
+  secret: '7911d6518af19e983749',
+  cluster: 'ap1',
+  encrypted: true,
+});
+
+//Voting route
+router.post('/vote', (req, res) => {
+  const { body } = req;
+  const idea = body.name;
+
+  VoteIdea.getIdeaByShortName(idea, function (err, voteUp) {
+    if (err) {
+      return res.json({ success: false, msg: 'Could not find idea' });
+    };
+
+    voteUp.votes = voteUp.votes + 1;
+
+    voteUp.save(function (err) {
+      if (err) {
+        return res.json({ success: false, msg: 'Could not update idea' });
+      }
+
+      pusher.trigger('vote-channel', 'vote',
+        idea,
+      );
+      res.json(idea);
+    });
+  });
+});
 
 //Get Ideas Route
 router.get('/ideas', function (req, res) {
@@ -15,7 +50,6 @@ router.get('/ideas', function (req, res) {
 router.get('/votes', function (req, res) {
   VoteIdea.find().exec((err, ideas) => {
     let votes = Object;
-
     for (i = 0; i < ideas.length; i++) {
       votes[i] = { [ideas[i].shortName]: ideas[i].votes };
     }
@@ -23,7 +57,7 @@ router.get('/votes', function (req, res) {
   });
 });
 
-//New FR Idea Route
+//New Voting Idea Route (ADMIN)
 router.post('/add', function (req, res, next) {
 
   let newVoteIdea = new VoteIdea({

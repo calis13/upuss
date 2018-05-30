@@ -1,5 +1,6 @@
 <h2 class="mb-3">Edit Profile</h2>
 
+<!-- Displays current users details -->
 <div *ngIf="!isEdit && user" class="card card-body mb-3">
   <ul class="list-group mb-3">
     <h3>{{user?.username}}</h3>
@@ -15,6 +16,7 @@
   <button *ngIf="!isEdit" (click)="editProfile()" class="btn btn-dark btn-block">Edit Profile</button>
 </div>
 
+<!-- If Edit is clicked view becomes form for editing -->
 <div *ngIf="isEdit" class="card card-body mb-3">
   <h3>{{user?.username}}</h3>
   <form (submit)="updateProfile()">
@@ -40,7 +42,6 @@
       </select>
     </div>
 
-
     <label class="checkbox-inline">
       <input class="mr-2" type="checkbox" [(ngModel)]="user.interests.basketball" name="basketball" [checked]="user.interests.basketball"> Basketball
     </label>
@@ -62,7 +63,6 @@
     <label class="checkbox-inline ml-3">
       <input type="checkbox" [(ngModel)]="user.interests.afl" name="afl"> AFL
     </label>
-
 
     <input type="hidden" [(ngModel)]="user.id" name="id">
     <button type="submit" class="btn btn-success btn-block">Save Profile</button>

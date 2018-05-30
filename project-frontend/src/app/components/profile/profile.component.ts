@@ -12,7 +12,8 @@ import { FlashMessagesService } from "angular2-flash-messages";
 export class ProfileComponent implements OnInit {
 
   user: Object;
-  universities = ['UWA', 'Curtin', 'Notre Dame', 'Edith Cowan', 'Other', 'None'];
+  //Array populates profile university options
+  universities = ['UWA', 'Curtin', 'Murdoch', 'Notre Dame', 'Edith Cowan', 'Other', 'None'];
   isEdit: boolean = false;
 
   constructor(
@@ -31,6 +32,7 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+  //When edit profile is clicked
   editProfile() {
     this.authService.getProfile().subscribe(profile => {
       this.user = profile.user;
@@ -42,8 +44,8 @@ export class ProfileComponent implements OnInit {
     this.isEdit = true;
   }
 
+  //Update User's database entry through the backend
   updateProfile() {
-    //Update User
     this.authService.updateUser(this.user).subscribe(data => {
       if (data.success) {
         this.flashMessage.show('Profile updated', { cssClass: 'align-top alert alert-success', timeout: 3000 });
@@ -57,6 +59,7 @@ export class ProfileComponent implements OnInit {
     this.isEdit = false;
   }
 
+  //Turns users interests array into a string for display
   getInterests(interests) {
     var ints = [];
     let keys = Object.keys(interests);
