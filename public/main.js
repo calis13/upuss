@@ -620,7 +620,7 @@ var DashboardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "div {\r\n  width: 60%;\r\n  margin: auto;\r\n  text-align: center;\r\n}\r\n \r\nul {\r\n  margin-top: 50px;\r\n    list-style: none;\r\n    padding-left: 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    \r\n}\r\n \r\nli {\r\npadding: 20px;\r\nborder-style: ridge;\r\nmargin-right: 20px;\r\n}\r\n \r\nh4 {\r\n  font-size: 20px;\r\n  opacity: 0.9;\r\n  margin-bottom: 8px;\r\n  font-weight: bold;\r\n  height: 50px;\r\n}\r\n \r\np {\r\n  font-size: 14px;\r\n  opacity: 0.6;\r\n  font-weight: lighter;\r\n  margin: 4px 0;\r\n  height: 60%;\r\n}\r\n \r\nbutton{\r\n  margin-bottom: 100px;\r\n}\r\n \r\n.chart-box{\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n}\r\n    \r\n  "
+module.exports = ".container {\r\n  width: 60%;\r\n  margin: auto;\r\n  text-align: center;\r\n}\r\n\r\n.form-group{\r\n  width:100%;\r\n}\r\n\r\nul {\r\n  margin-top: 50px;\r\n    list-style: none;\r\n    padding-left: 0;\r\n    display: flex;\r\n    justify-content: center;\r\n    \r\n}\r\n\r\nli {\r\npadding: 20px;\r\nborder-style: ridge;\r\nmargin-right: 20px;\r\n}\r\n\r\nh4 {\r\n  font-size: 20px;\r\n  opacity: 0.9;\r\n  margin-bottom: 8px;\r\n  font-weight: bold;\r\n  height: 50px;\r\n}\r\n\r\np {\r\n  font-size: 14px;\r\n  opacity: 0.6;\r\n  font-weight: lighter;\r\n  margin: 4px 0;\r\n  height: 60%;\r\n}\r\n\r\nbutton{\r\n  margin-bottom: 100px;\r\n}\r\n\r\n.chart-box{\r\n  display: flex;\r\n  flex-direction: column;\r\n  justify-content: center;\r\n}\r\n    \r\n  "
 
 /***/ }),
 
@@ -631,7 +631,7 @@ module.exports = "div {\r\n  width: 60%;\r\n  margin: auto;\r\n  text-align: cen
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n  <h2>Vote for your favourite idea</h2>\r\n  <ul>\r\n    <li *ngFor=\"let idea of ideaData\">\r\n      <h4>{{idea.name}}</h4>\r\n      <p>{{idea.description}}</p>\r\n      <button type=\"button\" class=\"btn btn-dark btn-lg\" (click)=\"castVote(idea.name)\" [ngClass]=\"getVoteClasses(idea.shortName)\">Vote!</button>\r\n    </li>\r\n  </ul>\r\n  <div class=\"chart-box\" *ngIf=\"voted\">\r\n    <h2>How others voted</h2>\r\n    <canvas baseChart [data]=\"chartData\" [labels]=\"chartLabels\" [chartType]=\"chartType\">\r\n    </canvas>\r\n  </div>\r\n</div>"
+module.exports = "<div *ngIf=\"user && !user.isAdmin\" class=\"container\">\r\n  <h2>Vote for your favourite idea</h2>\r\n  <ul>\r\n    <li *ngFor=\"let idea of ideaData\">\r\n      <h4>{{idea.name}}</h4>\r\n      <p>{{idea.description}}</p>\r\n      <button *ngIf=\"!voted\" type=\"button\" class=\"btn btn-dark btn-lg\" (click)=\"castVote(idea.shortName)\" [ngClass]=\"getVoteClasses(idea.shortName)\">Vote!</button>\r\n    </li>\r\n  </ul>\r\n  <div class=\"chart-box\" *ngIf=\"voted\">\r\n    <h2>How others voted</h2>\r\n    <canvas baseChart [data]=\"chartData\" [labels]=\"chartLabels\" [chartType]=\"chartType\">\r\n    </canvas>\r\n  </div>\r\n</div>\r\n\r\n<div *ngIf=\"user && user.isAdmin\" class=\"jumbotron\">\r\n    <h2 class=\"page-header mb-5 text-center\">Add Fundraising Idea to Vote</h2>\r\n    <form (submit)=\"onVotingIdeaSubmit()\">\r\n      <div class=\"form-group mb-3 text-left\">\r\n        <label>Name of Fundraising Idea</label>\r\n        <input type=\"text\" [(ngModel)]=\"voteIdeaName\" name=\"voteIdeaName\" class=\"form-control\">\r\n      </div>\r\n      <div class=\"form-group mb-3 text-left\">\r\n        <label>Short Name for Voting</label>\r\n        <input type=\"text\" [(ngModel)]=\"voteIdeaShortName\" name=\"voteIdeaShortName\" class=\"form-control\">\r\n      </div>\r\n      <div class=\"form-group mb-5 text-left\">\r\n        <label>Short Description</label>\r\n        <input type=\"text\" [(ngModel)]=\"voteIdeaDescription\" name=\"voteIdeaDescription\" class=\"form-control\">\r\n      </div>\r\n    \r\n      <input type=\"submit\" class=\"btn btn-block btn-success mt-3\" value=\"Submit\">\r\n      <input type=\"reset\" class=\"btn btn-block btn-danger mt-3\" value=\"Reset\">\r\n    \r\n    </form>\r\n</div>"
 
 /***/ }),
 
@@ -648,6 +648,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _services_pusher_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/pusher.service */ "./src/app/services/pusher.service.ts");
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/auth.service */ "./src/app/services/auth.service.ts");
+/* harmony import */ var _services_voting_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/voting.service */ "./src/app/services/voting.service.ts");
+/* harmony import */ var _services_validate_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/validate.service */ "./src/app/services/validate.service.ts");
+/* harmony import */ var angular2_flash_messages__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! angular2-flash-messages */ "./node_modules/angular2-flash-messages/module/index.js");
+/* harmony import */ var angular2_flash_messages__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(angular2_flash_messages__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -660,49 +666,30 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
+
+
 var FundraisingComponent = /** @class */ (function () {
-    function FundraisingComponent(http, pusher) {
+    function FundraisingComponent(router, flashMessage, validateService, votingService, authService, http, pusher) {
+        this.router = router;
+        this.flashMessage = flashMessage;
+        this.validateService = validateService;
+        this.votingService = votingService;
+        this.authService = authService;
         this.http = http;
         this.pusher = pusher;
         this.event = 'vote';
         this.vote = '';
         this.voted = false;
-        this.ideaData = [
-            {
-                name: 'Raffle',
-                shortName: 'raffle',
-                description: 'We can sell tickets to the local community'
-            },
-            {
-                name: 'Charity Match',
-                shortName: 'football',
-                description: 'Football match with $2 entry tickets',
-            },
-            {
-                name: 'Carwash',
-                shortName: 'cars',
-                description: 'Wash cars for $5 each',
-            },
-            {
-                name: 'Dog Wash',
-                shortName: 'dogs',
-                description: "Everyone loves dogs! Let's wash them for $$$'s!",
-            },
-        ];
-        this.voteCount = {
-            raffle: 0,
-            football: 0,
-            cars: 0,
-            dogs: 0,
-        };
-        this.chartLabels = Object.keys(this.voteCount);
-        this.chartData = Object.values(this.voteCount);
-        this.chartType = 'doughnut';
+        this.arr = Object;
+        this.chartType = 'pie';
     }
     FundraisingComponent.prototype.castVote = function (name) {
         var _this = this;
         this.http
-            .post("vote", { name: name })
+            .post("http://localhost:8080/vote", { name: name })
             .subscribe(function (res) {
             _this.vote = res.name;
             _this.voted = true;
@@ -716,13 +703,80 @@ var FundraisingComponent = /** @class */ (function () {
     };
     FundraisingComponent.prototype.ngOnInit = function () {
         var _this = this;
-        var channel = this.pusher.init();
-        channel.bind('vote', function (_a) {
-            var player = _a.player;
-            _this.voteCount[player] += 1;
+        this.votingService.getIdeas().subscribe(function (currentIdeas) {
+            _this.ideaData = currentIdeas;
+        }, function (err) {
+            console.log(err);
+            return false;
         });
-        // Update the chartData whenever there's a new vote
-        this.chartData = Object.values(this.voteCount);
+        this.votingService.getVotes().subscribe(function (currentVotes) {
+            _this.arr = currentVotes;
+            _this.voteCount = {};
+            for (var i = 0; i < _this.arr.length; i++) {
+                for (var key in _this.arr[i]) {
+                    if (typeof _this.arr[i][key] != 'function') {
+                        _this.voteCount[key] = _this.arr[i][key];
+                    }
+                }
+            }
+            _this.chartLabels = Object.keys(_this.voteCount);
+            _this.chartData = Object.values(_this.voteCount);
+        }, function (err) {
+            console.log(err);
+            return false;
+        });
+        // this.votingService.getShortNames().subscribe(currentShortNames => {
+        //   this.chartLabels = currentShortNames;
+        //   for (var i = 0; i < this.chartData.length; i++) {
+        //     var temp = this.chartLabels[i];
+        //     console.log({[this.chartLabels[i]]:this.chartData[i]});
+        //     this.voteCount.temp = this.chartData[i]; 
+        //   }
+        //   console.log(this.voteCount);
+        // },
+        //   err => {
+        //     console.log(err);
+        //     return false;
+        //   });
+        this.authService.getProfile().subscribe(function (currentUser) {
+            _this.user = currentUser.user;
+        }, function (err) {
+            console.log(err);
+            return false;
+        });
+        var channel = this.pusher.init();
+        channel.bind('vote', function (name) {
+            _this.voteCount[name] += 1;
+            // Update the chartData whenever there's a new vote
+            _this.chartData = Object.values(_this.voteCount);
+        });
+    };
+    FundraisingComponent.prototype.onVotingIdeaSubmit = function () {
+        var _this = this;
+        var voteIdea = {
+            voteIdeaName: this.voteIdeaName,
+            voteIdeaShortName: this.voteIdeaShortName,
+            voteIdeaDescription: this.voteIdeaDescription,
+        };
+        //Required Fields
+        if (!this.validateService.validateVoteIdea(voteIdea)) {
+            this.flashMessage.show('Please fill in all fields', { cssClass: 'align-bottom alert alert-danger', timeout: 3000 });
+            return false;
+        }
+        //Register FR Idea
+        this.votingService.registerVoteIdea(voteIdea).subscribe(function (data) {
+            if (data.success) {
+                _this.flashMessage.show('New Fundraising Idea Added', { cssClass: 'align-top alert alert-success', timeout: 3000 });
+                _this.router.navigate(['/fundraising']);
+                _this.voteIdeaName = '';
+                _this.voteIdeaShortName = '';
+                _this.voteIdeaDescription = '';
+            }
+            else {
+                _this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-danger', timeout: 3000 });
+                _this.router.navigate(['/fundraising']);
+            }
+        });
     };
     FundraisingComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -730,7 +784,12 @@ var FundraisingComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./fundraising.component.html */ "./src/app/components/fundraising/fundraising.component.html"),
             styles: [__webpack_require__(/*! ./fundraising.component.css */ "./src/app/components/fundraising/fundraising.component.css")]
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"],
+            angular2_flash_messages__WEBPACK_IMPORTED_MODULE_6__["FlashMessagesService"],
+            _services_validate_service__WEBPACK_IMPORTED_MODULE_5__["ValidateService"],
+            _services_voting_service__WEBPACK_IMPORTED_MODULE_4__["VotingService"],
+            _services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
             _services_pusher_service__WEBPACK_IMPORTED_MODULE_2__["PusherService"]])
     ], FundraisingComponent);
     return FundraisingComponent;
@@ -956,8 +1015,8 @@ var NavbarComponent = /** @class */ (function () {
     }
     NavbarComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.authService.getProfile().subscribe(function (navbar) {
-            _this.user = navbar.user;
+        this.authService.getProfile().subscribe(function (current) {
+            _this.user = current.user;
         }, function (err) {
             console.log(err);
             return false;
@@ -1070,7 +1129,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 class=\"mb-3\">Edit Profile</h2>\r\n\r\n<div *ngIf=\"!isEdit\" class=\"card card-body mb-3\">\r\n  <ul class=\"list-group mb-3\">\r\n    <h3>{{user?.username}}</h3>\r\n    <li class=\"list-group\">First Name: {{user?.firstName}}</li>\r\n    <li class=\"list-group\">Last Name: {{user?.lastName}}</li>\r\n    <li class=\"list-group\">Email: {{user?.email}}</li>\r\n    <li class=\"list-group\">Date Registered: {{user?.date | date:'dd-MM-yyyy HH:mm:ss'}}</li>\r\n    <li *ngIf=\"user?.age\" class=\"list-group\">Age: {{user?.age}}</li>\r\n    <li *ngIf=\"user?.university\" class=\"list-group\">University: {{user?.university}}</li>\r\n    <li class=\"list-group\">Interests:</li>\r\n    <li class=\"list-group\">{{getInterests(user.interests)}}</li>\r\n  </ul>\r\n  <button *ngIf=\"!isEdit\" (click)=\"editProfile()\" class=\"btn btn-dark btn-block\">Edit Profile</button>\r\n</div>\r\n\r\n<div *ngIf=\"isEdit\" class=\"card card-body mb-3\">\r\n  <h3>{{user?.username}}</h3>\r\n  <form (submit)=\"updateProfile()\">\r\n    <div class=\"form-group\">\r\n      <label>First Name</label>\r\n      <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.firstName\" name=\"firstName\">\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Last Name</label>\r\n      <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.lastName\" name=\"lastName\">\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Email</label>\r\n      <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.email\" name=\"email\">\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label class=\"mr-3 mt-3\">University:</label>\r\n      <select [(ngModel)]=\"user.university\" name=\"university\" id=\"university\">\r\n        <option *ngFor=\"let uni of universities\" [value]=\"uni\">{{uni}}</option>\r\n      </select>\r\n    </div>\r\n\r\n\r\n    <label class=\"checkbox-inline\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.basketball\" name=\"basketball\" [checked]=\"user.interests.basketball\"> Basketball\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.baseball\" name=\"baseball\"> Baseball\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.cricket\" name=\"cricket\"> Cricket\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.softball\" name=\"softball\"> Softball\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.netball\" name=\"netball\"> Netball\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.soccer\" name=\"soccer\"> Soccer\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input type=\"checkbox\" [(ngModel)]=\"user.interests.afl\" name=\"afl\"> AFL\r\n    </label>\r\n\r\n\r\n    <input type=\"hidden\" [(ngModel)]=\"user.id\" name=\"id\">\r\n    <button type=\"submit\" class=\"btn btn-success btn-block\">Save Profile</button>\r\n\r\n  </form>\r\n</div>"
+module.exports = "<h2 class=\"mb-3\">Edit Profile</h2>\r\n\r\n<div *ngIf=\"!isEdit && user\" class=\"card card-body mb-3\">\r\n  <ul class=\"list-group mb-3\">\r\n    <h3>{{user?.username}}</h3>\r\n    <li class=\"list-group\">First Name: {{user?.firstName}}</li>\r\n    <li class=\"list-group\">Last Name: {{user?.lastName}}</li>\r\n    <li class=\"list-group\">Email: {{user?.email}}</li>\r\n    <li class=\"list-group\">Date Registered: {{user?.date | date:'dd-MM-yyyy HH:mm:ss'}}</li>\r\n    <li *ngIf=\"user?.age\" class=\"list-group\">Age: {{user?.age}}</li>\r\n    <li *ngIf=\"user?.university\" class=\"list-group\">University: {{user?.university}}</li>\r\n    <li class=\"list-group\">Interests:</li>\r\n    <li class=\"list-group\">{{getInterests(user.interests)}}</li>\r\n  </ul>\r\n  <button *ngIf=\"!isEdit\" (click)=\"editProfile()\" class=\"btn btn-dark btn-block\">Edit Profile</button>\r\n</div>\r\n\r\n<div *ngIf=\"isEdit\" class=\"card card-body mb-3\">\r\n  <h3>{{user?.username}}</h3>\r\n  <form (submit)=\"updateProfile()\">\r\n    <div class=\"form-group\">\r\n      <label>First Name</label>\r\n      <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.firstName\" name=\"firstName\">\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Last Name</label>\r\n      <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.lastName\" name=\"lastName\">\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Email</label>\r\n      <input type=\"text\" class=\"form-control\" [(ngModel)]=\"user.email\" name=\"email\">\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label class=\"mr-3 mt-3\">University:</label>\r\n      <select [(ngModel)]=\"user.university\" name=\"university\" id=\"university\">\r\n        <option *ngFor=\"let uni of universities\" [value]=\"uni\">{{uni}}</option>\r\n      </select>\r\n    </div>\r\n\r\n\r\n    <label class=\"checkbox-inline\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.basketball\" name=\"basketball\" [checked]=\"user.interests.basketball\"> Basketball\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.baseball\" name=\"baseball\"> Baseball\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.cricket\" name=\"cricket\"> Cricket\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.softball\" name=\"softball\"> Softball\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.netball\" name=\"netball\"> Netball\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input class=\"mr-2\" type=\"checkbox\" [(ngModel)]=\"user.interests.soccer\" name=\"soccer\"> Soccer\r\n    </label>\r\n    <label class=\"checkbox-inline ml-3\">\r\n      <input type=\"checkbox\" [(ngModel)]=\"user.interests.afl\" name=\"afl\"> AFL\r\n    </label>\r\n\r\n\r\n    <input type=\"hidden\" [(ngModel)]=\"user.id\" name=\"id\">\r\n    <button type=\"submit\" class=\"btn btn-success btn-block\">Save Profile</button>\r\n\r\n  </form>\r\n</div>"
 
 /***/ }),
 
@@ -1451,19 +1510,19 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.registerUser = function (user) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('users/register', user, { headers: headers })
+        return this.http.post('http://localhost:8080/users/register', user, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     AuthService.prototype.updateUser = function (user) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.put('users/update', user, { headers: headers })
+        return this.http.put('http://localhost:8080/users/update', user, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     AuthService.prototype.authenticateUser = function (user) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('users/authenticate', user, { headers: headers })
+        return this.http.post('http://localhost:8080/users/authenticate', user, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     AuthService.prototype.getProfile = function () {
@@ -1471,12 +1530,20 @@ var AuthService = /** @class */ (function () {
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
-        return this.http.get('users/profile', { headers: headers })
+        return this.http.get('http://localhost:8080/users/profile', { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     AuthService.prototype.getCurrentUserName = function () {
         if (localStorage.getItem('user')) {
             return JSON.parse(localStorage.getItem('user')).username;
+        }
+        else {
+            return "";
+        }
+    };
+    AuthService.prototype.isAdmin = function () {
+        if (localStorage.getItem('user')) {
+            return JSON.parse(localStorage.getItem('user')).isAdmin;
         }
         else {
             return "";
@@ -1542,8 +1609,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var PusherService = /** @class */ (function () {
     function PusherService() {
-        var pusher = new Pusher('76d42233dc960acca83f', {
-            cluster: 'eu',
+        var pusher = new Pusher('901eb88fc540343e1602', {
+            cluster: 'ap1',
             encrypted: true,
         });
         this.channel = pusher.subscribe('vote-channel');
@@ -1595,6 +1662,14 @@ var ValidateService = /** @class */ (function () {
             return true;
         }
     };
+    ValidateService.prototype.validateVoteIdea = function (voteIdea) {
+        if (voteIdea.voteIdeaName == undefined || voteIdea.voteIdeaShortName == undefined || voteIdea.voteIdeaDescription == undefined) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
     //Ensure email is valid
     ValidateService.prototype.validateEmail = function (email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -1620,6 +1695,76 @@ var ValidateService = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], ValidateService);
     return ValidateService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/voting.service.ts":
+/*!********************************************!*\
+  !*** ./src/app/services/voting.service.ts ***!
+  \********************************************/
+/*! exports provided: VotingService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VotingService", function() { return VotingService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var VotingService = /** @class */ (function () {
+    function VotingService(http) {
+        this.http = http;
+    }
+    //Gets ideas from Voting database
+    VotingService.prototype.getIdeas = function () {
+        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.get('http://localhost:8080/voteIdeas/ideas', { headers: headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
+    };
+    //Gets votes from Voting database
+    VotingService.prototype.getVotes = function () {
+        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.get('http://localhost:8080/voteIdeas/votes', { headers: headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
+    };
+    //Gets Short Names from Voting database
+    VotingService.prototype.getShortNames = function () {
+        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.get('http://localhost:8080/voteIdeas/shortNames', { headers: headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
+    };
+    //Adds new entries to voting database
+    VotingService.prototype.registerVoteIdea = function (voteIdea) {
+        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('http://localhost:8080/voteIdeas/add', voteIdea, { headers: headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
+    };
+    VotingService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_1__["Http"]])
+    ], VotingService);
+    return VotingService;
 }());
 
 
