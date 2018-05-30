@@ -52,7 +52,7 @@ export class FundraisingComponent implements OnInit {
 
   castVote(name) {
     this.http
-      .post(`http://localhost:3000/vote`, { name })
+      .post(`vote`, { name })
       .subscribe((res: any) => {
         this.vote = res.name;
         this.voted = true;

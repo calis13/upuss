@@ -37,12 +37,4 @@ export class ValidateService {
     const complex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
     return complex.test((email));
   }
-
-  // emailInDatabase(email){
-  //   return false;
-  // }
-
-  // usernameInDatabase(email){
-  //   return true;
-  // }
 }
