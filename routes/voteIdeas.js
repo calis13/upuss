@@ -39,6 +39,25 @@ router.post('/vote', (req, res) => {
   });
 });
 
+//Reset route
+router.post('/reset', (req, res) => {
+  const idea = req.body.shortName;
+
+  VoteIdea.getIdeaByShortName(idea, function (err, voteReset) {
+    if (err) {
+      return res.json({ success: false, msg: 'Could not find idea' });
+    };
+
+    voteReset.votes = 0;
+    voteReset.save(function (err) {
+      if (err) {
+        return res.json({ success: false, msg: 'Could not reset votes' });
+      }
+      return res.json({ success: true, msg: 'Votes reset!' });
+    });
+  });
+});
+
 //Get Ideas Route
 router.get('/ideas', function (req, res) {
   VoteIdea.find().exec((err, ideas) => {
@@ -79,6 +98,21 @@ router.post('/add', function (req, res, next) {
       else {
         res.json({ success: true, msg: 'Idea Registered' });
       }
+    });
+  });
+});
+
+//Delete Idea from database
+router.put('/remove', function (req, res, next) {
+  VoteIdea.getIdeaByShortName(req.body.shortName, function (err, deleteIdea) {
+    if (err) {
+      return res.json({ success: false, msg: 'Could not find idea' });
+    };
+    deleteIdea.remove(function (err) {
+      if (err) {
+        return res.json({ success: false, msg: 'Could not delete idea' });
+      }
+      return res.json({ success: true, msg: 'Idea Deleted!' });
     });
   });
 });

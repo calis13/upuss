@@ -14,7 +14,6 @@ ul {
     padding-left: 0;
     display: flex;
     justify-content: center;
-    
 }
 
 li {
@@ -54,7 +53,16 @@ li button{
   margin-top: 50px;
 }
 
-.ideas{
+.admin{
   margin-bottom: 150px;
+}
+
+.admin ul{
+  margin-top: 0px;
+  height: 300px;
+}
+
+.votes{
+  font-size: xx-large
 }
   

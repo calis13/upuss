@@ -36,7 +36,7 @@ router.post('/add', function (req, res, next) {
   });
 });
 
-//Delete Idea from databasde
+//Delete Idea from database
 router.put('/remove', function (req, res, next) {
   NewIdea.getIdeaByName(req.body.name, function (err, deleteIdea) {
     if (err) {

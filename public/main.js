@@ -631,7 +631,7 @@ module.exports = ".container {\r\n  width: 60%;\r\n  margin: auto;\r\n  text-ali
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- User voting section -->\r\n<div *ngIf=\"user && !user.isAdmin\" class=\"container\">\r\n  <h2>Vote for your favourite idea</h2>\r\n  <ul>\r\n    <li *ngFor=\"let idea of ideaData\">\r\n      <h4>{{idea.name}}</h4>\r\n      <p *ngIf=\"!voted\">{{idea.description}}</p>\r\n      <button *ngIf=\"!voted\" type=\"button\" class=\"btn btn-dark btn-lg\" (click)=\"castVote(idea.shortName)\">Vote!</button>\r\n    </li>\r\n  </ul>\r\n  <div class=\"chart-box mb-5 mt-5\" *ngIf=\"voted\">\r\n    <h2>How others voted</h2>\r\n    <canvas baseChart [data]=\"chartData\" [labels]=\"chartLabels\" [chartType]=\"chartType\">\r\n    </canvas>\r\n  </div>\r\n</div>\r\n\r\n<!-- User add fundraiser section -->\r\n<div *ngIf=\"user && !user.isAdmin\" class=\"jumbotron user\">\r\n  <h2 *ngIf=\"!submitted\" class=\"page-header mb-5 text-center\">Suggest a new Fundraising Idea</h2>\r\n  <h2 *ngIf=\"submitted\" class=\"page-header mb-5 text-center\">Thanks for your submission!</h2>\r\n  <form *ngIf=\"!submitted\" (submit)=\"onNewIdeaSubmit()\">\r\n    <div class=\"form-group mb-3 text-left\">\r\n      <label>Name of Fundraising Idea</label>\r\n      <input type=\"text\" [(ngModel)]=\"newIdeaName\" name=\"newIdeaName\" class=\"form-control\">\r\n    </div>\r\n    <div class=\"form-group mb-5 text-left\">\r\n      <label>Short Description</label>\r\n      <input type=\"text\" [(ngModel)]=\"newIdeaDescription\" name=\"newIdeaDescription\" class=\"form-control\">\r\n    </div>\r\n\r\n    <input type=\"submit\" class=\"btn btn-block btn-success mt-3\" value=\"Submit\">\r\n    <input type=\"reset\" class=\"btn btn-block btn-danger mt-3\" value=\"Reset\">\r\n\r\n  </form>\r\n</div>\r\n\r\n<!-- Admin create new vote section -->\r\n<div class=\"chart-box mb-5 mt-5 text-center\" *ngIf=\"user && user.isAdmin\">\r\n  <h2 class=\"mb-3\">Current Votes</h2>\r\n  <canvas baseChart [data]=\"chartData\" [labels]=\"chartLabels\" [chartType]=\"chartType\">\r\n  </canvas>\r\n</div>\r\n\r\n<div *ngIf=\"user && user.isAdmin\" class=\"jumbotron\">\r\n  <h2 class=\"page-header mb-5 text-center\">Add Fundraising Idea to Vote</h2>\r\n  <form (submit)=\"onVotingIdeaSubmit()\">\r\n    <div class=\"form-group mb-3 text-left\">\r\n      <label>Name of Fundraising Idea</label>\r\n      <input type=\"text\" [(ngModel)]=\"voteIdeaName\" name=\"voteIdeaName\" class=\"form-control\">\r\n    </div>\r\n    <div class=\"form-group mb-3 text-left\">\r\n      <label>Short Name for Voting</label>\r\n      <input type=\"text\" [(ngModel)]=\"voteIdeaShortName\" name=\"voteIdeaShortName\" class=\"form-control\">\r\n    </div>\r\n    <div class=\"form-group mb-5 text-left\">\r\n      <label>Short Description</label>\r\n      <input type=\"text\" [(ngModel)]=\"voteIdeaDescription\" name=\"voteIdeaDescription\" class=\"form-control\">\r\n    </div>\r\n\r\n    <input type=\"submit\" class=\"btn btn-block btn-success mt-3\" value=\"Submit\">\r\n    <input type=\"reset\" class=\"btn btn-block btn-danger mt-3\" value=\"Reset\">\r\n\r\n  </form>\r\n</div>\r\n\r\n<!-- Admin view current idea section -->\r\n<div class=\"ideas\" *ngIf=\"user && user.isAdmin\">\r\n  <div class=\"card mb-2\" *ngFor=\"let idea of allIdeas\">\r\n    <div class=\"card-body\">\r\n      <h3>{{idea.name}}</h3>\r\n      <p>{{idea.description}}</p>\r\n      <hr>\r\n      <button (click)=\"removeIdea(idea)\" class=\"btn btn-danger mr-2\">\r\n        <i class=\"fa fa-remove\"></i>\r\n      </button>\r\n      <button (click)=\"editIdea(idea)\" class=\"btn btn-success\">\r\n        <i class=\"fa fa-pencil\"></i>\r\n      </button>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<!-- User voting section -->\r\n<div *ngIf=\"user && !user.isAdmin\" class=\"container\">\r\n  <h2>Vote for your favourite idea</h2>\r\n  <ul>\r\n    <li *ngFor=\"let idea of ideaData\">\r\n      <h4>{{idea.name}}</h4>\r\n      <p *ngIf=\"!voted\">{{idea.description}}</p>\r\n      <button *ngIf=\"!voted\" type=\"button\" class=\"btn btn-dark btn-lg\" (click)=\"castVote(idea.shortName)\">Vote!</button>\r\n    </li>\r\n  </ul>\r\n  <div class=\"chart-box mb-5 mt-5\" *ngIf=\"voted\">\r\n    <h2>How others voted</h2>\r\n    <canvas baseChart [data]=\"chartData\" [labels]=\"chartLabels\" [chartType]=\"chartType\">\r\n    </canvas>\r\n  </div>\r\n</div>\r\n\r\n<!-- User add fundraiser section -->\r\n<div *ngIf=\"user && !user.isAdmin\" class=\"jumbotron user\">\r\n  <h2 *ngIf=\"!submitted\" class=\"page-header mb-5 text-center\">Suggest a new Fundraising Idea</h2>\r\n  <h2 *ngIf=\"submitted\" class=\"page-header mb-5 text-center\">Thanks for your submission!</h2>\r\n  <form *ngIf=\"!submitted\" (submit)=\"onNewIdeaSubmit()\">\r\n    <div class=\"form-group mb-3 text-left\">\r\n      <label>Name of Fundraising Idea</label>\r\n      <input type=\"text\" [(ngModel)]=\"newIdeaName\" name=\"newIdeaName\" class=\"form-control\">\r\n    </div>\r\n    <div class=\"form-group mb-5 text-left\">\r\n      <label>Short Description</label>\r\n      <input type=\"text\" [(ngModel)]=\"newIdeaDescription\" name=\"newIdeaDescription\" class=\"form-control\">\r\n    </div>\r\n\r\n    <input type=\"submit\" class=\"btn btn-block btn-success mt-3\" value=\"Submit\">\r\n    <input type=\"reset\" class=\"btn btn-block btn-danger mt-3\" value=\"Reset\">\r\n\r\n  </form>\r\n</div>\r\n\r\n<!-- Admin create new vote section -->\r\n<div class=\"admin\" *ngIf=\"user && user.isAdmin\">\r\n  <div class=\"chart-box mb-5 mt-5 text-center\">\r\n    <h2 class=\"mb-3\">Current Votes</h2>\r\n    <canvas baseChart [data]=\"chartData\" [labels]=\"chartLabels\" [chartType]=\"chartType\">\r\n    </canvas>\r\n  </div>\r\n\r\n  <div class=\"jumbotron\">\r\n    <h2 class=\"page-header mb-5 text-center\">Add Fundraising Idea to Vote</h2>\r\n    <form (submit)=\"onVotingIdeaSubmit()\">\r\n      <div class=\"form-group mb-3 text-left\">\r\n        <label>Name of Fundraising Idea</label>\r\n        <input type=\"text\" [(ngModel)]=\"voteIdeaName\" name=\"voteIdeaName\" class=\"form-control\">\r\n      </div>\r\n      <div class=\"form-group mb-3 text-left\">\r\n        <label>Short Name for Voting</label>\r\n        <input type=\"text\" [(ngModel)]=\"voteIdeaShortName\" name=\"voteIdeaShortName\" class=\"form-control\">\r\n      </div>\r\n      <div class=\"form-group mb-5 text-left\">\r\n        <label>Short Description</label>\r\n        <input type=\"text\" [(ngModel)]=\"voteIdeaDescription\" name=\"voteIdeaDescription\" class=\"form-control\">\r\n      </div>\r\n\r\n      <input type=\"submit\" class=\"btn btn-block btn-success mt-3\" value=\"Submit\">\r\n      <input type=\"reset\" class=\"btn btn-block btn-danger mt-3\" value=\"Reset\">\r\n\r\n    </form>\r\n  </div>\r\n\r\n  <!-- Admin view current idea section -->\r\n  <div>\r\n    <div class=\"card mb-2\" *ngFor=\"let idea of allIdeas\">\r\n      <div class=\"card-body\">\r\n        <h3>{{idea.name}}</h3>\r\n        <p>{{idea.description}}</p>\r\n        <hr>\r\n        <button (click)=\"removeIdea(idea)\" class=\"btn btn-danger mr-2\">\r\n          <i class=\"fa fa-remove\"></i>\r\n        </button>\r\n        <button (click)=\"editIdea(idea)\" class=\"btn btn-success\">\r\n          <i class=\"fa fa-pencil\"></i>\r\n        </button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -691,7 +691,7 @@ var FundraisingComponent = /** @class */ (function () {
     FundraisingComponent.prototype.castVote = function (name) {
         var _this = this;
         this.http
-            .post("voteIdeas/vote", { name: name })
+            .post("http://localhost:8080/voteIdeas/vote", { name: name })
             .subscribe(function (res) {
             _this.vote = res.name;
             _this.voted = true;
@@ -1557,21 +1557,21 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.registerUser = function (user) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('users/register', user, { headers: headers })
+        return this.http.post('http://localhost:8080/users/register', user, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     //connects to backend to alter existing user details
     AuthService.prototype.updateUser = function (user) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.put('users/update', user, { headers: headers })
+        return this.http.put('http://localhost:8080/users/update', user, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     //Checks username and password on login
     AuthService.prototype.authenticateUser = function (user) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('users/authenticate', user, { headers: headers })
+        return this.http.post('http://localhost:8080/users/authenticate', user, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     //Retrieves profiler from backend
@@ -1580,7 +1580,7 @@ var AuthService = /** @class */ (function () {
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
-        return this.http.get('users/profile', { headers: headers })
+        return this.http.get('http://localhost:8080/users/profile', { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     //Gets username from local storage for display in navbar
@@ -1790,49 +1790,49 @@ var VotingService = /** @class */ (function () {
     VotingService.prototype.removeIdea = function (idea) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.put('newIdeas/remove', idea, { headers: headers })
+        return this.http.put('http://localhost:8080/newIdeas/remove', idea, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     //Get ALL ideas for admin to view
     VotingService.prototype.getAllIdeas = function () {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get('newIdeas/ideas', { headers: headers })
+        return this.http.get('http://localhost:8080/newIdeas/ideas', { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     //Gets ideas from Voting database
     VotingService.prototype.getIdeas = function () {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get('voteIdeas/ideas', { headers: headers })
+        return this.http.get('http://localhost:8080/voteIdeas/ideas', { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     //Gets votes from Voting database
     VotingService.prototype.getVotes = function () {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get('voteIdeas/votes', { headers: headers })
+        return this.http.get('http://localhost:8080/voteIdeas/votes', { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     //Gets Short Names from Voting database
     VotingService.prototype.getShortNames = function () {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get('voteIdeas/shortNames', { headers: headers })
+        return this.http.get('http://localhost:8080/voteIdeas/shortNames', { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     //Comm with back end and adds new entries to current voting database (ADMIN)
     VotingService.prototype.registerVoteIdea = function (voteIdea) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('voteIdeas/add', voteIdea, { headers: headers })
+        return this.http.post('http://localhost:8080/voteIdeas/add', voteIdea, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     //Comm with back end and adds new entries to voting future ideas database (USER)
     VotingService.prototype.registerNewIdea = function (newIdea) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('newIdeas/add', newIdea, { headers: headers })
+        return this.http.post('http://localhost:8080/newIdeas/add', newIdea, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     VotingService = __decorate([

@@ -29,6 +29,8 @@ import { AuthService } from './services/auth.service';
 
 //Guards
 import { AuthGuard } from './guards/auth.guard';
+import { DaveComponent } from './dave/dave.component';
+import { AngusComponent } from './angus/angus.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -38,6 +40,8 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard] },
   { path: 'about', component: AboutComponent },
   { path: 'fundraising', component: FundraisingComponent, canActivate:[AuthGuard] },
+  { path: 'angus', component: AngusComponent },
+  { path: 'dave', component: DaveComponent },
   { path: '**', component: NotFoundComponent }
 ];
 
@@ -53,7 +57,9 @@ const routes: Routes = [
     NotFoundComponent,
     AboutComponent,
     FundraisingComponent,
-    FooterComponent
+    FooterComponent,
+    DaveComponent,
+    AngusComponent
   ],
   imports: [
     ChartsModule,

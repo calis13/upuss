@@ -14,9 +14,15 @@
         <li [routerLinkActive]="['active']" class="nav-item" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link" [routerLink]="['/']">Home</a>
         </li>
-        <li [routerLinkActive]="['active']" class="nav-item" [routerLinkActiveOptions]="{exact:true}">
-          <a class="nav-link" [routerLink]="['/about']">About</a>
-        </li>
+        
+        <li [routerLinkActive]="['active']" class="nav-item dropdown" [routerLinkActiveOptions]="{exact:true}">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink">About</a>
+            <div class="dropdown-menu">
+              <a [routerLink]="['/about']" class="dropdown-item">The Project</a>
+              <a [routerLink]="['/angus']" class="dropdown-item">Angus Wylie</a>
+              <a [routerLink]="['/dave']" class="dropdown-item">David Weight</a>
+            </div>
+          </li>
       </ul>
 
       <ul class="navbar-nav ml-auto">
@@ -38,9 +44,11 @@
             <a [routerLink]="['/fundraising']" class="dropdown-item">Fundraising</a>
           </div>
         </li>
+
         <li *ngIf="authService.loggedIn()" class="nav-item">
           <a (click)="onLogoutClick()" href="#" class="nav-link">Logout</a>
         </li>
+
       </ul>
     </div>
   </div>

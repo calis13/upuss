@@ -24,6 +24,9 @@ export class FundraisingComponent implements OnInit {
     private pusher: PusherService
   ) { }
 
+  showCurrentVotes = false;
+  showNewVotes = false;
+
   user: Object;
   event = 'vote';
   vote = '';
@@ -36,28 +39,21 @@ export class FundraisingComponent implements OnInit {
   shortNames: String[];
   arr = Object;
 
-  // voteIdea: Object;
   voteIdeaName: String;
   voteIdeaShortName: String;
   voteIdeaDescription: String;
 
-  // newIdea: Object;
   newIdeaName: String;
   newIdeaDescription: String;
+
+  currentEditIdea: Object;
+  currentEditIdeaName: String;
+  currentEditIdeaShortName: String;
+  currentEditIdeaDescription: String;
 
   chartData: number[];
   chartLabels: string[];
   chartType = 'pie';
-
-  //User votes for an idea, goes to voteIdeas route
-  castVote(name) {
-    this.http
-      .post(`voteIdeas/vote`, { name })
-      .subscribe((res: any) => {
-        this.vote = res.name;
-        this.voted = true;
-      });
-  }
 
   ngOnInit() {
     //Get proposed ideas to show admin
@@ -87,7 +83,6 @@ export class FundraisingComponent implements OnInit {
       }
       this.chartLabels = Object.keys(this.voteCount);
       this.chartData = Object.values(this.voteCount);
-
     },
       err => {
         console.log(err);
@@ -112,7 +107,37 @@ export class FundraisingComponent implements OnInit {
     });
   }
 
+  //User votes for an idea, goes to voteIdeas route
+  castVote(name) {
+    this.http
+      .post(`http://localhost:8080/voteIdeas/vote`, { name })
+      .subscribe((res: any) => {
+        this.vote = res.name;
+        this.voted = true;
+      });
+  }
+
+  showCurrentVote() {
+    this.showCurrentVotes = true;
+    this.showNewVotes = false;
+  }
+
+  showNewVote() {
+    this.showCurrentVotes = false;
+    this.showNewVotes = true;
+  }
+
+  //Sets fields in new idea form to selected edit
+  editIdea(idea) {
+    window.scrollTo(0, 0);
+    this.currentEditIdeaName = idea.name;
+    this.currentEditIdeaShortName = idea.shortName;
+    this.currentEditIdeaDescription = idea.description;
+
+  }
+
   removeIdea(idea) {
+    window.scrollTo(0, 0);
     // maybe replace this with a better warning if I get time
     if (confirm('Are you sure?')) {
       this.votingService.removeIdea(idea).subscribe(data => {
@@ -132,13 +157,59 @@ export class FundraisingComponent implements OnInit {
     }
   }
 
+  removeCurrentIdea(idea) {
+    // maybe replace this with a better warning if I get time
+    if (confirm('Are you sure?')) {
+      window.scrollTo(0, 0);
+      this.votingService.removeCurrentIdea(idea).subscribe(data => {
+        if (data.success) {
+          //Refreshes ideas to populate voting options
+          this.votingService.getIdeas().subscribe(currentIdeas => {
+            this.ideaData = currentIdeas;
+          });
+
+          this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-success', timeout: 3000 });
+          this.router.navigate(['/fundraising']);
+        }
+        else {
+          this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-danger', timeout: 3000 });
+          this.router.navigate(['/fundraising']);
+        }
+      });
+    }
+  }
+
+  resetVotes(idea) {
+    // maybe replace this with a better warning if I get time
+    if (confirm('Are you sure?')) {
+      window.scrollTo(0, 0);
+      this.votingService.resetVotes(idea).subscribe(data => {
+        if (data.success) {
+          //Refreshes ideas to populate voting options
+          this.votingService.getIdeas().subscribe(currentIdeas => {
+            this.ideaData = currentIdeas;
+          });
+
+          this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-success', timeout: 3000 });
+          this.router.navigate(['/fundraising']);
+        }
+        else {
+          this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-danger', timeout: 3000 });
+          this.router.navigate(['/fundraising']);
+        }
+      });
+    }
+  }
+
   //Admin Register Voting Ideas
   onVotingIdeaSubmit() {
+    window.scrollTo(0, 0);
     const voteIdea = {
-      voteIdeaName: this.voteIdeaName,
-      voteIdeaShortName: this.voteIdeaShortName,
-      voteIdeaDescription: this.voteIdeaDescription,
+      voteIdeaName: this.currentEditIdeaName,
+      voteIdeaShortName: this.currentEditIdeaShortName,
+      voteIdeaDescription: this.currentEditIdeaDescription,
     }
+    console.log(voteIdea);
 
     //Required Fields
     if (!this.validateService.validateVoteIdea(voteIdea)) {
@@ -151,9 +222,13 @@ export class FundraisingComponent implements OnInit {
       if (data.success) {
         this.flashMessage.show('New Fundraising Idea Added', { cssClass: 'align-top alert alert-success', timeout: 3000 });
         this.router.navigate(['/fundraising']);
-        this.voteIdeaName = '';
-        this.voteIdeaShortName = '';
-        this.voteIdeaDescription = '';
+        this.currentEditIdeaName = '';
+        this.currentEditIdeaShortName = '';
+        this.currentEditIdeaDescription = '';
+        //Refreshes ideas to populate voting options
+        this.votingService.getIdeas().subscribe(currentIdeas => {
+          this.ideaData = currentIdeas;
+        });
       }
       else {
         this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-danger', timeout: 3000 });
@@ -164,6 +239,7 @@ export class FundraisingComponent implements OnInit {
 
   //User Register NEW Idea
   onNewIdeaSubmit() {
+    window.scrollTo(0, 0);
     const newIdea = {
       newIdeaName: this.newIdeaName,
       newIdeaDescription: this.newIdeaDescription,
