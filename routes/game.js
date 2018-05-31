@@ -5,8 +5,8 @@ const Game = require('../models/Game');
 const GamePlayers = require('../models/GamePlayers');
 const config = require('../config/database');
 
-//Get All Games Route for admin
-router.get('/games', function (req, res) {
+//Get All Games Route for Admin page
+router.get('/getGames', function (req, res) {
   Game.find().exec((err, allGames) => {
     res.json(allGames);
   });
@@ -16,6 +16,13 @@ router.get('/games', function (req, res) {
 router.get('/gameAvailable', function (req, res) {
   Game.find({ $or: [{ playersRequired: { $gt: 0 } }, { refereesRequired: { $gt: 0 } }] }).exec((err, availableGames) => {
     res.json(availableGames);
+  });
+});
+
+//Get All Game Players Route for views
+router.get('/gamesPlayers', function (req, res) {
+  GamePlayers.find().exec((err, allPlayers) => {
+    res.json(allPlayers);
   });
 });
 
@@ -156,3 +163,5 @@ router.post('/joinGame', function (req, res, next) {
     });
   });
 });
+
+module.exports = router;

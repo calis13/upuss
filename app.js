@@ -25,6 +25,7 @@ const app = express();
 const users = require('./routes/users');
 const newIdeas = require('./routes/newIdeas');
 const voteIdeas = require('./routes/voteIdeas');
+const game = require('./routes/game');
 
 const port = process.env.PORT || 8080;
 
@@ -55,6 +56,8 @@ app.use('/users', users);
 //Ideas routes
 app.use('/newIdeas', newIdeas);
 app.use('/voteIdeas', voteIdeas);
+
+app.use('/game', game);
 
 //Index Route
 app.get('*', function (req, res) {

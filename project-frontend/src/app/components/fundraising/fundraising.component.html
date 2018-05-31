@@ -77,7 +77,7 @@
     <h1 class="mb-5 text-center">Prepare a new Vote</h1>
     <div class="jumbotron">
       <h2 class="page-header mb-5 text-center">Add Fundraising Idea to Vote</h2>
-      <form (submit)="onVotingIdeaSubmit()">
+      <form (submit)="onVotingIdeaSubmit(user)">
         <div class="form-group mb-3 text-left">
           <label>Name of Fundraising Idea</label>
           <input type="text" [(ngModel)]="currentEditIdeaName" name="currentEditIdeaName" class="form-control">

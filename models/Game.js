@@ -28,11 +28,11 @@ const GameSchema = new Schema({
   },
   refereesRequired: {
     type: Number,
-    required
+    required: true
   },
   dateTime: {
     type: String,
-    required
+    required:true
   }
 });
 

@@ -37,6 +37,16 @@ export class ValidateService {
     }
   }
 
+    //Ensure all required user fields are present
+    validateNewGame(newGame) {
+      if (newGame.newGameAdminUsername == undefined || newGame.newGameSport == undefined || newGame.newGameVenue == undefined || newGame.newGameDescription == undefined || newGame.newGameplayersRequired == undefined || newGame.newGamerefereesRequired == undefined || newGame.newGamedateTime == undefined) {
+        return false;
+      }
+      else {
+        return true;
+      }
+    }      
+
   //Ensure email is valid
   validateEmail(email) {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
