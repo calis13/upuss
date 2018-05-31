@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import {ChartsModule} from 'ng2-Charts';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 //Components
 import { AppComponent } from './app.component';
@@ -19,20 +20,21 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AboutComponent } from './components/about/about.component';
 import { FundraisingComponent } from './components/fundraising/fundraising.component';
-import { FooterComponent } from './footer/footer.component';
-import { FlashMessagesModule } from 'angular2-flash-messages';
+import { FooterComponent } from './components/footer/footer.component';
+import { DaveComponent } from './components/dave/dave.component';
+import { AngusComponent } from './components/angus/angus.component';
+import { ReferencesComponent } from './components/references/references.component';
+import { ArchitectureComponent } from './components/architecture/architecture.component';
 
 //Services
 import { PusherService } from './services/pusher.service';
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
+import { VotingService } from './services/voting.service';
+import { GamesService } from './services/games.service';
 
 //Guards
 import { AuthGuard } from './guards/auth.guard';
-import { DaveComponent } from './dave/dave.component';
-import { AngusComponent } from './angus/angus.component';
-import { ReferencesComponent } from './references/references.component';
-import { ArchitectureComponent } from './architecture/architecture.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },

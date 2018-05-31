@@ -68,6 +68,7 @@ export class FundraisingComponent implements OnInit {
     //Gets ideas to populate voting options
     this.votingService.getIdeas().subscribe(currentIdeas => {
       this.ideaData = currentIdeas;
+      console.log(this.ideaData);
     },
       err => {
         console.log(err);
@@ -143,49 +144,44 @@ export class FundraisingComponent implements OnInit {
   removeIdea(idea) {
     window.scrollTo(0, 0);
     // maybe replace this with a better warning if I get time
-    if (confirm('Are you sure?')) {
-      this.votingService.removeIdea(idea).subscribe(data => {
-        if (data.success) {
-          //Get proposed ideas to show admin
-          this.votingService.getAllIdeas().subscribe(allIdeas => {
-            this.allIdeas = allIdeas;
-          });
-          this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-success', timeout: 3000 });
-          this.router.navigate(['/fundraising']);
-        }
-        else {
-          this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-danger', timeout: 3000 });
-          this.router.navigate(['/fundraising']);
-        }
-      });
-    }
+    this.votingService.removeIdea(idea).subscribe(data => {
+      if (data.success) {
+        //Get proposed ideas to show admin
+        this.votingService.getAllIdeas().subscribe(allIdeas => {
+          this.allIdeas = allIdeas;
+        });
+        this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-success', timeout: 3000 });
+        this.router.navigate(['/fundraising']);
+      }
+      else {
+        this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-danger', timeout: 3000 });
+        this.router.navigate(['/fundraising']);
+      }
+    });
   }
 
   removeCurrentIdea(idea) {
     // maybe replace this with a better warning if I get time
-    if (confirm('Are you sure?')) {
-      window.scrollTo(0, 0);
-      this.votingService.removeCurrentIdea(idea).subscribe(data => {
-        if (data.success) {
-          //Refreshes ideas to populate voting options
-          this.votingService.getIdeas().subscribe(currentIdeas => {
-            this.ideaData = currentIdeas;
-          });
+    window.scrollTo(0, 0);
+    this.votingService.removeCurrentIdea(idea).subscribe(data => {
+      if (data.success) {
+        //Refreshes ideas to populate voting options
+        this.votingService.getIdeas().subscribe(currentIdeas => {
+          this.ideaData = currentIdeas;
+        });
 
-          this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-success', timeout: 3000 });
-          this.router.navigate(['/fundraising']);
-        }
-        else {
-          this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-danger', timeout: 3000 });
-          this.router.navigate(['/fundraising']);
-        }
-      });
-    }
+        this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-success', timeout: 3000 });
+        this.router.navigate(['/fundraising']);
+      }
+      else {
+        this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-danger', timeout: 3000 });
+        this.router.navigate(['/fundraising']);
+      }
+    });
   }
 
   resetVotes(idea) {
     // maybe replace this with a better warning if I get time
-    if (confirm('Are you sure?')) {
       window.scrollTo(0, 0);
       this.votingService.resetVotes(idea).subscribe(data => {
         if (data.success) {
@@ -202,7 +198,6 @@ export class FundraisingComponent implements OnInit {
           this.router.navigate(['/fundraising']);
         }
       });
-    }
   }
 
   //Admin Register Voting Ideas

@@ -63,10 +63,10 @@
         <p class="font-weight-bold">Short Name: {{currentIdea.shortName}}</p>
         <p>{{currentIdea.description}}</p>
         <hr>
-        <button (click)="removeCurrentIdea(currentIdea)" class="btn btn-danger mr-2">
+        <button (click)="removeCurrentIdea(currentIdea)" class="btn btn-danger mr-2 w-25">
           <i class="fa fa-remove p-2"></i>Delete
         </button>
-        <button (click)="resetVotes(currentIdea)" class="btn btn-success">
+        <button (click)="resetVotes(currentIdea)" class="btn btn-warning w-25">
           <i class="fa fa-refresh p-2"></i>Reset Votes
         </button>
       </div>

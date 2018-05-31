@@ -70,7 +70,7 @@ router.put('/update', function (req, res, next) {
         return res.json({ success: false, msg: 'Could not update user' });
       }
       return res.json({ success: true, msg: 'Profile Updated' });
-    })
+    });
   });
 });
 

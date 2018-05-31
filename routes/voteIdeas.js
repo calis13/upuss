@@ -39,7 +39,7 @@ router.post('/vote', (req, res) => {
   });
 });
 
-//Reset route
+//Vote Reset route
 router.post('/reset', (req, res) => {
   const idea = req.body.shortName;
 
