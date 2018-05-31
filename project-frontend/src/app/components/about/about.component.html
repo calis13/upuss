@@ -1,1 +1,29 @@
-ABOUT OUR PROJECT GOES HERE
+<div class="jumbotron">
+  <h1 class="display-3 mb-5">Voting</h1>
+  <ul>
+    <li>The voting portion of our website can be found in the user dropdown once logged in under Fundraising.</li>
+    <li>There are 2 separate databases linked to this section</li>
+    <ul>
+      <li>There is a current voting database which allows users and admins to see what the current voting ideas status is</li>
+      <li>There is also a New Idea database that allows users to suggest ideas for forthcoming events</li>
+      <li>Both these databases have validation in the back end to ensure duplicate names and short names are not suggested</li>
+    </ul>
+    <li>In the user model the is an attribute 'isAdmin', this is only set to true by the users who run the site and can be manually
+      adjusted in mLab only.</li>
+    <li>As an admin the user has different options to the regular users</li>
+    <ul>
+      <li>Under Current Votes they can see the current tally of user votes and select a winner</li>
+      <li>Below this section they have the ability to delete current voting options entirely</li>
+      <li>They can also reset votes so the idea can be used again</li>
+      <li>By selecting New Vote they can populate the Current Voting options with a brand new idea</li>
+      <li>Alternatively they can browse suggested ideas below and either delete or edit them - editing pulls the details up into
+        the form for submission</li>
+    </ul>
+    <li>Users have much less control over the databases</li>
+    <ul>
+      <li>They can vote for one of the current ideas suggested by the admins</li>
+      <li>Once voted they get to see a graph of the current voting status</li>
+      <li>They can also suggest a new idea for forthcoming events</li>
+    </ul>
+  </ul>
+</div>

@@ -31,6 +31,8 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { DaveComponent } from './dave/dave.component';
 import { AngusComponent } from './angus/angus.component';
+import { ReferencesComponent } from './references/references.component';
+import { ArchitectureComponent } from './architecture/architecture.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -42,6 +44,8 @@ const routes: Routes = [
   { path: 'fundraising', component: FundraisingComponent, canActivate:[AuthGuard] },
   { path: 'angus', component: AngusComponent },
   { path: 'dave', component: DaveComponent },
+  { path: 'references', component: ReferencesComponent },
+  { path: 'architecture', component: ArchitectureComponent },
   { path: '**', component: NotFoundComponent }
 ];
 
@@ -59,7 +63,9 @@ const routes: Routes = [
     FundraisingComponent,
     FooterComponent,
     DaveComponent,
-    AngusComponent
+    AngusComponent,
+    ReferencesComponent,
+    ArchitectureComponent
   ],
   imports: [
     ChartsModule,
