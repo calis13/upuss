@@ -1,12 +1,12 @@
 <!-- User voting section -->
 <div class="user" *ngIf="user && !user.isAdmin">
   <div class="container">
-    <h2>Vote for your favourite idea</h2>
+    <h2 *ngIf="!voted">Vote for your favourite idea</h2>
     <ul *ngIf="!voted">
       <li *ngFor="let idea of ideaData">
         <h4>{{idea.name}}</h4>
         <p>{{idea.description}}</p>
-        <button *ngIf="!voted" type="button" class="btn btn-dark btn-lg" (click)="castVote(idea.shortName)">Vote!</button>
+        <button type="button" class="btn btn-dark btn-lg" (click)="castVote(idea.shortName)">Vote!</button>
       </li>
     </ul>
     <div class="chart-box mb-5 mt-5" *ngIf="voted">

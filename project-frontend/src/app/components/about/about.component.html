@@ -1,4 +1,16 @@
 <div class="jumbotron">
+  <h1 class="display-3 mb-5">Login and Profile</h1>
+  <ul>
+    <li>When users register their passwords are confirmed as matching and complex. This new user is then checked in the backend
+      to ensure no duplicate usernames or emails are registered</li>
+    <li>Once registered users are prompted to login with their new credentials</li>
+    <li>On login the username and a token are saved in local storage. This token is valid for 1 hour, after which time the user
+      will need to log back in</li>
+    <li>The profile is displayed as a list of current values from the database</li>
+    <li>The interests are retrieved as an Object of boolean key pairs that are converted into an array and displayed as a string</li>
+    <li>When user clicks edit a form is revealed that allows user to alter their profile and select new interests</li>
+    <li>On save this is updated in the back end and the new data is displayed</li>
+  </ul>
   <h1 class="display-3 mb-5">Voting</h1>
   <ul>
     <li>The voting portion of our website can be found in the user dropdown once logged in under Fundraising.</li>

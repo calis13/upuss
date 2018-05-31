@@ -59,7 +59,11 @@ export class FundraisingComponent implements OnInit {
     //Get proposed ideas to show admin
     this.votingService.getAllIdeas().subscribe(allIdeas => {
       this.allIdeas = allIdeas;
-    });
+    },
+      err => {
+        console.log(err);
+        return false;
+      });
 
     //Gets ideas to populate voting options
     this.votingService.getIdeas().subscribe(currentIdeas => {
@@ -209,7 +213,6 @@ export class FundraisingComponent implements OnInit {
       voteIdeaShortName: this.currentEditIdeaShortName,
       voteIdeaDescription: this.currentEditIdeaDescription,
     }
-    console.log(voteIdea);
 
     //Required Fields
     if (!this.validateService.validateVoteIdea(voteIdea)) {
