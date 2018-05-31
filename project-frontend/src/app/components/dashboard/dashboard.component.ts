@@ -18,24 +18,28 @@ export class DashboardComponent implements OnInit {
   displayMine: boolean = false;
   displayForm: boolean = false;
   displayEdit: boolean = false;
+  detailedView: boolean = false;
 
   //Filters game types on selection
   filter: String = 'all';
 
   allIdeas: Object;
+  username: String;
   user: Object;
   allGames: Object;
   availableGames: Object;
   allPlayers: Object;
   currentGame: Object;
+  detailedGame: Object;
 
-  newGameAdminUsername: Object;
-  newGameSport: Object;
-  newGameVenue: Object;
-  newGameDescription: Object;
-  newGameplayersRequired: Object;
-  newGamerefereesRequired: Object;
-  newGamedateTime: Object;
+  newGameAdminEmail: String;
+  newGameAdminUsername: String;
+  newGameSport: String;
+  newGameVenue: String;
+  newGameDescription: String;
+  newGamePlayersRequired: String;
+  newGameRefereesRequired: String;
+  newGameDateTime: String;
 
   constructor(
     private router: Router,
@@ -46,15 +50,6 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //Get proposed ideas to show admin
-    this.gamesService.getAllGames().subscribe(allGames => {
-      this.allGames = allGames;
-    },
-      err => {
-        console.log(err);
-        return false;
-      });
-
     //Get ALL games to show admin
     this.gamesService.getAllGames().subscribe(allGames => {
       this.allGames = allGames;
@@ -85,6 +80,7 @@ export class DashboardComponent implements OnInit {
     //Gets current profile
     this.authService.getProfile().subscribe(currentUser => {
       this.user = currentUser.user;
+      this.username = currentUser.user.username;
     },
       err => {
         console.log(err);
@@ -153,20 +149,25 @@ export class DashboardComponent implements OnInit {
   //Admin Register Voting Ideas
   onGameSubmit(user) {
     window.scrollTo(0, 0);
-
     const newGame = {
       newGameAdminUsername: user.username,
+      newGameAdminEmail: user.email,
       newGameSport: this.newGameSport,
       newGameVenue: this.newGameVenue,
       newGameDescription: this.newGameDescription,
-      newGameplayersRequired: this.newGameplayersRequired,
-      newGamerefereesRequired: this.newGamerefereesRequired,
-      newGamedateTime: this.newGamedateTime,
+      newGamePlayersRequired: this.newGamePlayersRequired,
+      newGameRefereesRequired: this.newGameRefereesRequired,
+      newGameDateTime: this.newGameDateTime,
     }
-
     //Required Fields
     if (!this.validateService.validateNewGame(newGame)) {
       this.flashMessage.show('Please fill in all fields', { cssClass: 'align-bottom alert alert-danger', timeout: 3000 });
+      return false;
+    }
+
+    //Validate Date
+    if (!this.validateService.validateDate(newGame.newGameDateTime)) {
+      this.flashMessage.show('Please enter date and time dd/mm/yyyy hh:mm', { cssClass: 'align-top alert alert-danger', timeout: 5000 });
       return false;
     }
 
@@ -174,19 +175,106 @@ export class DashboardComponent implements OnInit {
     this.gamesService.addNewGame(newGame).subscribe(data => {
       if (data.success) {
         this.flashMessage.show('New Game Added', { cssClass: 'align-top alert alert-success', timeout: 3000 });
-        this.router.navigate(['/dashboard']);
+
+        //Reload ALL games to show admin
+        this.gamesService.getAllGames().subscribe(allGames => {
+          this.allGames = allGames;
+        },
+          err => {
+            console.log(err);
+            return false;
+          });
+
+        //Get Available games to show users
+        this.gamesService.getAvailableGames().subscribe(availableGames => {
+          this.availableGames = availableGames;
+        },
+          err => {
+            console.log(err);
+            return false;
+          });
         this.newGameAdminUsername = '';
-        this.newGameSport = '';
+        this.newGameAdminEmail = '',
+          this.newGameSport = '';
         this.newGameVenue = '';
         this.newGameDescription = '';
-        this.newGameplayersRequired = '';
-        this.newGamerefereesRequired = '';
-        this.newGamedateTime = '';
+        this.newGamePlayersRequired = '';
+        this.newGameRefereesRequired = '';
+        this.newGameDateTime = '';
+
+        this.router.navigate(['/dashboard']);
       }
       else {
         this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-danger', timeout: 3000 });
-        this.router.navigate(['/fundraising']);
+        this.router.navigate(['/dashboard']);
       }
     });
   }
+
+  showDetailed(game) {
+    this.detailedView = true;
+    this.detailedGame = {
+      sport: game.sport,
+      adminName: game.adminUsername,
+      email: game.adminEmail,
+      venue: game.venue,
+      description: game.description,
+      dateTime: game.dateTime,
+      playersRequired: game.playersRequired,
+      refereesRequired: game.refereesRequired
+    }
+  }
+  detailOff() {
+    this.detailedView = false;
+  }
+
+  deleteGame(game) {
+    window.scrollTo(0, 0);
+    this.gamesService.removeGame(game).subscribe(data => {
+      if (data.success) {
+        //Get ALL games to show admin
+        this.gamesService.getAllGames().subscribe(allGames => {
+          this.allGames = allGames;
+        },
+          err => {
+            console.log(err);
+            return false;
+          });
+
+        //Get Available games to show users
+        this.gamesService.getAvailableGames().subscribe(availableGames => {
+          this.availableGames = availableGames;
+        },
+          err => {
+            console.log(err);
+            return false;
+          });
+
+        this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-success', timeout: 3000 });
+        this.router.navigate(['/dashboard']);
+      }
+      else {
+        this.flashMessage.show(data.msg, { cssClass: 'align-top alert alert-danger', timeout: 3000 });
+        this.router.navigate(['/dashboard']);
+      }
+    });
+  }
+
+    //Update Game database entry through the backend
+    onGameEdit() {
+      this.gamesService.updateGame(this.currentGame).subscribe(data => {
+        if (data.success) {
+          this.flashMessage.show('Game updated', { cssClass: 'align-top alert alert-success', timeout: 3000 });
+          this.router.navigate(['/dashboard']);
+        }
+        else {
+          this.flashMessage.show('Game could not be updated', { cssClass: 'align-top alert alert-danger', timeout: 5000 });
+          this.router.navigate(['/dashboard']);
+        }
+      });
+      this.displayAll = true;
+      this.displayMine = false;
+      this.displayForm = false;
+      this.displayEdit = false;
+    }
 }

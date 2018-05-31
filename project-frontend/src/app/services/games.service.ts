@@ -15,7 +15,7 @@ export class GamesService {
   addNewGame(game) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:8080/game/add', game, { headers: headers })
+    return this.http.post('http://localhost:8080/game/newGame', game, { headers: headers })
       .pipe(map(res => res.json()));
   }
 

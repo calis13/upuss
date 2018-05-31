@@ -68,7 +68,6 @@ export class FundraisingComponent implements OnInit {
     //Gets ideas to populate voting options
     this.votingService.getIdeas().subscribe(currentIdeas => {
       this.ideaData = currentIdeas;
-      console.log(this.ideaData);
     },
       err => {
         console.log(err);
@@ -143,7 +142,6 @@ export class FundraisingComponent implements OnInit {
 
   removeIdea(idea) {
     window.scrollTo(0, 0);
-    // maybe replace this with a better warning if I get time
     this.votingService.removeIdea(idea).subscribe(data => {
       if (data.success) {
         //Get proposed ideas to show admin
@@ -161,7 +159,6 @@ export class FundraisingComponent implements OnInit {
   }
 
   removeCurrentIdea(idea) {
-    // maybe replace this with a better warning if I get time
     window.scrollTo(0, 0);
     this.votingService.removeCurrentIdea(idea).subscribe(data => {
       if (data.success) {
@@ -181,7 +178,6 @@ export class FundraisingComponent implements OnInit {
   }
 
   resetVotes(idea) {
-    // maybe replace this with a better warning if I get time
       window.scrollTo(0, 0);
       this.votingService.resetVotes(idea).subscribe(data => {
         if (data.success) {

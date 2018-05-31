@@ -1,4 +1,5 @@
-<div class="mb-2">
+<div *ngIf="user" class="outer">
+  <div class="mb-2">
     <button class="btn btn-dark mr-2" (click)="showAll()">All Games</button>
     <button class="btn btn-dark mr-2" (click)="showMine()">My Games</button>
     <button class="btn btn-dark" (click)="showForm()">Add Game</button>
@@ -19,17 +20,17 @@
       </div>
     </div>
   </div>
-  
-  
+
+
   <!-- Display the create game form -->
   <div *ngIf="displayForm">
     <!-- The form used to add a new game -->
     <div class="card">
       <div class="card-body">
-        <form (submit)="onGameSubmit()">
+        <form (submit)="onGameSubmit(user)">
           <div class="form-group">
             <label>Sport:</label>
-            <select class="form-control" id="sport" name="sport" required [(ngModel)]="newGameSport" name="newGameSport">
+            <select class="form-control" name="sport" [(ngModel)]="newGameSport" name="newGameSport">
               <option value="basketball">basketball</option>
               <option value="football">football</option>
               <option value="soccer">soccer</option>
@@ -40,24 +41,23 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="venue">Venue:</label>
-            <input type="text" class="form-control" required [(ngModel)]="newGameVenue" name="newGameVenue">
+            <label>Venue:</label>
+            <input type="text" class="form-control" [(ngModel)]="newGameVenue" name="newGameVenue">
           </div>
           <div class="form-group">
-            <label for="date">Date</label>
-            <input type="text" class="form-control" [(ngModel)]="newGameDateTime" name="newGameDateTime" required pattern="(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})
-            " placeholder="Please enter date/time dd-mm-yyyy hh:mm:ss">
+            <label>Date</label>
+            <input type="text" class="form-control" [(ngModel)]="newGameDateTime" name="newGameDateTime" placeholder="Please enter date/time dd/mm/yyyy hh:mm">
           </div>
           <div class="form-group">
-            <label for="playersRequired">Players Required:</label>
-            <input type="number" class="form-control" [(ngModel)]="newGamePlayersRequired" name="newGamePlayersRequired" min="2" required>
+            <label>Players Required:</label>
+            <input type="number" class="form-control" [(ngModel)]="newGamePlayersRequired" name="newGamePlayersRequired" min="2">
           </div>
           <div class="form-group">
-            <label for="">Referees Required:</label>
+            <label>Referees Required:</label>
             <input type="number" class="form-control" [(ngModel)]="newGameRefereesRequired" name="newGameRefereesRequired" min="2" required>
           </div>
           <div class="form-group">
-            <label for="description">Description:</label>
+            <label>Description:</label>
             <input type="text" class="form-control" [(ngModel)]="newGameDescription" name="newGameDescription">
           </div>
           <button type="submit" class="btn btn-success btn-block">Submit</button>
@@ -66,15 +66,15 @@
       </div>
     </div>
   </div>
-  
-  <!-- Display the create game form -->
+
+  <!-- Display the edit game form -->
   <div *ngIf="displayEdit">
     <div class="card">
       <div class="card-body">
-        <form>
+        <form (submit)="onGameEdit()">
           <div class="form-group">
-            <label for="sport">Sport:</label>
-            <select class="form-control" id="sport" name="sport" required [(ngModel)]="currentGame.sport">
+            <label>Sport:</label>
+            <select class="form-control" name="sport" required [(ngModel)]="currentGame.sport">
               <option>basketball</option>
               <option>football</option>
               <option>soccer</option>
@@ -85,77 +85,112 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="venue">Venue:</label>
-            <input type="text" class="form-control" id="venue" name="venue" required [(ngModel)]="currentGame.venue">
+            <label>Venue:</label>
+            <input type="text" class="form-control" name="venue" required [(ngModel)]="currentGame.venue">
           </div>
           <div class="form-group">
-            <label for="date">Date</label>
-            <input type="text" class="form-control" id="dateTime" name="dateTime" required pattern="(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})
-            " [(ngModel)]="currentGame.dateTime">
+            <label>Date</label>
+            <input type="text" class="form-control" name="dateTime" [(ngModel)]="currentGame.dateTime">
           </div>
           <div class="form-group">
-            <label for="playersRequired">Players Required:</label>
-            <input type="number" class="form-control" id="playersRequired" name="playersRequired" min="2" required [(ngModel)]="currentGame.playersRequired">
+            <label>Players Required:</label>
+            <input type="number" class="form-control" name="playersRequired" min="2" [(ngModel)]="currentGame.playersRequired">
           </div>
           <div class="form-group">
             <label for="">Referees Required:</label>
-            <input type="number" class="form-control" id="refereesRequired" name="refereesRequired" min="2" placeholder="2" required>
+            <input type="number" class="form-control" name="refereesRequired" min="2" [(ngModel)]="currentGame.refereesRequired">
           </div>
           <div class="form-group">
-            <label for="description">Description:</label>
-            <input type="text" class="form-control" id="description" name="description" [(ngModel)]="currentGame.description">
+            <label>Description:</label>
+            <input type="text" class="form-control" name="description" [(ngModel)]="currentGame.description">
           </div>
-          <button type="submit" class="btn btn-warning btn-block">Edit</button>
-          <button type="reset" class="btn btn-danger btn-block">Reset</button>
+          <button type="submit" class="btn btn-success btn-block">Submit edits</button>
+          <button type="button" (click)="showMine()" class="btn btn-danger btn-block">Cancel</button>
         </form>
       </div>
     </div>
   </div>
-  
-  <!-- Display all of the games -->
-  <div *ngIf="displayAll">
-    <div *ngFor="let game of games">
+
+  <!-- Display every game to the admin -->
+  <div *ngIf="displayAll && user.isAdmin && !detailedView">
+    <div *ngFor="let game of allGames">
       <div class="card mb-2" *ngIf="filterGame(game)">
         <div class="card-body">
-          <button class="btn btn-success float-right" *ngIf="(isReferee(game))">Play</button>
-          <button class="btn btn-warning float-right clear-right" *ngIf="(isPlayer(game))">Referee</button>
           <p>Sport: {{game.sport}}</p>
           <p>Venue: {{game.venue}}</p>
-          <p>Date: {{game.date}}</p>
-          <button class="btn btn-dark mb-2">
-            <!-- <a routerLink="/game/{{ game.id }}">
-              <i class="fa fa-book"></i>
-            </a> -->
+          <p>Date: {{game.dateTime}}</p>
+          <button class="btn btn-dark mb-2 mr-2" title="Show Detail" (click)="showDetailed(game)">
+            <i class="fa fa-book"></i>
           </button>
-          <button class="btn btn-dark mb-2" [hidden]="!(user.username==game.adminUsername)" (click)="showEdit(game)">
+          <button class="btn btn-success mb-2 mr-2" (click)="showEdit(game)" title="Edit">
             <i class="fa fa-pencil"></i>
           </button>
-          <button class="btn btn-danger mb-2" [hidden]="!(user.username==game.adminUsername)" (click)="deletePost(post)">
+          <button class="btn btn-danger mb-2" (click)="deleteGame(game)" title="Delete">
             <i class="fa fa-remove"></i>
           </button>
         </div>
       </div>
     </div>
   </div>
-  
-  <!-- Display all of the users games -->
-  <div *ngIf="displayMine">
-    <div class="card mb-2" *ngFor="let game of userGames">
-      <div class="card-body">
-        <button class="btn btn-alert float-right">Leave Game</button>
-        <p>Sport: {{game.sport}}</p>
-        <p>Venue: {{game.venue}}</p>
-        <p>Date: {{game.date}}</p>
-        <button class="btn btn-dark mb-2">
-          <!-- <a routerLink="/game/{{ game.id }}">
+
+  <!-- Display all of the games -->
+  <div *ngIf="displayAll && !user.isAdmin && !detailedView">
+    <div *ngFor="let game of availableGames">
+      <div class="card mb-2" *ngIf="filterGame(game)">
+        <div class="card-body">
+          <button class="btn btn-success float-right" *ngIf="(isReferee(game))">Play</button>
+          <button class="btn btn-warning float-right clear-right" *ngIf="(isPlayer(game))">Referee</button>
+          <p>Sport: {{game.sport}}</p>
+          <p>Venue: {{game.venue}}</p>
+          <p>Date: {{game.dateTime}}</p>
+          <button class="btn btn-dark mb-2" (click)="showDetailed(game)" title="Show Detail">
             <i class="fa fa-book"></i>
-          </a> -->
-        </button>
-        <button class="btn btn-dark mb-2">
-          <i class="fa fa-pencil" (click)="showEdit(game)"></i>
-        </button>
-        <button class="btn btn-danger mb-2" (click)="deletePost(post)">
-          <i class="fa fa-remove"></i>
-        </button>
+          </button>
+          <button class="btn btn-success mb-2" [hidden]="!(username==game.adminUsername)" (click)="showEdit(game)" title="Edit">
+            <i class="fa fa-pencil"></i>
+          </button>
+          <button class="btn btn-danger mb-2" [hidden]="!(user.username==game.adminUsername)" (click)="deleteGame(game)" title="Delete">
+            <i class="fa fa-remove"></i>
+          </button>
+        </div>
       </div>
     </div>
+  </div>
+
+  <!-- Display all of the users games -->
+  <div *ngIf="displayMine && !detailedView">
+    <div class="card mb-2" *ngFor="let game of userGames">
+      <div class="SOMETHING TO FILTER GAMES">
+        <div class="card-body">
+          <button class="btn btn-alert float-right">Leave Game</button>
+          <p>Sport: {{game.sport}}</p>
+          <p>Venue: {{game.venue}}</p>
+          <p>Date: {{game.dateTime}}</p>
+          <button class="btn btn-dark mb-2" (click)="showDetailed(game)" title="Show Detail">
+            <i class="fa fa-book"></i>
+          </button>
+          <button class="btn btn-success mb-2" title="Edit">
+            <i class="fa fa-pencil" (click)="showEdit(game)"></i>
+          </button>
+          <button class="btn btn-danger mb-2" (click)="deleteGame(game)" title="Delete">
+            <i class="fa fa-remove"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Display detailed view -->
+  <div *ngIf="detailedView" class="card card-body mb-3">
+    <ul class="list-group mb-3">
+      <h3>Sport: {{detailedGame.sport}}</h3>
+      <li class="list-group">Game Admin Name: {{detailedGame.adminName}}</li>
+      <li class="list-group">Game Admin Email: {{detailedGame.email}}</li>
+      <li class="list-group">Venue: {{detailedGame.venue}}</li>
+      <li class="list-group">Description: {{detailedGame.description}}</li>
+      <li class="list-group">Date/Time: {{detailedGame.dateTime}}</li>
+      <li class="list-group">Player Spots Remaining: {{detailedGame.playersRequired}}</li>
+      <li class="list-group">Referee Spots Remaining: {{detailedGame.refereesRequired}}</li>
+    </ul>
+    <button (click)="detailOff()" class="btn btn-dark btn-block">Go Back</button>
+  </div>

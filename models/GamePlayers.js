@@ -30,3 +30,8 @@ const GamePlayers = module.exports = mongoose.model('GamePlayers', GamePlayersSc
 module.exports.addGamePlayer = function (newGamePlayer, callback) {
   newGamePlayer.save(callback);
 }
+
+//Get game by id to reduce required players
+module.exports.getGameById = function (id, callback) {
+  GamePlayers.findById(id, callback);
+}

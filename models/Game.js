@@ -10,6 +10,10 @@ const GameSchema = new Schema({
     type: String,
     required: true
   },
+  adminEmail: {
+    type: String,
+    required: true
+  },
   sport: {
     type: String,
     required: true

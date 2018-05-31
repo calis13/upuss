@@ -8,7 +8,7 @@ const config = require('../config/database');
 
 //User Register Route
 router.post('/register', function (req, res, next) {
-  
+
   let newUser = new User({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -115,6 +115,36 @@ router.post('/authenticate', function (req, res, next) {
 //Profile Route
 router.get('/profile', passport.authenticate('jwt', { session: false }), function (req, res) {
   res.json({ user: req.user });
+});
+
+//User Update Route
+router.put('/update', function (req, res, next) {
+  User.getUserById(req.body._id, function (err, user) {
+    if (err) {
+      return res.json({ success: false, msg: 'Could not find user' });
+    };
+    var firstName = req.body.firstName.trim();
+    var lastName = req.body.lastName.trim();
+    var email = req.body.email.trim();
+    var age = req.body.age;
+    var university = req.body.university.trim();
+    var interests = req.body.interests;
+
+
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.email = email;
+    user.age = age;
+    user.university = university;
+    user.interests = interests;
+
+    user.save(function (err) {
+      if (err) {
+        return res.json({ success: false, msg: 'Could not update user' });
+      }
+      return res.json({ success: true, msg: 'Profile Updated' });
+    });
+  });
 });
 
 module.exports = router;

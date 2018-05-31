@@ -39,7 +39,7 @@ export class AuthService {
       .pipe(map(res => res.json()));
   }
 
-  //Retrieves profiler from backend
+  //Retrieves profile from backend
   getProfile() {
     let headers = new Headers();
     this.loadToken();

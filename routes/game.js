@@ -28,15 +28,15 @@ router.get('/gamesPlayers', function (req, res) {
 
 //New Game Route
 router.post('/newGame', function (req, res, next) {
-
   let newGame = new Game({
-    adminUsername: req.body.adminUsername,
-    sport: req.body.sport,
-    venue: req.body.venue,
-    description: req.body.description,
-    playersRequired: req.body.playersRequired,
-    refereesRequired: req.body.refereesRequired,
-    dateTime: req.body.dateTime
+    adminUsername: req.body.newGameAdminUsername,
+    adminEmail: req.body.newGameAdminEmail,
+    sport: req.body.newGameSport,
+    venue: req.body.newGameVenue,
+    description: req.body.newGameDescription,
+    playersRequired: req.body.newGamePlayersRequired,
+    refereesRequired: req.body.newGameRefereesRequired,
+    dateTime: req.body.newGameDateTime
   });
 
   Game.addGame(newGame, function (err, game) {
@@ -59,7 +59,15 @@ router.put('/remove', function (req, res, next) {
       if (err) {
         return res.json({ success: false, msg: 'Could not delete game' });
       }
-      return res.json({ success: true, msg: 'Game Cancelled!' });
+
+      // GamePlayers.getGameById(req.body._id, function (err, deleteGame) {
+      //   if (err) {
+      //     return res.json({ success: false, msg: 'Could not find game' });
+      //   };
+      //   deleteGame.remove(function (err) {
+      //     return res.json({ success: true, msg: 'Game Cancelled!' });
+      //   });
+      // });
     });
   });
 });
@@ -71,15 +79,13 @@ router.put('/update', function (req, res, next) {
       return res.json({ success: false, msg: 'Could not find game' });
     };
 
-    var adminUsername = req.body.adminUsername.trim()
-    var sport = req.body.sport.trim()
+    var sport = req.body.sport
     var venue = req.body.venue.trim()
     var description = req.body.description.trim()
     var playersRequired = req.body.playersRequired
     var refereesRequired = req.body.refereesRequired
     var dateTime = req.body.dateTime.trim()
 
-    game.adminUsername = adminUsername;
     game.sport = sport;
     game.venue = venue;
     game.description = description;
