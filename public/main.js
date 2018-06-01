@@ -400,7 +400,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_pusher_service__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./services/pusher.service */ "./src/app/services/pusher.service.ts");
 /* harmony import */ var _services_validate_service__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./services/validate.service */ "./src/app/services/validate.service.ts");
 /* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./services/auth.service */ "./src/app/services/auth.service.ts");
-/* harmony import */ var _guards_auth_guard__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./guards/auth.guard */ "./src/app/guards/auth.guard.ts");
+/* harmony import */ var _services_games_service__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./services/games.service */ "./src/app/services/games.service.ts");
+/* harmony import */ var _guards_auth_guard__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./guards/auth.guard */ "./src/app/guards/auth.guard.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -437,16 +438,17 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 //Guards
 
 var routes = [
     { path: '', component: _components_home_home_component__WEBPACK_IMPORTED_MODULE_13__["HomeComponent"] },
     { path: 'register', component: _components_register_register_component__WEBPACK_IMPORTED_MODULE_12__["RegisterComponent"] },
     { path: 'login', component: _components_login_login_component__WEBPACK_IMPORTED_MODULE_11__["LoginComponent"] },
-    { path: 'profile', component: _components_profile_profile_component__WEBPACK_IMPORTED_MODULE_15__["ProfileComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_27__["AuthGuard"]] },
-    { path: 'dashboard', component: _components_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_14__["DashboardComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_27__["AuthGuard"]] },
+    { path: 'profile', component: _components_profile_profile_component__WEBPACK_IMPORTED_MODULE_15__["ProfileComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_28__["AuthGuard"]] },
+    { path: 'dashboard', component: _components_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_14__["DashboardComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_28__["AuthGuard"]] },
     { path: 'about', component: _components_about_about_component__WEBPACK_IMPORTED_MODULE_17__["AboutComponent"] },
-    { path: 'fundraising', component: _components_fundraising_fundraising_component__WEBPACK_IMPORTED_MODULE_18__["FundraisingComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_27__["AuthGuard"]] },
+    { path: 'fundraising', component: _components_fundraising_fundraising_component__WEBPACK_IMPORTED_MODULE_18__["FundraisingComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_28__["AuthGuard"]] },
     { path: 'angus', component: _components_angus_angus_component__WEBPACK_IMPORTED_MODULE_21__["AngusComponent"] },
     { path: 'dave', component: _components_dave_dave_component__WEBPACK_IMPORTED_MODULE_20__["DaveComponent"] },
     { path: 'references', component: _components_references_references_component__WEBPACK_IMPORTED_MODULE_22__["ReferencesComponent"] },
@@ -492,7 +494,7 @@ var AppModule = /** @class */ (function () {
                     }
                 })
             ],
-            providers: [_services_validate_service__WEBPACK_IMPORTED_MODULE_25__["ValidateService"], _services_auth_service__WEBPACK_IMPORTED_MODULE_26__["AuthService"], _guards_auth_guard__WEBPACK_IMPORTED_MODULE_27__["AuthGuard"], _services_pusher_service__WEBPACK_IMPORTED_MODULE_24__["PusherService"]],
+            providers: [_services_validate_service__WEBPACK_IMPORTED_MODULE_25__["ValidateService"], _services_auth_service__WEBPACK_IMPORTED_MODULE_26__["AuthService"], _guards_auth_guard__WEBPACK_IMPORTED_MODULE_28__["AuthGuard"], _services_pusher_service__WEBPACK_IMPORTED_MODULE_24__["PusherService"], _services_games_service__WEBPACK_IMPORTED_MODULE_27__["GamesService"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
         })
     ], AppModule);
