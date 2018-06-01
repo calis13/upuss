@@ -59,15 +59,13 @@ router.put('/remove', function (req, res, next) {
       if (err) {
         return res.json({ success: false, msg: 'Could not delete game' });
       }
-
-      // GamePlayers.getGameById(req.body._id, function (err, deleteGame) {
-      //   if (err) {
-      //     return res.json({ success: false, msg: 'Could not find game' });
-      //   };
-      //   deleteGame.remove(function (err) {
-      //     return res.json({ success: true, msg: 'Game Cancelled!' });
-      //   });
-      // });
+      var id = req.body._id;
+      GamePlayers.remove({ gameID: id }, function (err, response) {
+        if (err) {
+          return res.json({ success: false, msg: 'Could not delete game' });
+        }
+        return res.json({ success: true, msg: 'You have been removed!' });
+      });
     });
   });
 });
@@ -104,57 +102,55 @@ router.put('/update', function (req, res, next) {
 
 //Player quit game route
 router.put('/removeFromGame', function (req, res, next) {
-  var player = req.body.username
+  var player = req.body.player
   var gameID = req.body.gameID
   var playerRole = req.body.playerRole
 
-  NewIdea.find({ $and: [{ playerUsername: { player } }, { gameID: gameID }] }).exec((err, playerRow) => {
-    deleteGame.remove(function (err) {
-      if (err) {
-        return res.json({ success: false, msg: 'Could not delete player from game' });
-      }
-      //increment player or referee
-      Game.getGameByID(id, function (err, playerQuit) {
+  GamePlayers.find({ $and: [{ playerUsername: player }, { gameID: gameID }] }).exec((err, playerRow) => {
+    for (row in playerRow) {
+      playerRow[row].remove(function (err) {
         if (err) {
-          return res.json({ success: false, msg: 'Could not find game' });
-        };
-        if (playerRole == 'referee') {
-          playerQuit.refereesRequired = playerQuit.refereesRequired + 1;
+          return res.json({ success: false, msg: 'Could not delete player from game' });
         }
-        else {
-          playerQuit.playersRequired = playerQuit.playersRequired + 1;
-        }
-        playerQuit.save(function (err) {
-          if (err) {
-            return res.json({ success: false, msg: 'Could not add player/referee back into game' });
-          }
-          return res.json({ success: true, msg: 'Player Removed from Game!' });
-        });
-      });
+      })
+    }
+  });
+
+  //increment player or referee
+  Game.getGameById(gameID, function (err, playerQuit) {
+    if (err) {
+      return res.json({ success: false, msg: 'Could not find game' });
+    };
+    if (playerRole == 'referee') {
+      playerQuit.refereesRequired = playerQuit.refereesRequired + 1;
+    }
+    else {
+      playerQuit.playersRequired = playerQuit.playersRequired + 1;
+    }
+    playerQuit.save(function (err) {
+      if (err) {
+        return res.json({ success: false, msg: 'Could not add player/referee back into game' });
+      }
+      return res.json({ success: true, msg: 'Player Removed from Game!' });
     });
   });
 });
 
+
 //Player join game route
 router.post('/joinGame', function (req, res, next) {
-
-  let newGamePlayer = new GamePlayers({
-    adminUsername: req.body.adminUsername,
-    gameID: req.body.sport,
-    playerUsername: req.body.description,
-    playerRole: req.body.playersRequired
-  });
+  let newGamePlayer = new GamePlayers(req.body);
 
   GamePlayers.addGamePlayer(newGamePlayer, function (err, game) {
     if (err) {
       res.json({ success: false, msg: 'Failed to Join Game' });
     }
     //decrement player or referee
-    Game.getGameByID(id, function (err, playerJoin) {
+    Game.getGameById(newGamePlayer.gameID, function (err, playerJoin) {
       if (err) {
         return res.json({ success: false, msg: 'Could not find game' });
       };
-      if (playerRole == 'referee') {
+      if (newGamePlayer.playerRole == 'referee') {
         playerJoin.refereesRequired = playerJoin.refereesRequired - 1;
       }
       else {

@@ -14,11 +14,13 @@ import { ValidateService } from '../../services/validate.service';
 export class DashboardComponent implements OnInit {
 
   //What to display?
-  displayAll: boolean = true;
+  displayAll: boolean = false;
   displayMine: boolean = false;
   displayForm: boolean = false;
   displayEdit: boolean = false;
   detailedView: boolean = false;
+
+  loaded: boolean = false;
 
   //Filters game types on selection
   filter: String = 'all';
@@ -31,6 +33,13 @@ export class DashboardComponent implements OnInit {
   allPlayers: Object;
   currentGame: Object;
   detailedGame: Object;
+  playerInGames: Object = {};
+  playerRoleInGames: Object = {};
+  playerGameRole: Object;
+  playerInX: number = 0;
+
+  userGames: Object;
+  remainingGames: Object;
 
   newGameAdminEmail: String;
   newGameAdminUsername: String;
@@ -68,15 +77,6 @@ export class DashboardComponent implements OnInit {
         return false;
       });
 
-    //Get ALL Players to populate view
-    this.gamesService.getAllPlayers().subscribe(allPlayers => {
-      this.allPlayers = allPlayers;
-    },
-      err => {
-        console.log(err);
-        return false;
-      });
-
     //Gets current profile
     this.authService.getProfile().subscribe(currentUser => {
       this.user = currentUser.user;
@@ -97,19 +97,76 @@ export class DashboardComponent implements OnInit {
   }
 
   //This will show all games and hide all other content.
-  showAll() {
+  showAll(user) {
     this.displayAll = true;
     this.displayMine = false;
     this.displayForm = false;
     this.displayEdit = false;
+
+    //Get ALL Players to populate view
+    this.gamesService.getAllPlayers().subscribe(allPlayers => {
+      var i = allPlayers.length;
+      while (i--) {
+        if (user.username === allPlayers[i].playerUsername) {
+          this.playerInGames[i] = allPlayers[i].gameID;
+          this.playerRoleInGames[i] = allPlayers[i].playerRole;
+          this.playerInX += 1;
+        }
+      }
+
+      this.loaded = true;
+    },
+      err => {
+        console.log(err);
+        return false;
+      });
+    return this.playerInGames;
+  }
+
+  //Check if player is in game
+  inThisGame(game) {
+    for (var i = 0; i < this.playerInX; i++) {
+      if (game._id === this.playerInGames[i]) {
+        return true;
+      }
+    }
+  }
+
+  //What Role is user?
+  whatRole(game) {
+    var i = this.playerInX;
+    while (i--) {
+      if (game._id === this.playerInGames[i]) {
+        console.log(this.playerRoleInGames[i]);
+        return this.playerRoleInGames[i];
+      }
+    }
+    return false;
   }
 
   //This will hide all content besides my games.
-  showMine() {
+  showMine(user) {
     this.displayAll = false;
     this.displayMine = true;
     this.displayForm = false;
     this.displayEdit = false;
+
+    //Get ALL Player's games to populate view
+    this.gamesService.getAllPlayers().subscribe(allPlayers => {
+      var i = allPlayers.length;
+      while (i--) {
+        if (user.username === allPlayers[i].playerUsername) {
+          this.playerInGames[i] = allPlayers[i].gameID;
+          this.playerRoleInGames[i] = allPlayers[i].playerRole;
+          this.playerInX += 1;
+        }
+        this.loaded = true;
+      }
+    },
+      err => {
+        console.log(err);
+        return false;
+      });
   }
 
   //This will hide all content besides the edit form.
@@ -133,17 +190,6 @@ export class DashboardComponent implements OnInit {
     else {
       return false;
     }
-  }
-
-  //Return whether the user is the referee for that game.
-  isReferee(game) {
-
-    return true;
-  }
-
-  //Return whether the user is a player in this game.
-  isPlayer(game) {
-    return true;
   }
 
   //Admin Register Voting Ideas
@@ -202,6 +248,23 @@ export class DashboardComponent implements OnInit {
         this.newGameRefereesRequired = '';
         this.newGameDateTime = '';
 
+        //Get ALL Players to populate view
+        this.gamesService.getAllPlayers().subscribe(allPlayers => {
+          var i = allPlayers.length;
+          while (i--) {
+            if (user.username === allPlayers[i].playerUsername) {
+              this.playerInGames[i] = allPlayers[i].gameID;
+              this.playerRoleInGames[i] = allPlayers[i].playerRole;
+              this.playerInX += 1;
+            }
+            this.loaded = true;
+          }
+        },
+          err => {
+            console.log(err);
+            return false;
+          });
+
         this.router.navigate(['/dashboard']);
       }
       else {
@@ -224,6 +287,7 @@ export class DashboardComponent implements OnInit {
       refereesRequired: game.refereesRequired
     }
   }
+
   detailOff() {
     this.detailedView = false;
   }
@@ -260,21 +324,118 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-    //Update Game database entry through the backend
-    onGameEdit() {
-      this.gamesService.updateGame(this.currentGame).subscribe(data => {
-        if (data.success) {
-          this.flashMessage.show('Game updated', { cssClass: 'align-top alert alert-success', timeout: 3000 });
-          this.router.navigate(['/dashboard']);
-        }
-        else {
-          this.flashMessage.show('Game could not be updated', { cssClass: 'align-top alert alert-danger', timeout: 5000 });
-          this.router.navigate(['/dashboard']);
-        }
-      });
-      this.displayAll = true;
-      this.displayMine = false;
-      this.displayForm = false;
-      this.displayEdit = false;
+  //Update Game database entry through the backend
+  onGameEdit() {
+    this.gamesService.updateGame(this.currentGame).subscribe(data => {
+      if (data.success) {
+        this.flashMessage.show('Game updated', { cssClass: 'align-top alert alert-success', timeout: 3000 });
+        this.router.navigate(['/dashboard']);
+      }
+      else {
+        this.flashMessage.show('Game could not be updated', { cssClass: 'align-top alert alert-danger', timeout: 5000 });
+        this.router.navigate(['/dashboard']);
+      }
+    });
+    this.displayAll = true;
+    this.displayMine = false;
+    this.displayForm = false;
+    this.displayEdit = false;
+  }
+
+  joinGame(game, role, user) {
+    window.scrollTo(0, 0);
+    const newJoinGame = {
+      adminUsername: game.adminUsername,
+      gameID: game._id,
+      playerUsername: this.username,
+      playerRole: role
     }
+
+    this.gamesService.joinGame(newJoinGame).subscribe(data => {
+      if (data.success) {
+        //Get Available games to show users
+        this.gamesService.getAvailableGames().subscribe(availableGames => {
+          this.availableGames = availableGames;
+        },
+          err => {
+            console.log(err);
+            return false;
+          });
+        this.flashMessage.show('You have joined - Have Fun!', { cssClass: 'align-top alert alert-success', timeout: 3000 });
+        //Get ALL Players to populate view
+        this.gamesService.getAllPlayers().subscribe(allPlayers => {
+          var i = allPlayers.length;
+          while (i--) {
+            if (user.username === allPlayers[i].playerUsername) {
+              this.playerInGames[i] = allPlayers[i].gameID;
+              this.playerRoleInGames[i] = allPlayers[i].playerRole;
+              this.playerInX += 1;
+            }
+            this.loaded = true;
+          }
+        },
+          err => {
+            console.log(err);
+            return false;
+          });
+        this.router.navigate(['/dashboard']);
+      }
+      else {
+        this.flashMessage.show('Something went wrong, please try again', { cssClass: 'align-top alert alert-danger', timeout: 5000 });
+        this.router.navigate(['/dashboard']);
+      }
+    });
+  }
+
+  // Allow user to leave game
+  leaveGame(game, role, user) {
+    const removePlayer = {
+      player: user.username,
+      gameID: game._id,
+      playerRole: role
+    }
+    this.gamesService.removePlayer(removePlayer).subscribe(data => {
+      if (data.success) {
+        //Get Available games to show users
+        this.gamesService.getAvailableGames().subscribe(availableGames => {
+          this.availableGames = availableGames;
+        },
+          err => {
+            console.log(err);
+            return false;
+          });
+        this.flashMessage.show('You have left - Sorry to see you go!', { cssClass: 'align-top alert alert-success', timeout: 3000 });
+        //Get Available games to show users
+        this.gamesService.getAvailableGames().subscribe(availableGames => {
+          this.availableGames = availableGames;
+        },
+          err => {
+            console.log(err);
+            return false;
+          });
+
+        //Get ALL Players games to populate view
+        this.gamesService.getAllPlayers().subscribe(allPlayers => {
+          var i = allPlayers.length;
+          this.playerInX = 0;
+          while (i--) {
+            if (user.username === allPlayers[i].playerUsername) {
+              this.playerInGames[i] = allPlayers[i].gameID;
+              this.playerRoleInGames[i] = allPlayers[i].playerRole;
+              this.playerInX += 1;
+            }
+          }
+        },
+          err => {
+            console.log(err);
+            return false;
+          });
+        this.router.navigate(['/dashboard']);
+      }
+      else {
+        this.flashMessage.show('Something went wrong, please try again', { cssClass: 'align-top alert alert-danger', timeout: 5000 });
+        this.router.navigate(['/dashboard']);
+      }
+    });
+  }
 }

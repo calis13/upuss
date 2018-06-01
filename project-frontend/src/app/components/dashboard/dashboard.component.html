@@ -1,7 +1,7 @@
 <div *ngIf="user" class="outer">
-  <div class="mb-2">
-    <button class="btn btn-dark mr-2" (click)="showAll()">All Games</button>
-    <button class="btn btn-dark mr-2" (click)="showMine()">My Games</button>
+  <div *ngIf="!detailedView" class="mb-2">
+    <button class="btn btn-dark mr-2" (click)="showAll(user)">All Games</button>
+    <button class="btn btn-dark mr-2" (click)="showMine(user)">My Games</button>
     <button class="btn btn-dark" (click)="showForm()">Add Game</button>
     <div class="dropdown float-right">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
@@ -133,48 +133,77 @@
     </div>
   </div>
 
-  <!-- Display all of the games -->
-  <div *ngIf="displayAll && !user.isAdmin && !detailedView">
+  <!-- Display every game to the admin that they created -->
+  <div *ngIf="displayMine && user.isAdmin && !detailedView">
+    <div *ngFor="let game of allGames">
+      <div *ngIf="game.adminUsername == user.username">
+        <div class="card mb-2" *ngIf="filterGame(game)">
+          <div class="card-body">
+            <p>Sport: {{game.sport}}</p>
+            <p>Venue: {{game.venue}}</p>
+            <p>Date: {{game.dateTime}}</p>
+            <button class="btn btn-dark mb-2 mr-2" title="Show Detail" (click)="showDetailed(game)">
+              <i class="fa fa-book"></i>
+            </button>
+            <button class="btn btn-success mb-2 mr-2" (click)="showEdit(game)" title="Edit">
+              <i class="fa fa-pencil"></i>
+            </button>
+            <button class="btn btn-danger mb-2" (click)="deleteGame(game)" title="Delete">
+              <i class="fa fa-remove"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Display all of the available games -->
+  <div *ngIf="displayAll && !user.isAdmin && !detailedView && loaded">
     <div *ngFor="let game of availableGames">
-      <div class="card mb-2" *ngIf="filterGame(game)">
-        <div class="card-body">
-          <button class="btn btn-success float-right" *ngIf="(isReferee(game))">Play</button>
-          <button class="btn btn-warning float-right clear-right" *ngIf="(isPlayer(game))">Referee</button>
-          <p>Sport: {{game.sport}}</p>
-          <p>Venue: {{game.venue}}</p>
-          <p>Date: {{game.dateTime}}</p>
-          <button class="btn btn-dark mb-2" (click)="showDetailed(game)" title="Show Detail">
-            <i class="fa fa-book"></i>
-          </button>
-          <button class="btn btn-success mb-2" [hidden]="!(username==game.adminUsername)" (click)="showEdit(game)" title="Edit">
-            <i class="fa fa-pencil"></i>
-          </button>
-          <button class="btn btn-danger mb-2" [hidden]="!(user.username==game.adminUsername)" (click)="deleteGame(game)" title="Delete">
-            <i class="fa fa-remove"></i>
-          </button>
+      <div *ngIf="!inThisGame(game) && !(game.adminUsername == user.username)">
+        <div class="card mb-2" *ngIf="filterGame(game)">
+          <div class="card-body">
+            <button class="btn btn-success float-right m-2" (click)="joinGame(game, 'player', user)">Join Game as Player</button>
+            <button class="btn btn-warning float-right m-2" (click)="joinGame(game, 'referee', user)">Join Game as Referee</button>
+            <p>Sport: {{game.sport}}</p>
+            <p>Venue: {{game.venue}}</p>
+            <p>Date: {{game.dateTime}}</p>
+            <button class="btn btn-dark mb-2 mr-2" (click)="showDetailed(game)" title="Show Detail">
+              <i class="fa fa-book"></i>
+            </button>
+            <button class="btn btn-success mb-2 mr-2" [hidden]="!(username==game.adminUsername)" (click)="showEdit(game)" title="Edit">
+              <i class="fa fa-pencil"></i>
+            </button>
+            <button class="btn btn-danger mb-2" [hidden]="!(user.username==game.adminUsername)" (click)="deleteGame(game)" title="Delete">
+              <i class="fa fa-remove"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Display all of the users games -->
-  <div *ngIf="displayMine && !detailedView">
-    <div class="card mb-2" *ngFor="let game of userGames">
-      <div class="SOMETHING TO FILTER GAMES">
-        <div class="card-body">
-          <button class="btn btn-alert float-right">Leave Game</button>
-          <p>Sport: {{game.sport}}</p>
-          <p>Venue: {{game.venue}}</p>
-          <p>Date: {{game.dateTime}}</p>
-          <button class="btn btn-dark mb-2" (click)="showDetailed(game)" title="Show Detail">
-            <i class="fa fa-book"></i>
-          </button>
-          <button class="btn btn-success mb-2" title="Edit">
-            <i class="fa fa-pencil" (click)="showEdit(game)"></i>
-          </button>
-          <button class="btn btn-danger mb-2" (click)="deleteGame(game)" title="Delete">
-            <i class="fa fa-remove"></i>
-          </button>
+  <div *ngIf="displayMine && !user.isAdmin && !detailedView && loaded">
+    <div *ngFor="let game of availableGames">
+      <div *ngIf="inThisGame(game) || game.adminUsername == user.username">
+        <div class="card mb-2" *ngIf="filterGame(game)">
+          <div class="card-body">
+            <button *ngIf="!(game.adminUsername == user.username)" class="btn btn-danger float-right m-2" (click)="leaveGame(game, whatRole(game), user)">Leave Game</button>
+            <p>Sport: {{game.sport}}</p>
+            <p>Venue: {{game.venue}}</p>
+            <p>Date: {{game.dateTime}}</p>
+            <p>Role: {{whatRole(game)}}</p>
+            <button class="btn btn-dark mb-2 mr-2" (click)="showDetailed(game)" title="Show Detail">
+              <i class="fa fa-book"></i>
+            </button>
+            <button class="btn btn-success mb-2 mr-2" [hidden]="!(username==game.adminUsername)" (click)="showEdit(game)" title="Edit">
+              <i class="fa fa-pencil"></i>
+            </button>
+            <button class="btn btn-danger mb-2" [hidden]="!(user.username==game.adminUsername)" (click)="deleteGame(game)" title="Delete">
+              <i class="fa fa-remove"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>

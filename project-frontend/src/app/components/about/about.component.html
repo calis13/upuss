@@ -1,4 +1,5 @@
 <div class="jumbotron">
+  <!-- Profile Section -->
   <h1 class="display-3 mb-5">Login and Profile</h1>
   <ul>
     <li>When users register their passwords are confirmed as matching and complex. This new user is then checked in the backend
@@ -11,6 +12,7 @@
     <li>When user clicks edit a form is revealed that allows user to alter their profile and select new interests</li>
     <li>On save this is updated in the back end and the new data is displayed</li>
   </ul>
+  <!-- Voting -->
   <h1 class="display-3 mb-5">Voting</h1>
   <ul>
     <li>The voting portion of our website can be found in the user dropdown once logged in under Fundraising.</li>
@@ -36,6 +38,26 @@
       <li>They can vote for one of the current ideas suggested by the admins</li>
       <li>Once voted they get to see a graph of the current voting status</li>
       <li>They can also suggest a new idea for forthcoming events</li>
+    </ul>
+  </ul>
+<!-- Games -->
+  <h1 class="display-3 mb-5">Voting</h1>
+  <ul>
+    <li>All options relating to 'tasks' are loacted in the dashboard</li>
+    <li>There are 2 separate databases linked to this section</li>
+    <ul>
+      <li>There is a current games database which contains all details pertaining to the games</li>
+      <li>Whereas the gamePlayers database give a player/game relation</li>
+    </ul>
+    <li>As with Fundraising the isAdmin option allows the site admins to view/alter and delete any current game</li>
+    <li>Admins can view all games no matter how many people are enrolled (0 or more)</li>
+    <li>Users only have control over which games they are involved in</li>
+    <ul>
+      <li>In the All Games tab they View an extended detail of the game aswell as join as either a player OR a referee.  This is only populated with games that have available roles</li>
+      <li>Once they select this game it is hidden from the All Games view and populated into the My Games view</li>
+      <li>Within this My Games view users can edit or delete games that they are an admin (creator) of</li>
+      <li>And they can also choose to leave a game they are enrolled as playing in</li>
+      <li>When a game is left the game database is updated with the role that was vacated and when a game is deleted all player roles associated are also deleted</li>
     </ul>
   </ul>
 </div>

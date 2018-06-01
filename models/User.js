@@ -66,6 +66,12 @@ module.exports.getUserByUsername = function (username, callback) {
   User.findOne(query, callback);
 }
 
+//Prevents duplicates
+module.exports.getUserByEmail = function (email, callback) {
+  const query = { email: email }
+  User.findOne(query, callback);
+}
+
 //Adds new user
 module.exports.addUser = function (newUser, callback) {
   //encrypt password

@@ -26,9 +26,13 @@ const GamePlayersSchema = new Schema({
 
 const GamePlayers = module.exports = mongoose.model('GamePlayers', GamePlayersSchema);
 
+//Save new game
+module.exports.addGame = function (newGame, callback) {
+  newGame.save(callback);
+}
 //Save new game player
-module.exports.addGamePlayer = function (newGamePlayer, callback) {
-  newGamePlayer.save(callback);
+module.exports.addGamePlayer = function (newGamePlayers, callback) {
+  newGamePlayers.save(callback);
 }
 
 //Get game by id to reduce required players

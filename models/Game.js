@@ -46,7 +46,6 @@ const Game = module.exports = mongoose.model('Game', GameSchema);
 module.exports.getGameById = function (id, callback) {
   Game.findById(id, callback);
 }
-
 //Save new game
 module.exports.addGame = function (newGame, callback) {
   newGame.save(callback);
