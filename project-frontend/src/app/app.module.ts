@@ -86,7 +86,7 @@ const routes: Routes = [
       }
     })
   ],
-  providers: [ValidateService, AuthService, AuthGuard, PusherService, GameService],
+  providers: [ValidateService, AuthService, AuthGuard, PusherService, GamesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
