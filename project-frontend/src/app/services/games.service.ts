@@ -15,7 +15,7 @@ export class GamesService {
   addNewGame(game) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:8080/game/newGame', game, { headers: headers })
+    return this.http.post('game/newGame', game, { headers: headers })
       .pipe(map(res => res.json()));
   }
 
@@ -23,7 +23,7 @@ export class GamesService {
   joinGame(gamePlayer) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:8080/game/joinGame', gamePlayer, { headers: headers })
+    return this.http.post('game/joinGame', gamePlayer, { headers: headers })
       .pipe(map(res => res.json()));
   }
 
@@ -31,7 +31,7 @@ export class GamesService {
   getAllGames() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:8080/game/getGames', { headers: headers })
+    return this.http.get('game/getGames', { headers: headers })
       .pipe(map(res => res.json()));
   }
 
@@ -39,7 +39,7 @@ export class GamesService {
   getAllPlayers() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:8080/game/gamesPlayers', { headers: headers })
+    return this.http.get('game/gamesPlayers', { headers: headers })
       .pipe(map(res => res.json()));
   }
 
@@ -47,7 +47,7 @@ export class GamesService {
   getAvailableGames() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:8080/game/gameAvailable', { headers: headers })
+    return this.http.get('gameAvailable', { headers: headers })
       .pipe(map(res => res.json()));
   }
 
@@ -55,7 +55,7 @@ export class GamesService {
   removeGame(game) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put('http://localhost:8080/game/remove', game, { headers: headers })
+    return this.http.put('game/remove', game, { headers: headers })
       .pipe(map(res => res.json()));
   }
 
@@ -63,7 +63,7 @@ export class GamesService {
   updateGame(game) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put('http://localhost:8080/game/update', game, { headers: headers })
+    return this.http.put('game/update', game, { headers: headers })
       .pipe(map(res => res.json()));
   }
 
@@ -71,7 +71,7 @@ export class GamesService {
   removePlayer(game) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.put('http://localhost:8080/game/removeFromGame', game, { headers: headers })
+    return this.http.put('game/removeFromGame', game, { headers: headers })
       .pipe(map(res => res.json()));
   }
 }

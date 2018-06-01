@@ -114,7 +114,7 @@ export class FundraisingComponent implements OnInit {
   //User votes for an idea, goes to voteIdeas route
   castVote(name) {
     this.http
-      .post(`http://localhost:8080/voteIdeas/vote`, { name })
+      .post(`voteIdeas/vote`, { name })
       .subscribe((res: any) => {
         this.vote = res.name;
         this.voted = true;
