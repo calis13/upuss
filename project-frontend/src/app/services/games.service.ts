@@ -47,7 +47,7 @@ export class GamesService {
   getAvailableGames() {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.get('gameAvailable', { headers: headers })
+    return this.http.get('game/gameAvailable', { headers: headers })
       .pipe(map(res => res.json()));
   }
 

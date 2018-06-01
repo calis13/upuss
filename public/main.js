@@ -2395,7 +2395,7 @@ var GamesService = /** @class */ (function () {
     GamesService.prototype.getAvailableGames = function () {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        return this.http.get('gameAvailable', { headers: headers })
+        return this.http.get('game/gameAvailable', { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (res) { return res.json(); }));
     };
     //Remove Game from database
