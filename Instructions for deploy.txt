@@ -1,0 +1,13 @@
+Login to Heroku CLI with
+heroku login
+
+Add the repo with
+heroku git:remote -a dweight
+
+Push to heroku
+git push heroku master
+
+The site is currently deployed at upuss.herokuapp.com and it is linked to github.com/calis13/upuss
+
+The site works perfectly through a local server but The Games Dashboard is submitting but not getting from mLab....
+This is what we have been streessing about since the major power outage you allowd an extension for, please be kind :)
