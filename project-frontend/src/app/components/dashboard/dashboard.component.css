@@ -1,3 +1,7 @@
 .outer{
   margin-bottom: 150px;
 }
+
+*{
+  text-transform: capitalize;
+}

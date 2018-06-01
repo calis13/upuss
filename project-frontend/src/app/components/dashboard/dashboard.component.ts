@@ -137,11 +137,10 @@ export class DashboardComponent implements OnInit {
     var i = this.playerInX;
     while (i--) {
       if (game._id === this.playerInGames[i]) {
-        console.log(this.playerRoleInGames[i]);
         return this.playerRoleInGames[i];
       }
     }
-    return false;
+    return 'Admin';
   }
 
   //This will hide all content besides my games.
@@ -160,8 +159,8 @@ export class DashboardComponent implements OnInit {
           this.playerRoleInGames[i] = allPlayers[i].playerRole;
           this.playerInX += 1;
         }
-        this.loaded = true;
       }
+      this.loaded = true;
     },
       err => {
         console.log(err);
